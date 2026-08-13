@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AxiomStream Group — Growth Infrastructure Leave-Behind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--dark:#0A0B0D;--dk2:#12151A;--st:#4A7FA5;--sl:#6EA3C8;--sd:#2D5070;--ow:#EFEFEF;--bg:#F8F8F8;--ink:#1E2124;--muted:#4A4F5A;--light:#7A8190;--w:#FFFFFF;--pw:8.5in;--ph:11in;--mg:0.75in}
+html,body{font-family:'Outfit',sans-serif;background:#2C3038;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@page{size:letter;margin:0}
+.doc{display:flex;flex-direction:column;align-items:center;padding:40px 20px;gap:28px}
+.page{width:var(--pw);min-height:var(--ph);position:relative;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 6px 32px rgba(0,0,0,.5)}
+.pi{flex:1;padding:var(--mg);display:flex;flex-direction:column}
+.pf{padding:.18in var(--mg) .16in;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(74,127,165,.3)}
+.pf .wm{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.pf .pn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em}
+/* COVER */
+.pg1{background:var(--dark);color:var(--ow)}
+.pg1 .pf{border-top:1px solid rgba(74,127,165,.18)}
+.pg1 .pf .wm,.pg1 .pf .pn{color:rgba(239,239,239,.3)}
+.cov-bg{position:absolute;inset:0;z-index:0}
+.pg1 .pi{position:relative;z-index:1;justify-content:space-between}
+.cov-top{display:flex;justify-content:space-between;align-items:flex-start}
+.cov-wm{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--sl)}
+.cov-yr{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(239,239,239,.35);letter-spacing:.1em}
+.cov-mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding:.5in 0}
+.cov-eye{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--st);margin-bottom:.2in}
+.cov-rule{width:.45in;height:3px;background:var(--st);margin-bottom:.2in}
+.cov-h{font-size:54px;font-weight:900;line-height:1.02;color:var(--ow);letter-spacing:-.02em;margin-bottom:.16in;max-width:5.8in}
+.cov-h span{color:var(--sl)}
+.cov-s{font-size:16px;font-weight:300;color:rgba(239,239,239,.65);letter-spacing:.02em;max-width:5in;line-height:1.55}
+.cov-bot{display:flex;justify-content:space-between;align-items:flex-end}
+.cov-url{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(239,239,239,.4);letter-spacing:.06em}
+.cov-badge{background:rgba(74,127,165,.16);border:1px solid rgba(74,127,165,.4);padding:7px 14px;border-radius:2px}
+.cov-badge span{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--sl)}
+/* LIGHT PAGES */
+.pg-light{background:var(--bg);color:var(--ink)}
+.pg-light .pf .wm{color:var(--st)}
+.pg-light .pf .pn{color:var(--light)}
+/* SECTION HEADER */
+.sh{margin-bottom:.26in}
+.slbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--st);margin-bottom:7px}
+.stitle{font-size:26px;font-weight:900;line-height:1.15;color:var(--ink);letter-spacing:-.015em}
+.srule{width:.32in;height:2.5px;background:var(--st);margin-top:10px}
+/* PAGE 2 — PROBLEM/SOLUTION */
+.twocol{display:grid;grid-template-columns:1fr 1.5px 1fr;gap:.28in;flex:1;align-items:start}
+.div-line{background:rgba(74,127,165,.22);align-self:stretch}
+.clbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.16in;padding-bottom:7px;border-bottom:2px solid}
+.clbl.prob{color:#8B3A3A;border-color:#8B3A3A}
+.clbl.sol{color:var(--st);border-color:var(--st)}
+.plist{list-style:none;display:flex;flex-direction:column;gap:.11in}
+.plist li{display:flex;align-items:flex-start;gap:9px;font-size:12px;line-height:1.55;color:var(--ink)}
+.px{flex-shrink:0;margin-top:1px;color:#B05050;font-weight:700;font-size:11px}
+.vtag{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 5px;background:rgba(176,80,80,.08);border:1px solid rgba(176,80,80,.2);border-radius:2px;color:#8B3A3A;margin-left:3px;vertical-align:middle;white-space:nowrap}
+.spts{display:flex;flex-direction:column;gap:.12in}
+.spt{display:flex;align-items:flex-start;gap:9px}
+.sck{width:17px;height:17px;background:var(--st);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.sck svg{width:9px;height:9px}
+.spt-t{font-size:12px;line-height:1.55;color:var(--ink)}
+.spt-t strong{font-weight:700;color:var(--ink)}
+.cviz{margin-top:.2in;background:var(--w);border:1px solid rgba(74,127,165,.14);border-radius:3px;padding:.14in}
+.cviz-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--light);margin-bottom:8px}
+.vblocks{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px}
+.vb{padding:3px 7px;background:rgba(176,80,80,.07);border:1px solid rgba(176,80,80,.18);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:8px;color:#7A3030;font-weight:500}
+.cvarrow{text-align:center;font-size:16px;color:var(--st);margin:4px 0}
+.vasg{width:100%;padding:7px 10px;background:rgba(74,127,165,.1);border:1.5px solid var(--st);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--st);font-weight:700;letter-spacing:.1em;text-align:center;text-transform:uppercase}
+/* PAGE 3 — OPERATOR MODEL */
+.pils{display:grid;grid-template-columns:repeat(3,1fr);gap:.18in;flex:1;margin-bottom:.24in}
+.pil{background:var(--w);border:1px solid rgba(74,127,165,.14);border-top:3px solid var(--st);padding:.2in;border-radius:0 0 3px 3px;display:flex;flex-direction:column}
+.piln{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;color:rgba(74,127,165,.13);line-height:1;margin-bottom:.08in}
+.pilti{font-size:18px;font-weight:900;color:var(--ink);letter-spacing:-.01em;margin-bottom:8px}
+.pilr{width:20px;height:2px;background:var(--st);margin-bottom:10px}
+.pild{font-size:11px;line-height:1.65;color:var(--muted);flex:1}
+.piltag{margin-top:.12in;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--st)}
+.callout{background:var(--dark);color:var(--ow);border-radius:3px;padding:.2in .26in;display:grid;grid-template-columns:1fr auto;gap:.24in;align-items:center}
+.co-t{font-size:17px;font-weight:700;line-height:1.35;letter-spacing:-.01em}
+.co-t span{color:var(--sl)}
+.co-a{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(110,163,200,.5);white-space:nowrap;text-align:right;line-height:1.9}
+/* PAGE 4 — PRODUCTS */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:.16in;flex:1}
+.ptile{background:var(--w);border:1px solid rgba(74,127,165,.12);border-radius:3px;padding:.18in;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.ptile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--st)}
+.prow{display:flex;align-items:center;gap:9px;margin-bottom:.1in}
+.pico{width:32px;height:32px;border-radius:7px;background:rgba(74,127,165,.1);border:1.5px solid rgba(74,127,165,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pico svg{width:15px;height:15px}
+.pname{font-size:16px;font-weight:900;color:var(--ink);letter-spacing:-.01em}
+.purl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--st);letter-spacing:.05em;margin-top:1px}
+.phr{height:1px;background:rgba(74,127,165,.14);margin:.1in 0}
+.pdesc{font-size:11px;line-height:1.6;color:var(--muted);flex:1}
+.ptags{display:flex;flex-wrap:wrap;gap:3px;margin-top:.08in}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;background:rgba(74,127,165,.07);border:1px solid rgba(74,127,165,.18);border-radius:2px;color:var(--st)}
+/* PAGE 5 — PROOF */
+.qsec{flex:1;display:flex;flex-direction:column;justify-content:center;padding:.14in 0}
+.qmark{font-family:'Outfit',sans-serif;font-size:88px;font-weight:900;color:rgba(74,127,165,.1);line-height:.75;margin-bottom:.08in;letter-spacing:-.04em}
+.qt{font-size:19px;font-weight:600;line-height:1.55;color:var(--ink);letter-spacing:-.01em;max-width:6.4in;margin-bottom:.18in}
+.qt em{font-style:normal;color:var(--st);font-weight:800}
+.qa{display:flex;align-items:center;gap:12px}
+.qdash{width:28px;height:2px;background:var(--st);flex-shrink:0}
+.qa-t{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.dbadge{display:inline-flex;align-items:center;gap:7px;background:rgba(74,127,165,.07);border:1.5px solid var(--st);border-radius:2px;padding:5px 12px;margin-top:.14in;width:fit-content}
+.dbadge-dot{width:7px;height:7px;background:var(--st);border-radius:50%}
+.dbadge-t{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--st)}
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:.15in}
+.case{background:var(--w);border:1px solid rgba(74,127,165,.12);border-left:3px solid var(--st);border-radius:0 3px 3px 0;padding:.14in}
+.case-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--st);margin-bottom:5px}
+.case-t{font-size:12px;line-height:1.6;color:var(--muted)}
+.case-t strong{color:var(--ink);font-weight:600}
+/* PAGE 6 — TEAM */
+.tm-grid{display:grid;grid-template-columns:1fr 1fr;gap:.2in;margin-bottom:.2in}
+.tm-card{background:var(--w);border:1px solid rgba(74,127,165,.12);border-radius:3px;padding:.18in;display:flex;flex-direction:column;gap:.1in}
+.av-row{display:flex;align-items:center;gap:12px}
+.av{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--sd),var(--st));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.av-i{font-family:'Outfit',sans-serif;font-size:16px;font-weight:900;color:var(--ow);letter-spacing:.03em}
+.tm-name{font-size:17px;font-weight:900;color:var(--ink);letter-spacing:-.01em}
+.tm-title{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--st)}
+.tm-hr{height:1px;background:rgba(74,127,165,.14)}
+.tm-bio{font-size:11px;line-height:1.65;color:var(--muted)}
+.tm-bio strong{color:var(--ink);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:3px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;background:rgba(74,127,165,.07);border:1px solid rgba(74,127,165,.18);border-radius:2px;color:var(--st)}
+.adv-note{background:rgba(74,127,165,.05);border:1px solid rgba(74,127,165,.16);border-radius:2px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:.18in}
+.adv-note p{font-size:11px;line-height:1.55;color:var(--muted)}
+.adv-note p strong{color:var(--ink);font-weight:600}
+.engage{background:var(--dark);border-radius:3px;padding:.2in .26in;display:grid;grid-template-columns:1fr auto;gap:.24in;align-items:center}
+.eng-t{font-size:19px;font-weight:900;color:var(--ow);letter-spacing:-.01em;margin-bottom:7px}
+.eng-s{font-size:11px;line-height:1.55;color:rgba(239,239,239,.55)}
+.eng-s span{color:var(--sl)}
+.eng-c{text-align:right}
+.eng-email{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sl);letter-spacing:.06em;margin-bottom:4px}
+.eng-url{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(110,163,200,.5);letter-spacing:.06em}
+/* PRINT */
+@media print{
+  body{background:white}
+  .doc{padding:0;gap:0;background:white}
+  .page{box-shadow:none;page-break-after:always;break-after:page}
+  .page:last-child{page-break-after:auto;break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- PAGE 1: COVER -->
+<div class="page pg1">
+<div class="cov-bg" aria-hidden="true">
+<svg width="100%" height="100%" viewBox="0 0 816 1056" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs><radialGradient id="rg" cx="50%" cy="45%" r="55%"><stop offset="0%" stop-color="#4A7FA5" stop-opacity=".08"/><stop offset="100%" stop-color="#0A0B0D" stop-opacity="0"/></radialGradient></defs>
+<rect width="816" height="1056" fill="#0A0B0D"/>
+<rect width="816" height="1056" fill="url(#rg)"/>
+<circle cx="408" cy="440" r="320" stroke="#4A7FA5" stroke-width=".4" fill="none" opacity=".18"/>
+<circle cx="408" cy="440" r="240" stroke="#4A7FA5" stroke-width=".4" fill="none" opacity=".14"/>
+<circle cx="408" cy="440" r="160" stroke="#4A7FA5" stroke-width=".5" fill="none" opacity=".1"/>
+<circle cx="408" cy="440" r="80" stroke="#4A7FA5" stroke-width=".5" fill="none" opacity=".08"/>
+<line x1="408" y1="120" x2="408" y2="440" stroke="#4A7FA5" stroke-width=".3" opacity=".15"/>
+<line x1="694" y1="220" x2="408" y2="440" stroke="#4A7FA5" stroke-width=".3" opacity=".12"/>
+<line x1="720" y1="530" x2="408" y2="440" stroke="#4A7FA5" stroke-width=".3" opacity=".12"/>
+<line x1="560" y1="730" x2="408" y2="440" stroke="#4A7FA5" stroke-width=".3" opacity=".12"/>
+<line x1="200" y1="700" x2="408" y2="440" stroke="#4A7FA5" stroke-width=".3" opacity=".12"/>
+<line x1="96" y1="500" x2="408" y2="440" stroke="#4A7FA5" stroke-width=".3" opacity=".12"/>
+<line x1="130" y1="260" x2="408" y2="440" stroke="#4A7FA5" stroke-width=".3" opacity=".15"/>
+<circle cx="408" cy="440" r="5" fill="#4A7FA5" opacity=".5"/>
+</svg>
+</div>
+<div class="pi">
+<div class="cov-top">
+<div class="cov-wm">AxiomStream Group</div>
+<div class="cov-yr">2026</div>
+</div>
+<div class="cov-mid">
+<div class="cov-eye">Growth Infrastructure</div>
+<div class="cov-rule"></div>
+<div class="cov-h">The Growth<br><span>Infrastructure</span><br>Play</div>
+<div class="cov-s">AxiomStream Group — Embedded AI Operators<br>Finance · Tax · Data · AI · Web · Marketing</div>
+</div>
+<div class="cov-bot">
+<div class="cov-url">axiomstreamgroup.com</div>
+<div class="cov-badge"><span>Embedded, custom AI.</span></div>
+</div>
+</div>
+<div class="pf">
+<span class="wm">AxiomStream Group</span>
+<span class="pn">Confidential · 2026</span>
+</div>
+</div>
+
+<!-- PAGE 2: PROBLEM & SOLUTION -->
+<div class="page pg-light">
+<div class="pi">
+<div class="sh">
+<div class="slbl">The Problem &amp; The Solution</div>
+<div class="stitle">Six vendors. Zero accountability.<br>One fix.</div>
+<div class="srule"></div>
+</div>
+<div class="twocol" style="flex:1">
+<div>
+<div class="clbl prob">The Broken Stack</div>
+<ul class="plist">
+<li><span class="px">✕</span><span>A marketing agency that reports impressions, not revenue. <span class="vtag">Vendor 1</span></span></li>
+<li><span class="px">✕</span><span>An accountant who shows up at year-end — not quarter-end. <span class="vtag">Vendor 2</span></span></li>
+<li><span class="px">✕</span><span>A developer who builds what you asked, not what you needed. <span class="vtag">Vendor 3</span></span></li>
+<li><span class="px">✕</span><span>A data analyst who delivers dashboards nobody opens. <span class="vtag">Vendor 4</span></span></li>
+<li><span class="px">✕</span><span>An AI consultant who wrote a 40-page strategy and left. <span class="vtag">Vendor 5</span></span></li>
+<li><span class="px">✕</span><span>A fractional CMO who doesn't talk to your CFO. <span class="vtag">Vendor 6</span></span></li>
+</ul>
+<div class="cviz" style="margin-top:.18in">
+<div class="cviz-lbl">The coordination tax you're paying</div>
+<div class="vblocks">
+<div class="vb">Agency</div><div class="vb">Accountant</div><div class="vb">Developer</div>
+<div class="vb">Marketer</div><div class="vb">Data Analyst</div><div class="vb">AI Consultant</div>
+</div>
+<div class="cvarrow">↓</div>
+<div class="vasg">You — doing integration work you never signed up for</div>
+</div>
+</div>
+<div class="div-line"></div>
+<div>
+<div class="clbl sol">The ASG Model</div>
+<div class="spts">
+<div class="spt"><div class="sck"><svg viewBox="0 0 10 10" fill="none"><polyline points="2,5.5 4.5,8 8,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="spt-t"><strong>One embedded team.</strong> Inside your operations — not alongside them. Your Slack, your pipeline, your cadence.</div></div>
+<div class="spt"><div class="sck"><svg viewBox="0 0 10 10" fill="none"><polyline points="2,5.5 4.5,8 8,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="spt-t"><strong>One contract.</strong> Finance, tax, data, AI, web, and marketing under a single accountable engagement.</div></div>
+<div class="spt"><div class="sck"><svg viewBox="0 0 10 10" fill="none"><polyline points="2,5.5 4.5,8 8,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="spt-t"><strong>AI-native from day one.</strong> Not AI added to a traditional engagement — built around it from the start.</div></div>
+<div class="spt"><div class="sck"><svg viewBox="0 0 10 10" fill="none"><polyline points="2,5.5 4.5,8 8,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="spt-t"><strong>You own what we leave behind.</strong> The systems, agents, and infrastructure stay when the engagement ends.</div></div>
+</div>
+<div class="cviz" style="margin-top:.18in">
+<div class="cviz-lbl">The ASG unified model</div>
+<div class="cvarrow" style="margin:0 0 6px">↓</div>
+<div class="vasg">One Embedded Team · Full Function · Full Accountability</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pf"><span class="wm">AxiomStream Group</span><span class="pn">02</span></div>
+</div>
+
+<!-- PAGE 3: OPERATOR MODEL -->
+<div class="page pg-light">
+<div class="pi">
+<div class="sh">
+<div class="slbl">The Operator Model</div>
+<div class="stitle">Embedded. Engineered. Compounding.</div>
+<div class="srule"></div>
+</div>
+<div class="pils">
+<div class="pil">
+<div class="piln">01</div>
+<div class="pilti">Embedded</div>
+<div class="pilr"></div>
+<div class="pild">We work inside your operations, not alongside them. We're in your Slack, your pipeline, your quarterly rhythm. The urgency and accountability of a hire — without the overhead of one.</div>
+<div class="piltag">→ Day one inside</div>
+</div>
+<div class="pil">
+<div class="piln">02</div>
+<div class="pilti">Engineered</div>
+<div class="pilr"></div>
+<div class="pild">We build systems, not slide decks. AI agents, automations, dashboards, and data pipelines that run in production. No recommendations without execution. No decks that sit in a folder.</div>
+<div class="piltag">→ Build, not recommend</div>
+</div>
+<div class="pil">
+<div class="piln">03</div>
+<div class="pilti">Compounding</div>
+<div class="pilr"></div>
+<div class="pild">Month six multiplies month one. Every system we build stacks on the last. The asset grows. You own what we leave behind — whether we're in the room or not.</div>
+<div class="piltag">→ You own it</div>
+</div>
+</div>
+<div class="callout">
+<div class="co-t">A rounding error on AP.<br><span>A multiplier on AR.</span><br>That's the math.</div>
+<div class="co-a">axiomstreamgroup.com<br>Embedded AI Operators<br>2026</div>
+</div>
+</div>
+<div class="pf"><span class="wm">AxiomStream Group</span><span class="pn">03</span></div>
+</div>
+
+<!-- PAGE 4: PRODUCTS -->
+<div class="page pg-light">
+<div class="pi">
+<div class="sh">
+<div class="slbl">Products &amp; Infrastructure</div>
+<div class="stitle">Built once. Running forever.</div>
+<div class="srule"></div>
+</div>
+<div class="pgrid">
+<div class="ptile">
+<div class="prow">
+<div class="pico"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="#4A7FA5" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" fill="#4A7FA5"/></svg></div>
+<div><div class="pname">Synapse</div><div class="purl">synapse.by-kit.com</div></div>
+</div>
+<div class="phr"></div>
+<div class="pdesc">Persistent memory for AI agents. Zero LLM calls per write. The fix for AI amnesia — built for operators who can't afford to forget context between sessions.</div>
+<div class="ptags"><span class="ptag">Free → $29/mo → $99/mo</span><span class="ptag">API-first</span><span class="ptag">MCP</span></div>
+</div>
+<div class="ptile">
+<div class="prow">
+<div class="pico"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" stroke="#4A7FA5" stroke-width="1.5"/></svg></div>
+<div><div class="pname">Game of Homes</div><div class="purl">gameofhomes.app</div></div>
+</div>
+<div class="phr"></div>
+<div class="pdesc">Home services marketplace. Gamified. Photo-verified. Built for the generation that doesn't make phone calls. Gamertag-based, trust-first, launching 2026.</div>
+<div class="ptags"><span class="ptag">iOS + Android</span><span class="ptag">Launching 2026</span></div>
+</div>
+<div class="ptile">
+<div class="prow">
+<div class="pico"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="#4A7FA5" stroke-width="1.5"/><line x1="5" y1="2" x2="5" y2="4" stroke="#4A7FA5" stroke-width="1.5"/><line x1="11" y1="2" x2="11" y2="4" stroke="#4A7FA5" stroke-width="1.5"/></svg></div>
+<div><div class="pname">Client Portals</div><div class="purl">clients.axiomstreamgroup.com</div></div>
+</div>
+<div class="phr"></div>
+<div class="pdesc">PIN-secured intelligence dashboards your clients actually open. Pipeline status, signal, next steps. No weekly status calls. No spreadsheets. Just signal.</div>
+<div class="ptags"><span class="ptag">PIN-secured</span><span class="ptag">Live</span></div>
+</div>
+<div class="ptile">
+<div class="prow">
+<div class="pico"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="#4A7FA5" stroke-width="1.5"/><path d="M6 8.5L7.5 10L10 6.5" stroke="#4A7FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div><div class="pname">Custom AI Agents</div><div class="purl">axiomstreamgroup.com</div></div>
+</div>
+<div class="phr"></div>
+<div class="pdesc">Rex for defense sales pipeline. Kit for operations. Aria for professional services. Domain-trained AI that speaks your language and runs in your workflow — not a demo.</div>
+<div class="ptags"><span class="ptag">Domain-trained</span><span class="ptag">Voice-capable</span><span class="ptag">Custom</span></div>
+</div>
+</div>
+</div>
+<div class="pf"><span class="wm">AxiomStream Group</span><span class="pn">04</span></div>
+</div>
+
+<!-- PAGE 5: PROOF -->
+<div class="page pg-light">
+<div class="pi">
+<div class="sh">
+<div class="slbl">Client Proof</div>
+<div class="stitle">From chasing to leading.</div>
+<div class="srule"></div>
+</div>
+<div class="qsec">
+<div class="qmark">“</div>
+<p class="qt">We’ve been tracking this Australian opportunity for over a year — we’re talking <em>AUD $1 million-plus.</em> The AI pipeline work has changed how fast we can move on something like this. We’ve gone from <em>chasing to leading.</em></p>
+<div class="qa"><div class="qdash"></div><div class="qa-t">— Director of Sales, Defense Technology Manufacturer</div></div>
+<div class="dbadge"><div class="dbadge-dot"></div><div class="dbadge-t">AUD $1M+ · Active Pipeline · AI-Accelerated</div></div>
+</div>
+<div class="cases">
+<div class="case"><div class="case-lbl">Defense Sector</div><p class="case-t"><strong>Custom AI sales intelligence agent deployed</strong> for a defense technology manufacturer. NSN portfolio management, government capture intelligence, and pipeline tracking — active daily use by the field sales team. A seven-figure international opportunity now in active pursuit.</p></div>
+<div class="case"><div class="case-lbl">Chemical / Industrial</div><p class="case-t"><strong>90-day embedded growth engagement</strong> with a B2B chemical company. AI-native outreach automation, PIN-secured rep portals, and CRM pipeline sequencing — built and running. Full rep enablement infrastructure delivered inside the SOW window.</p></div>
+</div>
+</div>
+<div class="pf"><span class="wm">AxiomStream Group</span><span class="pn">05</span></div>
+</div>
+
+<!-- PAGE 6: TEAM & ENGAGE -->
+<div class="page pg-light">
+<div class="pi">
+<div class="sh">
+<div class="slbl">The Operators</div>
+<div class="stitle">Not consultants. Operators.</div>
+<div class="srule"></div>
+</div>
+<div class="tm-grid">
+<div class="tm-card">
+<div class="av-row"><div class="av"><div class="av-i">JF</div></div><div><div class="tm-name">JJ Fulmines</div><div class="tm-title">Founder &amp; Head of Product</div></div></div>
+<div class="tm-hr"></div>
+<div class="tm-bio">Former <strong>Amazon, Capital One, Asurion</strong>. Built products used by millions. Led dev teams, business teams, and sales organizations at Fortune 100 scale. Now building growth infrastructure for firms that move fast and can't afford to wait on vendors.</div>
+<div class="tags"><span class="tag">Amazon</span><span class="tag">Capital One</span><span class="tag">Asurion</span><span class="tag">Product</span><span class="tag">AI</span></div>
+</div>
+<div class="tm-card">
+<div class="av-row"><div class="av"><div class="av-i">BB</div></div><div><div class="tm-name">Ben Booher</div><div class="tm-title">Head of Client Delivery</div></div></div>
+<div class="tm-hr"></div>
+<div class="tm-bio">Enterprise sales veteran with a track record of turning <strong>complex, multi-stakeholder engagements into executed outcomes.</strong> Runs the client relationship from first conversation to compounding systems. Full execution authority — no routing, no waiting.</div>
+<div class="tags"><span class="tag">Enterprise Sales</span><span class="tag">Delivery</span><span class="tag">B2B</span></div>
+</div>
+</div>
+<div class="adv-note">
+<div style="font-size:18px">&#127970;</div>
+<p><strong>Advisory Bench:</strong> Senior executives from investment banking, Fortune 100 marketing, and enterprise technology. Unnamed, battle-tested. When the engagement requires specialized firepower, we bring it — without billing for it separately.</p>
+</div>
+<div class="engage">
+<div>
+<div class="eng-t">We take a limited number<br>of client engagements.</div>
+<div class="eng-s">If the fit is right, we move fast. <span>No pitch decks. No discovery calls with junior staff. Response within 24 hours.</span></div>
+</div>
+<div class="eng-c">
+<div class="eng-email">jj@axiomstreamgroup.com</div>
+<div class="eng-url">axiomstreamgroup.com</div>
+</div>
+</div>
+</div>
+<div class="pf"><span class="wm">AxiomStream Group</span><span class="pn">06</span></div>
+</div>
+
+</div><!-- /doc -->
+</body>
+</html>

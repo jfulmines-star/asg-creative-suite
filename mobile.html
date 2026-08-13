@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AxiomStream Group — Embedded AI Operators</title>
+<meta name="description" content="Embedded, custom AI with the models you already have. AI-native growth infrastructure for B2B firms."/>
+<meta name="theme-color" content="#0A0B0D"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--dp:#0A0B0D;--dk:#0D0E10;--nv:#141820;--ch:#1E2226;--el:#252829;--ink:#1E2124;--ow:#EFEFEF;--tm:#8A8A8A;--tl:#555;--wh:#FFFFFF;--pp:#F7F7F7;--ac:#4A7FA5;--al:#6EA3C8;--bd:rgba(255,255,255,0.06);--bm:rgba(255,255,255,0.12);--sans:'Outfit',sans-serif;--mono:'JetBrains Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--dp);color:var(--ow);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:1000;background:rgba(10,11,13,0);backdrop-filter:blur(0);transition:all .3s;border-bottom:1px solid transparent}
+#nav.s{background:rgba(10,11,13,.96);backdrop-filter:blur(20px);border-bottom-color:var(--bd)}
+.ni{height:100%;max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.nlo{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ow);text-decoration:none}
+.nl{display:flex;align-items:center;gap:24px;list-style:none}
+.nl a{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.10em;text-transform:uppercase;color:var(--tm);text-decoration:none;transition:color .15s}
+.nl a:hover{color:var(--ow)}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;padding:10px;-webkit-tap-highlight-color:transparent}
+.mob-btn span{display:block;width:22px;height:2px;background:var(--ow);margin:4px 0;transition:all .25s}
+@media(max-width:768px){.nl{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(10,11,13,.98);flex-direction:column;padding:32px 24px;gap:20px;border-bottom:1px solid var(--bd)}.nl.open{display:flex}.mob-btn{display:block}}
+/* HERO */
+#hero{min-height:100svh;background:var(--dp);display:flex;align-items:center;position:relative;overflow:hidden;padding:100px 0 60px}
+.hero-orb{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 10%,transparent 70%);opacity:.4;z-index:1}
+.hi{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 20px}
+.ear{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.ear::after{content:'';display:block;width:28px;height:1px;background:var(--ac);opacity:.5}
+.hh{font-size:clamp(40px,8vw,90px);font-weight:800;line-height:1.0;letter-spacing:-.03em;color:var(--ow);margin-bottom:20px}
+.hh .dim{color:var(--tm);font-weight:300}
+.hs{color:var(--tm);max-width:460px;margin-bottom:36px;font-size:clamp(15px,2.5vw,19px);line-height:1.65}
+.ha{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 28px;min-height:52px;border-radius:999px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;text-decoration:none;border:none;-webkit-tap-highlight-color:transparent}
+.btn-p{background:var(--ow);color:var(--ink)}.btn-p:hover{background:var(--wh)}
+.btn-g{background:transparent;color:var(--tm);border:1px solid var(--bm)}.btn-g:hover{color:var(--ow);border-color:rgba(255,255,255,.35)}
+/* DECLARATION */
+#decl{background:var(--pp);padding:80px 0}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+.dq{color:var(--ink);font-style:italic;font-size:clamp(22px,4vw,44px);font-weight:300;line-height:1.25;letter-spacing:-.02em;text-align:center;padding:40px 0 48px;border-top:1px solid rgba(0,0,0,.1);border-bottom:1px solid rgba(0,0,0,.1);margin-bottom:48px}
+.db{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:680px){.db{grid-template-columns:1fr}}
+.dc{color:#555;font-size:17px;line-height:1.75}.dc strong{color:var(--ink);font-weight:600}
+.thesis{background:var(--ink);color:var(--ow);padding:36px 40px;border-radius:12px;margin-top:48px;text-align:center}
+.thesis-t{font-size:clamp(20px,3vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1.3}
+.thesis-s{margin-top:12px;font-size:15px;color:var(--tm)}
+/* OPERATOR MODEL */
+#method{background:var(--ch);padding:80px 0}
+.mh{margin-bottom:48px}
+.sh{font-size:clamp(26px,4vw,46px);font-weight:700;letter-spacing:-.025em;line-height:1.15}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--bd)}
+@media(max-width:768px){.mg{grid-template-columns:1fr}}
+.mc{padding:36px 32px 36px 0;border-right:1px solid var(--bd)}
+.mc:last-child{border-right:none;padding-right:0}
+.mc:not(:first-child){padding-left:32px}
+@media(max-width:768px){.mc{padding:28px 0!important;border-right:none;border-bottom:1px solid var(--bd)}.mc:last-child{border-bottom:none}}
+.mn{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.12em;color:var(--ac);margin-bottom:14px}
+.mt{font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--ow);margin-bottom:10px}
+.md{font-size:15px;color:var(--tm);line-height:1.7}
+/* OPERATOR VS AGENCY SVG VISUAL */
+.viz-wrap{margin-top:48px;background:var(--nv);border:1px solid var(--bd);border-radius:12px;padding:32px;overflow:hidden}
+.viz-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tm);margin-bottom:20px}
+/* TESTIMONIAL */
+#testimonial{background:var(--dp);padding:80px 0}
+.tq-wrap{max-width:900px;margin:0 auto}
+.tq-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,127,165,.12);border:1px solid rgba(74,127,165,.3);border-radius:999px;padding:6px 16px;margin-bottom:32px}
+.tq-badge-dot{width:8px;height:8px;background:var(--ac);border-radius:50%;animation:tpulse 2s ease infinite}
+@keyframes tpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.tq-badge span{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--al)}
+.tq-mark{font-size:80px;font-weight:900;color:rgba(74,127,165,.2);line-height:.7;margin-bottom:20px}
+.tq-text{font-size:clamp(18px,3vw,26px);font-weight:400;line-height:1.6;color:var(--ow);letter-spacing:-.01em;margin-bottom:28px}
+.tq-text em{font-style:normal;color:var(--al);font-weight:700}
+.tq-attr{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tm);padding-left:28px;border-left:2px solid var(--ac)}
+.tq-deal{margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:rgba(74,127,165,.08);border:1.5px solid rgba(74,127,165,.35);border-radius:4px;padding:8px 18px}
+.tq-deal span{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--al)}
+/* PRODUCTS */
+#products{background:var(--dk);padding:80px 0}
+.pg{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:40px}
+@media(max-width:600px){.pg{grid-template-columns:1fr}}
+.pc{background:var(--ch);padding:36px 28px;position:relative;overflow:hidden;transition:background .2s}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ac),transparent);opacity:0;transition:opacity .2s}
+.pc:hover{background:var(--el)}.pc:hover::before{opacity:1}
+.pt{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:16px}
+.pn{font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--ow);margin-bottom:10px}
+.pd{font-size:14px;color:var(--tm);line-height:1.7;margin-bottom:24px}
+.pct{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--tm);text-decoration:none;transition:color .15s}
+.pct:hover{color:var(--ow)}
+/* SIGNAL FEED */
+#signal{background:var(--dp);padding:80px 0}
+.sfw{position:relative;height:280px;overflow:hidden;border:1px solid var(--bd);border-radius:10px;background:var(--dk)}
+.sfw::before,.sfw::after{content:'';position:absolute;left:0;right:0;height:80px;z-index:2;pointer-events:none}
+.sfw::before{top:0;background:linear-gradient(to bottom,var(--dk),transparent)}
+.sfw::after{bottom:0;background:linear-gradient(to top,var(--dk),transparent)}
+.sf{display:flex;flex-direction:column;animation:sfscroll 20s linear infinite}
+@keyframes sfscroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+.sr{display:grid;grid-template-columns:80px 1fr 52px;padding:10px 20px;border-bottom:1px solid var(--bd);font-family:var(--mono);font-size:11px;color:var(--tm);align-items:center}
+@media(min-width:600px){.sr{grid-template-columns:90px 160px 1fr 52px}}
+.stm{color:var(--tl);font-size:10px}.svl{color:var(--ow);font-weight:500}
+.sdot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#2E7D52;animation:dpulse 2s ease infinite}
+.sdot.q{background:var(--tl);animation:none}
+@keyframes dpulse{0%,100%{opacity:1}50%{opacity:.3}}
+.sgn{margin-top:16px;font-family:var(--mono);font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--tl)}
+.sgn span{color:var(--ac)}
+/* TEAM */
+#team{background:var(--pp);padding:80px 0}
+.tm-g{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+@media(max-width:600px){.tm-g{grid-template-columns:1fr}}
+.tm-c{display:flex;gap:20px;padding:24px;background:var(--wh);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.tm-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--nv),var(--ch));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:20px;font-weight:600;color:var(--ow)}
+.tm-info h4{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.tm-info p{font-size:13px;color:#666;line-height:1.6}
+.tm-adv{grid-column:1/-1;padding:28px;background:var(--ink);border-radius:12px;color:var(--ow)}
+.tm-adv h4{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:12px}
+.tm-adv p{font-size:15px;line-height:1.7;color:var(--tm)}
+/* CONTACT */
+#contact{background:var(--dk);padding:80px 0;border-top:1px solid var(--bd)}
+.con-i{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+@media(max-width:768px){.con-i{grid-template-columns:1fr}}
+.conh{font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:-.025em;color:var(--ow);margin-bottom:16px}
+.cons{font-size:17px;color:var(--tm);line-height:1.7;max-width:380px;margin-bottom:32px}
+.conn{font-family:var(--mono);font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--tl);line-height:2.2}
+.fg{margin-bottom:24px}.fl{display:block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--tl);margin-bottom:8px}
+.fi,.fta{width:100%;background:transparent;border:none;border-bottom:1px solid var(--bm);padding:10px 0;font-family:var(--sans);font-size:17px;color:var(--ow);outline:none;transition:border-color .2s;resize:none;-webkit-appearance:none}
+.fi:focus,.fta:focus{border-bottom-color:rgba(255,255,255,.45)}
+.fi::placeholder,.fta::placeholder{color:var(--tl)}
+.fta{height:88px;padding-top:10px}
+.fsubmit{margin-top:8px}
+/* FOOTER */
+footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
+.fi2{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;gap:24px;flex-wrap:wrap}
+.flo{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ow)}
+.fls{font-family:var(--mono);font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--tl);margin-top:4px}
+.flinks{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.flinks a{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--tl);text-decoration:none;transition:color .15s}.flinks a:hover{color:var(--ow)}
+.fbot{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--bd);flex-wrap:wrap;gap:10px}
+.fbot span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--tl)}
+/* SCROLL ANIMATION */
+.sa{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.sa.v{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<nav id="nav">
+<div class="ni">
+<a href="#" class="nlo">AxiomStream Group</a>
+<button class="mob-btn" aria-label="Menu" onclick="document.querySelector('.nl').classList.toggle('open')"><span></span><span></span><span></span></button>
+<ul class="nl">
+<li><a href="#method">How We Work</a></li>
+<li><a href="#products">Products</a></li>
+<li><a href="#team">Team</a></li>
+<li><a href="#contact"><span class="btn btn-p" style="padding:10px 18px;font-size:10px">Engage →</span></a></li>
+</ul>
+</div>
+</nav>
+
+<section id="hero">
+<div class="hero-orb" aria-hidden="true">
+<svg viewBox="0 0 900 900" width="900" height="900" style="opacity:.22">
+<circle cx="450" cy="450" r="380" stroke="#4A7FA5" stroke-width="0.4" fill="none"><animate attributeName="r" values="380;400;380" dur="10s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;1;0.6" dur="10s" repeatCount="indefinite"/></circle>
+<circle cx="450" cy="450" r="280" stroke="#4A7FA5" stroke-width="0.5" fill="none"><animate attributeName="r" values="280;295;280" dur="7s" repeatCount="indefinite"/></circle>
+<circle cx="450" cy="450" r="180" stroke="#4A7FA5" stroke-width="0.7" fill="none"><animate attributeName="r" values="180;190;180" dur="5s" repeatCount="indefinite"/></circle>
+<circle cx="450" cy="450" r="80" stroke="#4A7FA5" stroke-width="1" fill="none" opacity=".5"/>
+<circle cx="450" cy="450" r="10" fill="#4A7FA5" opacity=".8"><animate attributeName="r" values="10;13;10" dur="3s" repeatCount="indefinite"/></circle>
+<g stroke="#4A7FA5" stroke-width="0.5" opacity=".5">
+<line x1="450" y1="70" x2="450" y2="450"><animate attributeName="stroke-opacity" values=".4;.8;.4" dur="4s" repeatCount="indefinite"/></line>
+<line x1="800" y1="200" x2="450" y2="450"><animate attributeName="stroke-opacity" values=".3;.7;.3" dur="5s" repeatCount="indefinite"/></line>
+<line x1="820" y1="560" x2="450" y2="450"><animate attributeName="stroke-opacity" values=".3;.7;.3" dur="6s" repeatCount="indefinite"/></line>
+<line x1="620" y1="820" x2="450" y2="450"><animate attributeName="stroke-opacity" values=".4;.8;.4" dur="4.5s" repeatCount="indefinite"/></line>
+<line x1="200" y1="780" x2="450" y2="450"><animate attributeName="stroke-opacity" values=".3;.7;.3" dur="5.5s" repeatCount="indefinite"/></line>
+<line x1="90" y1="560" x2="450" y2="450"><animate attributeName="stroke-opacity" values=".3;.7;.3" dur="7s" repeatCount="indefinite"/></line>
+<line x1="120" y1="280" x2="450" y2="450"><animate attributeName="stroke-opacity" values=".4;.8;.4" dur="3.5s" repeatCount="indefinite"/></line>
+</g>
+<circle cx="450" cy="70" r="6" fill="#4A7FA5"><animate attributeName="opacity" values=".6;1;.6" dur="4s" repeatCount="indefinite"/></circle>
+<circle cx="800" cy="200" r="5" fill="#4A7FA5"><animate attributeName="opacity" values=".4;.9;.4" dur="5s" repeatCount="indefinite"/></circle>
+<circle cx="820" cy="560" r="6" fill="#4A7FA5"><animate attributeName="opacity" values=".5;1;.5" dur="6s" repeatCount="indefinite"/></circle>
+<circle cx="620" cy="820" r="5" fill="#4A7FA5"><animate attributeName="opacity" values=".4;.8;.4" dur="4.5s" repeatCount="indefinite"/></circle>
+<circle cx="200" cy="780" r="6" fill="#4A7FA5"><animate attributeName="opacity" values=".5;1;.5" dur="5.5s" repeatCount="indefinite"/></circle>
+<circle cx="90" cy="560" r="5" fill="#4A7FA5"><animate attributeName="opacity" values=".4;.9;.4" dur="7s" repeatCount="indefinite"/></circle>
+<circle cx="120" cy="280" r="5" fill="#4A7FA5"><animate attributeName="opacity" values=".6;1;.6" dur="3.5s" repeatCount="indefinite"/></circle>
+</svg>
+</div>
+<div class="hero-grid"></div>
+<div class="hi">
+<div class="ear"><span>AxiomStream Group</span></div>
+<h1 class="hh">Embedded, custom AI<br><span class="dim">with the models you already have.</span></h1>
+<p class="hs">We work inside your operations — not alongside them. Finance, tax, data, AI, web, marketing. One accountable team.</p>
+<div class="ha">
+<a href="https://assess.axiomstreamgroup.com" class="btn btn-p" target="_blank" rel="noopener">Take the AI Assessment</a>
+<a href="#contact" class="btn btn-g">Start a Conversation →</a>
+</div>
+</div>
+</section>
+
+<section id="decl">
+<div class="wrap">
+<blockquote class="dq sa">"Most firms hire agencies.<br>The ones that win hire operators."</blockquote>
+<div class="db sa">
+<div class="dc"><strong>We work inside your operations,</strong> not from a deck. Embedded with the cadence and accountability of an internal team — without the overhead of hiring one.</div>
+<div class="dc"><strong>We are not a vendor.</strong> Not a retainer. Not a quarterly review. We are a member of your growth team — with the tools and track record to prove it.</div>
+</div>
+<div class="thesis sa">
+<div class="thesis-t">A rounding error on AP.<br>A multiplier on AR.</div>
+<div class="thesis-s">That's the math. That's why firms choose ASG.</div>
+</div>
+</div>
+</section>
+
+<section id="method">
+<div class="wrap">
+<div class="mh">
+<div class="ear sa"><span>How We Work</span></div>
+<h2 class="sh sa" style="color:var(--ow)">The operator model. <span style="color:var(--tm);font-weight:300">Not the agency model.</span></h2>
+</div>
+<div class="mg">
+<div class="mc sa">
+<div class="mn">01 ——→ Embedded</div>
+<div class="mt">We work inside, not outside.</div>
+<div class="md">Inside your Slack. Inside your pipeline. We work with the urgency and accountability of a hire — without the overhead.</div>
+</div>
+<div class="mc sa">
+<div class="mn">02 ——→ Engineered</div>
+<div class="mt">We build, not recommend.</div>
+<div class="md">AI-native growth systems built once, running forever. No slide decks that sit in a folder. No recommendations without execution.</div>
+</div>
+<div class="mc sa">
+<div class="mn">03 ——→ Compounding</div>
+<div class="mt">You own what we leave behind.</div>
+<div class="md">The systems we build keep running whether we're in the room or not. Month six compounds on month one. The asset stays with you.</div>
+</div>
+</div>
+<div class="viz-wrap sa" style="margin-top:40px">
+<div class="viz-label">Agency model vs. embedded operator</div>
+<svg viewBox="0 0 700 180" width="100%" style="overflow:visible">
+<rect x="0" y="20" width="320" height="140" rx="8" fill="rgba(176,80,80,.06)" stroke="rgba(176,80,80,.2)" stroke-width="1"/>
+<text x="16" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="#B05050" letter-spacing="2">AGENCY MODEL</text>
+<rect x="12" y="56" width="88" height="30" rx="4" fill="rgba(176,80,80,.08)" stroke="rgba(176,80,80,.18)" stroke-width="1"/>
+<text x="56" y="76" font-family="JetBrains Mono,monospace" font-size="9" fill="#C06060" text-anchor="middle">AGENCY</text>
+<rect x="114" y="56" width="88" height="30" rx="4" fill="rgba(176,80,80,.08)" stroke="rgba(176,80,80,.18)" stroke-width="1"/>
+<text x="158" y="76" font-family="JetBrains Mono,monospace" font-size="9" fill="#C06060" text-anchor="middle">ACCOUNTANT</text>
+<rect x="216" y="56" width="88" height="30" rx="4" fill="rgba(176,80,80,.08)" stroke="rgba(176,80,80,.18)" stroke-width="1"/>
+<text x="260" y="76" font-family="JetBrains Mono,monospace" font-size="9" fill="#C06060" text-anchor="middle">DEVELOPER</text>
+<rect x="12" y="100" width="88" height="30" rx="4" fill="rgba(176,80,80,.08)" stroke="rgba(176,80,80,.18)" stroke-width="1"/>
+<text x="56" y="120" font-family="JetBrains Mono,monospace" font-size="9" fill="#C06060" text-anchor="middle">MARKETER</text>
+<rect x="114" y="100" width="88" height="30" rx="4" fill="rgba(176,80,80,.08)" stroke="rgba(176,80,80,.18)" stroke-width="1"/>
+<text x="158" y="120" font-family="JetBrains Mono,monospace" font-size="9" fill="#C06060" text-anchor="middle">ANALYST</text>
+<rect x="216" y="100" width="88" height="30" rx="4" fill="rgba(176,80,80,.08)" stroke="rgba(176,80,80,.18)" stroke-width="1"/>
+<text x="260" y="120" font-family="JetBrains Mono,monospace" font-size="9" fill="#C06060" text-anchor="middle">DATA</text>
+<text x="160" y="152" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(176,80,80,.5)" text-anchor="middle">6 vendors · 6 contracts · nobody owns the outcome</text>
+<text x="380" y="95" font-family="JetBrains Mono,monospace" font-size="22" fill="#4A7FA5" text-anchor="middle">→</text>
+<rect x="420" y="20" width="270" height="140" rx="8" fill="rgba(74,127,165,.07)" stroke="rgba(74,127,165,.25)" stroke-width="1.5"/>
+<text x="436" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="#4A7FA5" letter-spacing="2">ASG MODEL</text>
+<rect x="434" y="56" width="242" height="72" rx="6" fill="rgba(74,127,165,.1)" stroke="rgba(74,127,165,.3)" stroke-width="1"/>
+<text x="555" y="88" font-family="JetBrains Mono,monospace" font-size="11" fill="#6EA3C8" text-anchor="middle" font-weight="600">ONE EMBEDDED TEAM</text>
+<text x="555" y="106" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(110,163,200,.6)" text-anchor="middle">Finance · Tax · AI · Web · Data · Marketing</text>
+<text x="555" y="152" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(74,127,165,.5)" text-anchor="middle">1 team · 1 contract · full accountability</text>
+</svg>
+</div>
+</div>
+</section>
+
+<section id="testimonial">
+<div class="wrap">
+<div class="tq-wrap">
+<div class="tq-badge sa"><div class="tq-badge-dot"></div><span>AUD $1M+ Opportunity Tracked</span></div>
+<div class="tq-mark sa">&#8220;</div>
+<p class="tq-text sa">We've been tracking this Australian opportunity for over a year — we're talking <em>AUD $1 million-plus.</em> The AI pipeline work has changed how fast we can move on something like this. We've gone from chasing to leading.</p>
+<div class="tq-attr sa">Director of Sales, Defense Technology Manufacturer</div>
+<div class="tq-deal sa"><span>&#9679;</span><span>AUD $1M+ · Active Pipeline · AI-Accelerated</span></div>
+</div>
+</div>
+</section>
+
+<section id="products">
+<div class="wrap">
+<div class="ear sa"><span>Infrastructure</span></div>
+<h2 class="sh sa" style="color:var(--ow)">Products that compound.</h2>
+<div class="pg">
+<div class="pc sa">
+<div class="pt">Memory Infrastructure</div>
+<div class="pn">Synapse</div>
+<div class="pd">Persistent memory for AI agents. Zero LLM calls per write. The fix for AI amnesia. Built for operators who can't afford to forget.</div>
+<div style="font-family:var(--mono);font-size:10px;color:var(--tl);margin-bottom:16px">Free → $29/mo → $99/mo</div>
+<a href="https://synapse.by-kit.com" class="pct" target="_blank" rel="noopener">synapse.by-kit.com →</a>
+</div>
+<div class="pc sa">
+<div class="pt">Marketplace</div>
+<div class="pn">Game of Homes</div>
+<div class="pd">Home services marketplace. Gamified. Photo-verified. Built for the generation that doesn't make phone calls.</div>
+<a href="https://gameofhomes.app" class="pct" target="_blank" rel="noopener">gameofhomes.app →</a>
+</div>
+<div class="pc sa">
+<div class="pt">Client Portals</div>
+<div class="pn">Client Intelligence</div>
+<div class="pd">PIN-secured dashboards your clients actually open. Pipeline status, signal, next steps. No status calls, no spreadsheets.</div>
+<a href="https://clients.axiomstreamgroup.com" class="pct" target="_blank" rel="noopener">Client login →</a>
+</div>
+<div class="pc sa">
+<div class="pt">Custom AI Agents</div>
+<div class="pn">Built for Your Vertical</div>
+<div class="pd">Rex for defense sales. Kit for operations. Aria for professional services. AI tools that speak your language — not demos that impress.</div>
+<a href="#contact" class="pct">Start a conversation →</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="signal">
+<div class="wrap">
+<div class="ear sa"><span>Live Signal</span></div>
+<h2 class="sh sa" style="color:var(--ow);margin-bottom:32px">While you read this,<br><span style="color:var(--tm);font-weight:300">the system is running.</span></h2>
+<div class="sfw">
+<div class="sf" id="feed"></div>
+</div>
+<p class="sgn" style="margin-top:16px">Signal feed — <span>live system activity</span> · data is illustrative</p>
+</div>
+</section>
+
+<section id="team">
+<div class="wrap">
+<div class="ear sa"><span>The Operators</span></div>
+<h2 class="sh sa" style="color:var(--ink);margin-bottom:8px">Not consultants.<br>Operators.</h2>
+<p class="sa" style="color:#666;font-size:16px;margin-bottom:0">We've built products, scaled teams, and shipped code at companies from Amazon to startups.</p>
+<div class="tm-g">
+<div class="tm-c sa">
+<div class="tm-av">JF</div>
+<div class="tm-info">
+<h4>JJ Fulmines</h4>
+<p>Founder. Former Amazon, Capital One, Asurion. Built products used by millions. Now building growth infrastructure for firms that move fast.</p>
+</div>
+</div>
+<div class="tm-c sa">
+<div class="tm-av">BB</div>
+<div class="tm-info">
+<h4>Ben Booher</h4>
+<p>Head of Client Delivery. Enterprise sales veteran. Turns complex engagements into executed outcomes.</p>
+</div>
+</div>
+<div class="tm-adv sa">
+<h4>Advisory Bench</h4>
+<p>Senior executives from investment banking, Fortune 100 marketing, and enterprise technology. When the engagement requires specialized firepower, we bring it.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="wrap">
+<div class="con-i">
+<div>
+<div class="ear sa"><span>Engage</span></div>
+<h2 class="conh sa">This conversation<br>changes something.</h2>
+<p class="cons sa">We take a limited number of client engagements. If the fit is right, we move fast.</p>
+<div class="conn sa">No pitch decks.<br>No discovery calls with junior staff.<br>Response within 24 hours.</div>
+</div>
+<div class="sa">
+<form onsubmit="return false">
+<div class="fg"><label class="fl">Name</label><input class="fi" type="text" placeholder="Your name" autocomplete="name"/></div>
+<div class="fg"><label class="fl">Company</label><input class="fi" type="text" placeholder="Your company" autocomplete="organization"/></div>
+<div class="fg"><label class="fl">What you're solving</label><textarea class="fta" placeholder="Describe the challenge…"></textarea></div>
+<button type="submit" class="btn btn-p fsubmit">Send →</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+<div class="fi2">
+<div><div class="flo">AxiomStream Group</div><div class="fls">An AI-Native Growth Firm</div></div>
+<div class="flinks">
+<a href="https://synapse.by-kit.com" target="_blank">Synapse</a>
+<a href="https://gameofhomes.app" target="_blank">Game of Homes</a>
+<a href="https://clients.axiomstreamgroup.com" target="_blank">Client Portal</a>
+<a href="https://axiomstreamgroup.com" target="_blank">axiomstreamgroup.com</a>
+</div>
+</div>
+<div class="fbot"><span>© 2026 AxiomStream Group. All rights reserved.</span><span>axiomstreamgroup.com</span></div>
+</div>
+</footer>
+
+<script>
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('s',window.scrollY>50),{passive:true});
+
+// Mobile menu close on link click
+document.querySelectorAll('.nl a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.nl').classList.remove('open')));
+
+// Signal feed
+const signals=[
+['04:12','B2B Technology','Pipeline touch','+3',true],
+['04:13','Chemical / Mfg','Outreach sent','+12',true],
+['04:14','Real Estate','Lead qualified','+1',true],
+['04:15','Defense','Portal login','+1',true],
+['04:16','SaaS','Sequence enrolled','+8',true],
+['04:17','Prof Services','Content published','+4',false],
+['04:18','B2B Technology','Deal stage advance','+1',true],
+['04:19','Chemical / Mfg','Decision maker ID','+1',true],
+['04:20','Defense','Meeting scheduled','+1',true],
+['04:21','Real Estate','Referral captured','+1',true],
+['04:22','Prof Services','Email opened','+6',false],
+['04:23','SaaS','Pipeline touch','+2',true],
+['04:24','B2B Technology','Proposal sent','+1',true],
+['04:25','Chemical / Mfg','KPI updated','Δ',true]
+];
+const feed=document.getElementById('feed');
+function makeRow([t,v,ty,val,active]){
+const r=document.createElement('div');r.className='sr';
+r.innerHTML=`<span class="stm">${t}</span><span class="sv" style="display:none">${v}</span><span class="sty">${ty}</span><span class="svl">${val}</span><span><span class="sdot${active?'':' q'}"></span></span>`;
+if(window.innerWidth>=600)r.querySelector('.sv').style.display='';
+return r;
+}
+[...signals,...signals].forEach(s=>feed.appendChild(makeRow(s)));
+
+// Intersection Observer
+const io=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+if(e.isIntersecting){e.target.classList.add('v');io.unobserve(e.target);}
+});
+},{threshold:.15});
+document.querySelectorAll('.sa').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
