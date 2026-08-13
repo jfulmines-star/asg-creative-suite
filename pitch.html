@@ -182,7 +182,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 .sysmap{display:grid;grid-template-columns:1fr 34px 1.35fr 34px 1fr;align-items:center;gap:8px;margin-top:24px}
 .syscol{display:flex;flex-direction:column;gap:9px}
 .syscore{border:1px solid rgba(110,163,200,.5);border-radius:12px;padding:18px;background:linear-gradient(145deg,rgba(74,127,165,.13),rgba(15,17,21,.96));position:relative}
-.syscore::before{content:'OPENCLAW · SECURE SELF-HOSTED RUNTIME';position:absolute;top:-9px;left:16px;background:var(--dk);padding:2px 8px;font-family:var(--mono);font-size:7px;letter-spacing:.16em;color:var(--sl)}
+.syscore::before{content:'SECURE SELF-HOSTED RUNTIME';position:absolute;top:-9px;left:16px;background:var(--dk);padding:2px 8px;font-family:var(--mono);font-size:7px;letter-spacing:.16em;color:var(--sl)}
 .kit-core{margin:6px 0 14px;padding:18px;text-align:center;border-radius:50%;width:116px;height:116px;margin-left:auto;margin-right:auto;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle,rgba(110,163,200,.28),rgba(42,80,112,.08) 65%,transparent 68%);border:1px solid var(--st);box-shadow:0 0 55px rgba(74,127,165,.18)}
 .kit-core .dn{font-size:27px;font-weight:900}.kit-core .dk{margin:0}
 .engine{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -228,12 +228,19 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 .cover-status{margin-top:36px;display:flex;gap:8px;justify-content:center;opacity:0;animation:fup .8s ease 1.6s forwards}.status-pill{font-family:var(--mono);font-size:8px;color:var(--mu);border:1px solid var(--di);padding:6px 9px;border-radius:12px;background:rgba(10,11,13,.75)}.status-pill b{color:#72c99a;font-weight:500}
 @media(max-width:800px){.ci,.cw{width:86%;padding:52px 0}.hl{font-size:clamp(27px,7vw,44px);margin-bottom:18px}.sub{font-size:13px;margin-bottom:20px}.sysmap,.synapse-map,.orchestrator{grid-template-columns:1fr;gap:8px}.flow-arrow{transform:rotate(90deg)}.memory-base{grid-template-columns:1fr}.compare{grid-template-columns:1fr;gap:8px}.vs{display:none}.loop{grid-template-columns:1fr 1fr}.loop-step{min-height:108px}.loop-step::after,.loop-return{display:none}.guardrail,.proof-grid{grid-template-columns:1fr 1fr}.guard{min-height:130px;padding:14px}.proof-card{min-height:150px;padding:15px}.syscol{display:grid;grid-template-columns:1fr 1fr}.syscore{padding:13px}.kit-core{width:88px;height:88px}.memory-base{display:none}.chip{font-size:7px;padding:4px}.dd{font-size:9px}.dn{font-size:15px}}
 @media(max-height:760px){.ci,.cw{padding:46px 0}.hl{font-size:38px;margin-bottom:16px}.eye{margin-bottom:12px}.sysmap,.compare,.loop,.synapse-map,.orchestrator,.guardrail,.proof-grid{margin-top:14px}.dnode{padding:10px 12px}.guard{min-height:130px;padding:14px}.proof-card{min-height:165px;padding:16px}.loop-step{min-height:104px;padding:13px}.qwrap{padding:22px 28px;margin-bottom:22px}.c0-title{margin-top:28px}.c0-date{margin-top:30px}}
+/* SCHEMATIC LEGIBILITY PASS */
+.dk{font-size:10px;letter-spacing:.13em}.dn{font-size:20px}.dd{font-size:13px;line-height:1.48}.chip{font-size:10px}.syscore::before{content:'SECURE SELF-HOSTED RUNTIME';font-size:9px;top:-10px;padding:3px 8px}.compare-title{font-size:25px}.compare-title span,.mini-box{font-size:10px}.outcome{font-size:14px}.outcome strong{font-size:16px}.loop-step::before{font-size:11px;margin-bottom:9px}.loop-step .dn{font-size:19px}.loop-step .dd{font-size:13px}.loop-note{font-size:11px}.record{font-size:11px;padding:10px 12px}.rank div{font-size:9px}.writeback{font-size:11px}.agent-id{font-size:11px;width:28px;height:28px}.agent span{font-size:14px}.result-card strong{font-size:15px}.result-card span{font-size:12px}.guard-num{font-size:11px}.guard .dn{font-size:19px}.audit{font-size:10px}.proof-live{font-size:10px}.proof-card .dn{font-size:22px}.proof-metric{font-size:11px}.status-pill{font-size:10px}
+/* MEN'S VAULT DESIGN SHOWCASE */
+.designer-grid{display:grid;grid-template-columns:1.45fr .75fr;gap:20px;align-items:stretch;margin-top:18px}.vault-browser{border:1px solid #4c4336;border-radius:9px;background:#ebe5da;color:#171511;overflow:hidden;box-shadow:0 28px 70px rgba(0,0,0,.28)}.vault-bar{height:30px;background:#181713;display:flex;align-items:center;gap:5px;padding:0 11px}.vault-dot{width:6px;height:6px;border-radius:50%;background:#6c665a}.vault-url{margin-left:8px;color:#8f897d;font-family:var(--mono);font-size:8px}.vault-nav{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid rgba(23,21,17,.14)}.vault-mark{font-family:Georgia,serif;font-size:17px;letter-spacing:.14em}.vault-links{font-family:var(--mono);font-size:7px;letter-spacing:.13em;color:#665f54}.vault-hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:260px}.vault-image{position:relative;background:linear-gradient(145deg,#39362f,#171713);overflow:hidden;display:grid;place-items:center}.vault-image::before{content:'MV';font-family:Georgia,serif;font-size:118px;color:rgba(235,229,218,.08);letter-spacing:-.08em}.vault-image::after{content:'';position:absolute;width:120px;height:215px;top:28px;left:50%;transform:translateX(-50%);background:linear-gradient(100deg,#2a2925,#625d52 48%,#201f1b 52%);clip-path:polygon(28% 0,43% 8%,50% 30%,57% 8%,72% 0,100% 20%,84% 44%,81% 100%,19% 100%,16% 44%,0 20%);box-shadow:0 20px 40px rgba(0,0,0,.35)}.vault-copy{padding:28px 26px;display:flex;flex-direction:column;justify-content:center}.vault-kicker{font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:#7d6a4b;margin-bottom:14px}.vault-h{font-family:Georgia,serif;font-size:31px;line-height:1.02;font-weight:400;letter-spacing:-.02em;margin-bottom:12px}.vault-p{font-size:10px;line-height:1.55;color:#696257}.vault-cta{margin-top:17px;background:#1b1915;color:#eee8dc;padding:9px 12px;width:max-content;font-family:var(--mono);font-size:8px;letter-spacing:.1em}.design-rail{display:flex;flex-direction:column;gap:9px}.design-card{flex:1;border:1px solid var(--di);background:var(--dm);border-radius:7px;padding:14px 16px;display:grid;grid-template-columns:30px 1fr;gap:11px;align-items:center}.design-n{font-family:var(--mono);font-size:11px;color:var(--st)}.design-card strong{font-size:14px;color:var(--ow);display:block}.design-card span{font-size:11px;color:var(--mu);line-height:1.35;display:block;margin-top:3px}.designer-badge{border:1px solid rgba(110,163,200,.4);background:rgba(74,127,165,.10);border-radius:7px;padding:13px 15px;font-family:var(--mono);font-size:11px;color:var(--sl);text-align:center;letter-spacing:.05em}
+/* Real Men's Vault visual language */
+.vault-browser{border-color:#ff2d95;background:#0e0518;color:#fff;box-shadow:0 28px 70px rgba(255,45,149,.12)}.vault-bar{background:#120a1e;border-bottom:2px solid #ff2d95}.vault-dot:nth-child(1){background:#ff2d95}.vault-dot:nth-child(2){background:#b4ff00}.vault-dot:nth-child(3){background:#00e5ff}.vault-url{font-size:9px;color:#c9bfda}.vault-nav{border-bottom:1px solid rgba(255,255,255,.12);background:#0e0518}.vault-mark{font-family:'Outfit',sans-serif;font-weight:900;font-size:17px;letter-spacing:.04em;text-transform:uppercase}.vault-mark span{color:#ff2d95}.vault-links{font-size:9px;color:#c9bfda}.vault-hero{grid-template-columns:1fr 1fr}.vault-image::before,.vault-image::after{display:none}.vault-image img{width:100%;height:100%;object-fit:cover;display:block}.vault-copy{background:radial-gradient(circle at 80% 20%,rgba(255,45,149,.32),transparent 50%),radial-gradient(circle at 20% 85%,rgba(123,47,255,.38),transparent 48%),#0e0518}.vault-kicker{font-size:10px;color:#b4ff00}.vault-h{font-family:'Outfit',sans-serif;font-size:34px;font-weight:900;line-height:.94;text-transform:uppercase;color:#fff}.vault-p{font-size:13px;color:#c9bfda}.vault-cta{font-size:10px;background:#ff2d95;color:#fff;border:2px solid #0e0518;box-shadow:4px 4px 0 #b4ff00}.designer-badge{border-color:rgba(255,45,149,.5);background:linear-gradient(90deg,rgba(255,45,149,.13),rgba(180,255,0,.08));color:#fff}
+@media(max-width:800px){.dk{font-size:9px}.dn{font-size:17px}.dd{font-size:11px}.chip{font-size:9px}.designer-grid{grid-template-columns:1fr}.design-rail{display:grid;grid-template-columns:1fr 1fr}.vault-hero{min-height:210px}.vault-h{font-size:24px}.vault-image::after{height:165px;width:95px}.design-card{padding:9px;min-height:70px}.designer-badge{grid-column:1/-1}}
 </style>
 </head>
 <body>
 <div id="bar" style="width:0%"></div>
 <div id="brand">Meet <span>Kit</span></div>
-<div id="counter"><span id="cn">01</span> / 10</div>
+<div id="counter"><span id="cn">01</span> / 11</div>
 <div id="phint"><strong>PRESENTER MODE</strong><br>← → Arrow keys to navigate<br>Click dots to jump</div>
 <div id="dots"></div>
 
@@ -247,7 +254,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <div class="c0-logo">Meet <span class="s">Kit</span></div>
 <div class="c0-title">The <strong>Custom Super Agent</strong></div>
 <div class="c0-tag">Persistent memory · Connected tools · Coordinated execution</div>
-<div class="cover-status"><span class="status-pill"><b>●</b> ALWAYS ON</span><span class="status-pill"><b>●</b> SYNAPSE CONNECTED</span><span class="status-pill"><b>●</b> TOOLS READY</span></div>
+<div class="cover-status"><span class="status-pill"><b>●</b> ALWAYS ON</span><span class="status-pill"><b>●</b> SYNAPSE CONNECTED</span><span class="status-pill"><b>●</b> MODEL-AGNOSTIC · FABLE 5</span></div>
 </div>
 </section>
 
@@ -287,7 +294,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <div class="syscore">
 <div class="kit-core"><div class="dk">Persistent operator</div><div class="dn">KIT</div></div>
 <div class="engine">
-<div class="dnode"><div class="dk">Reasoning engine</div><div class="dn">Claude Sonnet 4.6</div></div>
+<div class="dnode"><div class="dk">Model-agnostic reasoning</div><div class="dn">Fable 5</div><div class="dd">Showcase model · swap without rebuilding Kit</div></div>
 <div class="dnode"><div class="dk">Orchestration</div><div class="dn">Tools · Agents · Cron</div></div>
 </div>
 </div>
@@ -399,7 +406,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <div class="guardrail diagram">
 <div class="guard"><div class="guard-num">01 · IDENTITY</div><div class="dn">Sender Gate</div><div class="dd">Every inbound request is matched to a known person and conversation.</div></div>
 <div class="guard"><div class="guard-num">02 · CONTEXT</div><div class="dn">Scoped Memory</div><div class="dd">Each sender receives only allowlisted context appropriate to their role.</div></div>
-<div class="guard"><div class="guard-num">03 · ACTION</div><div class="dn">Tool Policy</div><div class="dd">OpenClaw filters what Kit and every specialist are permitted to call.</div></div>
+<div class="guard"><div class="guard-num">03 · ACTION</div><div class="dn">Tool Policy</div><div class="dd">The secure runtime filters what Kit and every specialist are permitted to call.</div></div>
 <div class="guard"><div class="guard-num">04 · CONSEQUENCE</div><div class="dn">Approval Gates</div><div class="dd">Elevated, destructive, or external actions pause for explicit review.</div></div>
 </div>
 <div class="audit"><b>VERIFIABLE OPERATING RECORD</b><span>REQUEST</span><span>CONTEXT USED</span><span>ACTION PROPOSED</span><span>APPROVAL</span><span>RESULT</span><span>SYNAPSE WRITE</span></div>
@@ -420,10 +427,32 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 </div>
 </section>
 
-<!-- CH 9: START -->
+<!-- CH 9: AI DESIGNER -->
 <section class="ch" id="ch9">
+<div class="ci">
+<div class="eye">09 — Kit, a Next-Generation AI Designer</div>
+<h2 class="hl" style="margin-bottom:4px">From business intent to<br><span style="color:var(--st)">designed, working product.</span></h2>
+<div class="designer-grid diagram">
+<div class="vault-browser" aria-label="The Men's Vault live pickleball apparel site showcase">
+<div class="vault-bar"><span class="vault-dot"></span><span class="vault-dot"></span><span class="vault-dot"></span><a class="vault-url" href="https://themensvault.com/" target="_blank" rel="noopener">themensvault.com · live ↗</a></div>
+<div class="vault-nav"><div class="vault-mark">THE MEN’S <span>VAULT</span></div><div class="vault-links">SHOP&nbsp;&nbsp;&nbsp; SLEEVES&nbsp;&nbsp;&nbsp; TEAM KITS</div></div>
+<div class="vault-hero"><div class="vault-image"><img src="images/mens-vault-neon.jpg" alt="Men's Vault neon pickleball apparel on court"/></div><div class="vault-copy"><div class="vault-kicker">QUIET HANDS. LOUD EVERYTHING ELSE.</div><div class="vault-h">If your shirt whispers, you’re doing it wrong.</div><div class="vault-p">Obnoxiously loud pickleball apparel, wild prints, tatted sleeves, and team kits—translated into a complete commerce experience.</div><div class="vault-cta">SHOP THE DROP →</div></div></div>
+</div>
+<div class="design-rail">
+<div class="design-card"><div class="design-n">01</div><div><strong>Interpret the brief</strong><span>Audience, ambition, positioning, and conversion objective.</span></div></div>
+<div class="design-card"><div class="design-n">02</div><div><strong>Build the visual world</strong><span>Art direction, typography, hierarchy, voice, and interaction.</span></div></div>
+<div class="design-card"><div class="design-n">03</div><div><strong>Engineer the experience</strong><span>Responsive interface, content system, behavior, and accessibility.</span></div></div>
+<div class="design-card"><div class="design-n">04</div><div><strong>Ship and improve</strong><span>Production delivery, verification, feedback, and remembered decisions.</span></div></div>
+<div class="designer-badge">LIVE SITE · KIT + FABLE&nbsp;&nbsp;|&nbsp;&nbsp; NATIVE APP · CODEX</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 10: START -->
+<section class="ch" id="ch10">
 <div class="ask-inner">
-<div class="ask-eye">09 — Meet Your Kit</div>
+<div class="ask-eye">10 — Meet Your Kit</div>
 <div class="ask-hl">Start with<br><strong>one workflow.</strong><br>Build from proof.</div>
 <div class="ask-sub">Choose a high-value objective. Connect the context. Put Kit to work.</div>
 <div class="ask-email">jfulmines@axiomstreamgroup.com</div>
@@ -439,7 +468,7 @@ const chapters=document.querySelectorAll('.ch');
 const dotsEl=document.getElementById('dots');
 const counter=document.getElementById('cn');
 const bar=document.getElementById('bar');
-const labels=['Meet Kit','The AI Gap','Architecture','Operating Loop','Synapse Memory','Orchestration','Always On','Control','In Production','Start'];
+const labels=['Meet Kit','The AI Gap','Architecture','Operating Loop','Synapse Memory','Orchestration','Always On','Control','In Production','AI Designer','Start'];
 let cur=0,locked=false;
 
 // Build dots
@@ -486,17 +515,7 @@ document.addEventListener('touchend',e=>{
   if(Math.abs(dy)>50){if(dy>0)goTo(cur+1,'up');else goTo(cur-1,'dn');}
 },{passive:true});
 
-function show(sel){document.querySelectorAll(sel).forEach((el,i)=>setTimeout(()=>el.classList.add('show'),i*120));}
-
-function triggerChapter(n){
-  if(n===1){setTimeout(()=>show('#vtags .vtag'),200);setTimeout(()=>show('#pfail li'),600);}
-  if(n===2)setTimeout(()=>show('#mcards .mcard'),300);
-  if(n===3)setTimeout(()=>show('#pils .pil'),200);
-  if(n===4){setTimeout(()=>show('#hnbad .hnode'),200);setTimeout(()=>show('#hnok .hnode'),600);}
-  if(n===5)setTimeout(()=>show('#pgrid .pcard'),200);
-  if(n===6){setTimeout(()=>document.getElementById('qwrap').classList.add('show'),200);setTimeout(()=>show('#clients .cl'),600);}
-  if(n===7)setTimeout(()=>show('#mattrs .mattr'),200);
-}
+function triggerChapter(){/* diagrams are complete when their slide becomes active */}
 
 triggerChapter(0);
 </script>
