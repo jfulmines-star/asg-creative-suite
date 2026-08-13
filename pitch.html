@@ -169,6 +169,65 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 .ask-email{font-family:var(--mono);font-size:clamp(14px,1.8vw,22px);color:var(--sl);letter-spacing:.06em;margin-bottom:8px}
 .ask-url{font-family:var(--mono);font-size:13px;color:var(--di);letter-spacing:.08em}
 .ask-note{margin-top:44px;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.14em;text-transform:uppercase}
+/* KIT SYSTEM VISUALS */
+.diagram{width:100%;position:relative}
+.dnode{background:rgba(20,24,32,.92);border:1px solid var(--di);border-radius:8px;padding:16px 18px;position:relative}
+.dnode.accent{border-color:rgba(110,163,200,.55);background:rgba(74,127,165,.10);box-shadow:0 0 36px rgba(74,127,165,.08)}
+.dk{font-family:var(--mono);font-size:8px;line-height:1.4;letter-spacing:.18em;text-transform:uppercase;color:var(--st);margin-bottom:6px}
+.dn{font-size:18px;font-weight:700;color:var(--ow);line-height:1.15}
+.dd{font-size:11px;line-height:1.5;color:var(--mu);margin-top:6px}
+.chip-row{display:flex;gap:7px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:8px;letter-spacing:.06em;color:var(--mu);border:1px solid var(--di);background:rgba(10,11,13,.65);border-radius:3px;padding:6px 8px}
+.flow-arrow{font-family:var(--mono);color:var(--st);font-size:18px;text-align:center;align-self:center}
+.sysmap{display:grid;grid-template-columns:1fr 34px 1.35fr 34px 1fr;align-items:center;gap:8px;margin-top:24px}
+.syscol{display:flex;flex-direction:column;gap:9px}
+.syscore{border:1px solid rgba(110,163,200,.5);border-radius:12px;padding:18px;background:linear-gradient(145deg,rgba(74,127,165,.13),rgba(15,17,21,.96));position:relative}
+.syscore::before{content:'OPENCLAW · SECURE SELF-HOSTED RUNTIME';position:absolute;top:-9px;left:16px;background:var(--dk);padding:2px 8px;font-family:var(--mono);font-size:7px;letter-spacing:.16em;color:var(--sl)}
+.kit-core{margin:6px 0 14px;padding:18px;text-align:center;border-radius:50%;width:116px;height:116px;margin-left:auto;margin-right:auto;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle,rgba(110,163,200,.28),rgba(42,80,112,.08) 65%,transparent 68%);border:1px solid var(--st);box-shadow:0 0 55px rgba(74,127,165,.18)}
+.kit-core .dn{font-size:27px;font-weight:900}.kit-core .dk{margin:0}
+.engine{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.memory-base{grid-column:1/-1;margin-top:14px;padding:17px 22px;border:1px solid rgba(110,163,200,.45);border-radius:8px;background:linear-gradient(90deg,rgba(42,80,112,.18),rgba(74,127,165,.08),rgba(42,80,112,.18));display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px}
+.memory-name{font-size:24px;font-weight:800;color:var(--sl)}
+.memory-flow{height:2px;background:linear-gradient(90deg,var(--sd),var(--sl),var(--sd));position:relative}
+.memory-flow::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;background:var(--sl);top:-3px;animation:signal 2.6s linear infinite;box-shadow:0 0 12px var(--sl)}
+@keyframes signal{from{left:0}to{left:calc(100% - 7px)}}
+.compare{display:grid;grid-template-columns:1fr 60px 1fr;gap:16px;align-items:stretch;margin-top:28px}
+.compare-side{border-radius:10px;padding:24px;border:1px solid var(--di);position:relative;overflow:hidden}
+.compare-side.bad{background:linear-gradient(145deg,rgba(224,80,80,.07),rgba(15,17,21,.95))}
+.compare-side.good{background:linear-gradient(145deg,rgba(74,127,165,.13),rgba(15,17,21,.95));border-color:rgba(110,163,200,.42)}
+.compare-title{font-size:23px;font-weight:700;margin-bottom:18px}.compare-title span{font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;display:block;color:var(--mu);margin-bottom:6px}
+.mini-flow{display:flex;gap:7px;align-items:center;margin:8px 0}
+.mini-box{flex:1;border:1px solid var(--di);border-radius:4px;padding:8px;font-family:var(--mono);font-size:8px;text-align:center;color:var(--mu)}
+.good .mini-box{border-color:rgba(74,127,165,.35);color:var(--ow)}
+.vs{align-self:center;text-align:center;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.1em}
+.outcome{margin-top:18px;padding-top:14px;border-top:1px solid var(--di);font-size:12px;line-height:1.55;color:var(--mu)}
+.outcome strong{display:block;color:var(--ow);font-size:14px;margin-bottom:4px}
+.loop{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px;counter-reset:loop}
+.loop-step{min-height:132px;background:var(--dm);border:1px solid var(--di);border-radius:8px;padding:19px;position:relative;counter-increment:loop}
+.loop-step::before{content:'0' counter(loop);font-family:var(--mono);font-size:9px;color:var(--st);letter-spacing:.14em;display:block;margin-bottom:12px}
+.loop-step:not(:nth-child(3)):not(:nth-child(6))::after{content:'→';position:absolute;right:-18px;top:50%;z-index:2;color:var(--st);font-family:var(--mono)}
+.loop-step:nth-child(4),.loop-step:nth-child(5),.loop-step:nth-child(6){direction:rtl;text-align:left}
+.loop-step:nth-child(4)::after,.loop-step:nth-child(5)::after{content:'←';left:-18px;right:auto}
+.loop-step .dn{font-size:17px}.loop-step .dd{font-size:11px}
+.loop-return{position:absolute;inset:48% -18px -18px -18px;border:1px dashed rgba(74,127,165,.32);border-top:0;border-radius:0 0 18px 18px;pointer-events:none}
+.loop-note{display:flex;justify-content:space-between;margin-top:18px;font-family:var(--mono);font-size:9px;color:var(--mu);letter-spacing:.08em}
+.synapse-map{display:grid;grid-template-columns:1fr 42px 1.25fr 42px 1fr;align-items:center;gap:8px;margin-top:22px}
+.record-stack{display:flex;flex-direction:column;gap:7px}.record{padding:9px 12px;border-radius:4px;background:var(--dm);border:1px solid var(--di);font-family:var(--mono);font-size:9px;color:var(--mu);display:flex;justify-content:space-between}.record b{color:var(--sl);font-weight:500}
+.synbrain{text-align:center;border:1px solid rgba(110,163,200,.5);border-radius:12px;padding:24px;background:radial-gradient(circle at 50% 30%,rgba(74,127,165,.17),rgba(15,17,21,.96) 65%)}
+.synbrain .dn{font-size:30px}.rank{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:18px}.rank div{font-family:var(--mono);font-size:7px;padding:7px 4px;border:1px solid rgba(74,127,165,.25);border-radius:3px;color:var(--sl)}
+.context-card{display:flex;flex-direction:column;gap:7px}.context-line{height:8px;border-radius:4px;background:var(--di);position:relative;overflow:hidden}.context-line::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--st),transparent);opacity:.7}.context-line:nth-child(2){width:84%}.context-line:nth-child(3){width:68%}.context-line:nth-child(4){width:91%}
+.writeback{grid-column:1/-1;margin-top:18px;display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px dashed rgba(110,163,200,.32);border-radius:6px;font-family:var(--mono);font-size:9px;color:var(--mu)}.writeback strong{color:var(--sl)}
+.orchestrator{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:16px;align-items:center;margin-top:22px}
+.agents{display:grid;gap:9px}.agent{background:var(--dm);border:1px solid var(--di);border-radius:6px;padding:12px 14px;display:flex;align-items:center;gap:10px}.agent-id{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:rgba(74,127,165,.13);color:var(--sl);font-family:var(--mono);font-size:9px}.agent span{font-size:12px;color:var(--ow)}
+.objective{text-align:center;border:1px solid rgba(110,163,200,.5);border-radius:14px;padding:26px 18px;background:rgba(74,127,165,.09);position:relative}.objective::before,.objective::after{content:'⇄';position:absolute;top:50%;color:var(--st);font-size:18px}.objective::before{left:-23px}.objective::after{right:-23px}.objective .dn{font-size:26px;margin:5px 0}
+.result-card{border-left:2px solid var(--st);padding:12px 14px;margin:8px 0;background:rgba(74,127,165,.06)}.result-card strong{display:block;color:var(--ow);font-size:13px}.result-card span{font-size:10px;color:var(--mu)}
+.guardrail{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}.guard{padding:20px 16px;background:var(--dm);border:1px solid var(--di);border-radius:8px;min-height:170px}.guard-num{font-family:var(--mono);font-size:9px;color:var(--st);margin-bottom:20px}.guard .dn{font-size:17px}.guard .dd{margin-top:9px}.audit{margin-top:16px;padding:13px 18px;border-radius:6px;background:rgba(74,127,165,.08);border:1px solid rgba(74,127,165,.25);display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--mu);letter-spacing:.05em}.audit b{color:var(--sl)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.proof-card{background:var(--dm);border:1px solid var(--di);border-radius:8px;padding:22px;min-height:205px}.proof-live{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:8px;color:#72c99a;letter-spacing:.12em;margin-bottom:15px}.proof-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#72c99a;box-shadow:0 0 10px #72c99a}.proof-card .dn{font-size:20px}.proof-metric{font-family:var(--mono);font-size:9px;color:var(--sl);border-top:1px solid var(--di);padding-top:13px;margin-top:16px}
+.cover-stack{position:absolute;inset:0;display:grid;place-items:center;opacity:.4;z-index:0}.cover-rings{width:min(68vw,720px);aspect-ratio:1;border:1px solid rgba(74,127,165,.18);border-radius:50%;position:relative;animation:slowspin 40s linear infinite}.cover-rings::before,.cover-rings::after{content:'';position:absolute;border:1px solid rgba(74,127,165,.25);border-radius:50%;inset:16%}.cover-rings::after{inset:32%;border-color:rgba(110,163,200,.4)}
+@keyframes slowspin{to{transform:rotate(360deg)}}
+.cover-status{margin-top:36px;display:flex;gap:8px;justify-content:center;opacity:0;animation:fup .8s ease 1.6s forwards}.status-pill{font-family:var(--mono);font-size:8px;color:var(--mu);border:1px solid var(--di);padding:6px 9px;border-radius:12px;background:rgba(10,11,13,.75)}.status-pill b{color:#72c99a;font-weight:500}
+@media(max-width:800px){.ci,.cw{width:86%;padding:52px 0}.hl{font-size:clamp(27px,7vw,44px);margin-bottom:18px}.sub{font-size:13px;margin-bottom:20px}.sysmap,.synapse-map,.orchestrator{grid-template-columns:1fr;gap:8px}.flow-arrow{transform:rotate(90deg)}.memory-base{grid-template-columns:1fr}.compare{grid-template-columns:1fr;gap:8px}.vs{display:none}.loop{grid-template-columns:1fr 1fr}.loop-step{min-height:108px}.loop-step::after,.loop-return{display:none}.guardrail,.proof-grid{grid-template-columns:1fr 1fr}.guard{min-height:130px;padding:14px}.proof-card{min-height:150px;padding:15px}.syscol{display:grid;grid-template-columns:1fr 1fr}.syscore{padding:13px}.kit-core{width:88px;height:88px}.memory-base{display:none}.chip{font-size:7px;padding:4px}.dd{font-size:9px}.dn{font-size:15px}}
+@media(max-height:760px){.ci,.cw{padding:46px 0}.hl{font-size:38px;margin-bottom:16px}.eye{margin-bottom:12px}.sysmap,.compare,.loop,.synapse-map,.orchestrator,.guardrail,.proof-grid{margin-top:14px}.dnode{padding:10px 12px}.guard{min-height:130px;padding:14px}.proof-card{min-height:165px;padding:16px}.loop-step{min-height:104px;padding:13px}.qwrap{padding:22px 28px;margin-bottom:22px}.c0-title{margin-top:28px}.c0-date{margin-top:30px}}
 </style>
 </head>
 <body>
@@ -182,30 +241,13 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 
 <!-- CH 0: COVER -->
 <section class="ch active" id="ch0">
-<div id="orb" aria-hidden="true">
-<svg viewBox="0 0 900 900" width="900" height="900">
-<circle cx="450" cy="450" r="390" stroke="#4A7FA5" stroke-width=".4" fill="none"><animate attributeName="r" values="390;410;390" dur="12s" repeatCount="indefinite"/><animate attributeName="opacity" values=".5;.9;.5" dur="12s" repeatCount="indefinite"/></circle>
-<circle cx="450" cy="450" r="280" stroke="#4A7FA5" stroke-width=".5" fill="none"><animate attributeName="r" values="280;295;280" dur="8s" repeatCount="indefinite"/></circle>
-<circle cx="450" cy="450" r="170" stroke="#4A7FA5" stroke-width=".7" fill="none" opacity=".6"><animate attributeName="r" values="170;182;170" dur="6s" repeatCount="indefinite"/></circle>
-<circle cx="450" cy="450" r="10" fill="#4A7FA5" opacity=".8"><animate attributeName="r" values="10;13;10" dur="4s" repeatCount="indefinite"/></circle>
-<g stroke="#4A7FA5" stroke-width=".5" opacity=".6">
-<line x1="450" y1="60" x2="450" y2="450"/><line x1="798" y1="200" x2="450" y2="450"/><line x1="826" y1="572" x2="450" y2="450"/><line x1="616" y1="826" x2="450" y2="450"/><line x1="194" y1="790" x2="450" y2="450"/><line x1="82" y1="540" x2="450" y2="450"/><line x1="122" y1="248" x2="450" y2="450"/>
-</g>
-<circle cx="450" cy="60" r="6" fill="#4A7FA5" opacity=".7"><animate attributeName="opacity" values=".5;1;.5" dur="4s" repeatCount="indefinite"/></circle>
-<circle cx="798" cy="200" r="5" fill="#4A7FA5" opacity=".6"><animate attributeName="opacity" values=".4;.9;.4" dur="5s" repeatCount="indefinite"/></circle>
-<circle cx="826" cy="572" r="6" fill="#4A7FA5" opacity=".6"><animate attributeName="opacity" values=".5;1;.5" dur="6s" repeatCount="indefinite"/></circle>
-<circle cx="616" cy="826" r="5" fill="#4A7FA5" opacity=".5"><animate attributeName="opacity" values=".3;.8;.3" dur="4.5s" repeatCount="indefinite"/></circle>
-<circle cx="194" cy="790" r="6" fill="#4A7FA5" opacity=".6"><animate attributeName="opacity" values=".5;1;.5" dur="5.5s" repeatCount="indefinite"/></circle>
-<circle cx="82" cy="540" r="5" fill="#4A7FA5" opacity=".5"><animate attributeName="opacity" values=".4;.9;.4" dur="7s" repeatCount="indefinite"/></circle>
-<circle cx="122" cy="248" r="5" fill="#4A7FA5" opacity=".6"><animate attributeName="opacity" values=".5;1;.5" dur="3.5s" repeatCount="indefinite"/></circle>
-</svg>
-</div>
+<div class="cover-stack" aria-hidden="true"><div class="cover-rings"></div></div>
 <div class="c0-inner">
 <div class="c0-eye">AxiomStream Group presents</div>
 <div class="c0-logo">Meet <span class="s">Kit</span></div>
 <div class="c0-title">The <strong>Custom Super Agent</strong></div>
-<div class="c0-tag">Built around your business · Powered by the models you already use</div>
-<div class="c0-date">Your context. Your tools. One capable teammate.</div>
+<div class="c0-tag">Persistent memory · Connected tools · Coordinated execution</div>
+<div class="cover-status"><span class="status-pill"><b>●</b> ALWAYS ON</span><span class="status-pill"><b>●</b> SYNAPSE CONNECTED</span><span class="status-pill"><b>●</b> TOOLS READY</span></div>
 </div>
 </section>
 
@@ -213,139 +255,168 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <section class="ch" id="ch1">
 <div class="ci">
 <div class="eye">01 — The AI Gap</div>
-<h2 class="hl">Your business runs on context.<br>Most AI starts every conversation<br><span style="color:var(--st)">like it just met you.</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px" id="vtags">
-<div class="vtag"><span class="vl">System 1</span><span class="vn">Email</span></div>
-<div class="vtag"><span class="vl">System 2</span><span class="vn">CRM</span></div>
-<div class="vtag"><span class="vl">System 3</span><span class="vn">Documents</span></div>
-<div class="vtag"><span class="vl">System 4</span><span class="vn">Calendar</span></div>
-<div class="vtag"><span class="vl">System 5</span><span class="vn">Project Data</span></div>
-<div class="vtag"><span class="vl">System 6</span><span class="vn">Team Knowledge</span></div>
+<h2 class="hl">A chatbot gives you an answer.<br><span style="color:var(--st)">Kit carries the work forward.</span></h2>
+<div class="compare diagram">
+<div class="compare-side bad">
+<div class="compare-title"><span>Generic AI</span>Every session starts over.</div>
+<div class="mini-flow"><div class="mini-box">EXPLAIN</div><div class="flow-arrow">→</div><div class="mini-box">PROMPT</div><div class="flow-arrow">→</div><div class="mini-box">ANSWER</div></div>
+<div class="outcome"><strong>The user remains the operating system.</strong>Find the context. Move the files. Update the records. Chase the follow-up. Repeat tomorrow.</div>
 </div>
-<div class="clbl">→ Generic AI cannot see the whole picture</div>
-<ul class="pfail" id="pfail">
-<li><span class="px">×</span><span><strong>No durable memory.</strong> You repeat the goals, decisions, vocabulary, and constraints every time.</span></li>
-<li><span class="px">×</span><span><strong>No operating context.</strong> It can draft an answer, but it cannot reliably connect the work across your systems.</span></li>
-<li><span class="px">×</span><span><strong>No ownership.</strong> You still move the files, update the records, chase the follow-ups, and close the loop.</span></li>
-<li><span class="px">×</span><span><strong>No compounding advantage.</strong> A clever chat today does not become a smarter business tomorrow.</span></li>
-</ul>
+<div class="vs">VS.</div>
+<div class="compare-side good">
+<div class="compare-title"><span>Kit</span>Every cycle compounds.</div>
+<div class="mini-flow"><div class="mini-box">RECALL</div><div class="flow-arrow">→</div><div class="mini-box">PLAN</div><div class="flow-arrow">→</div><div class="mini-box">ACT</div></div>
+<div class="outcome"><strong>Kit becomes the operating layer.</strong>Persistent context, connected tools, accountable execution, and a memory of what happened.</div>
+</div>
+</div>
 </div>
 </section>
 
-<!-- CH 2: INTRODUCING KIT -->
+<!-- CH 2: COMPLETE ARCHITECTURE -->
 <section class="ch" id="ch2">
 <div class="ci">
-<div class="eye">02 — Meet Kit</div>
-<div class="mbn"><span class="cu">1</span> Agent<span style="font-size:.4em;font-weight:200;color:var(--mu)">.</span></div>
-<div class="munit">The intelligence layer across your business</div>
-<p class="sub">Kit is a custom super agent: one persistent, connected teammate designed around how your company actually operates.</p>
-<div class="mcards" id="mcards">
-<div class="mcard"><div class="mcn">KNOWS</div><div class="mcl">Your Business</div><div class="mcd">Your priorities, language, customers, decisions, playbooks, and permissions—available as living context.</div></div>
-<div class="mcard"><div class="mcn">ACTS</div><div class="mcl">Across Your Tools</div><div class="mcd">Kit moves work forward across the systems your team already uses, with human approval where it matters.</div></div>
-<div class="mcard"><div class="mcn">LEARNS</div><div class="mcl">With Every Cycle</div><div class="mcd">Feedback becomes reusable memory, so the next decision starts ahead of the last one.</div></div>
+<div class="eye">02 — The Complete System</div>
+<h2 class="hl" style="margin-bottom:6px">One operator across the business.</h2>
+<p class="sub" style="margin-bottom:0">Kit runs continuously inside a secure, self-hosted runtime—receiving work, assembling context, coordinating intelligence, taking action, and delivering results.</p>
+<div class="sysmap diagram">
+<div class="syscol">
+<div class="dnode"><div class="dk">Inbound channels</div><div class="dn">Your Team</div><div class="chip-row" style="margin-top:10px"><span class="chip">SLACK</span><span class="chip">SIGNAL</span><span class="chip">EMAIL</span><span class="chip">VOICE</span><span class="chip">SMS</span></div></div>
+<div class="dnode"><div class="dk">Sender gate</div><div class="dn">Identity + Scope</div><div class="dd">Loads only the context and permissions appropriate to the person.</div></div>
+</div>
+<div class="flow-arrow">→</div>
+<div class="syscore">
+<div class="kit-core"><div class="dk">Persistent operator</div><div class="dn">KIT</div></div>
+<div class="engine">
+<div class="dnode"><div class="dk">Reasoning engine</div><div class="dn">Claude Sonnet 4.6</div></div>
+<div class="dnode"><div class="dk">Orchestration</div><div class="dn">Tools · Agents · Cron</div></div>
+</div>
+</div>
+<div class="flow-arrow">→</div>
+<div class="syscol">
+<div class="dnode"><div class="dk">Connected action</div><div class="dn">Your Systems</div><div class="chip-row" style="margin-top:10px"><span class="chip">WEB</span><span class="chip">FILES</span><span class="chip">GITHUB</span><span class="chip">VERCEL</span><span class="chip">CRM</span></div></div>
+<div class="dnode"><div class="dk">Multi-channel delivery</div><div class="dn">Completed Outcomes</div><div class="dd">Messages, briefs, files, updates, deployments, reminders, and next actions.</div></div>
+</div>
+<div class="memory-base"><div><div class="dk">Long-term brain</div><div class="memory-name">SYNAPSE</div></div><div class="memory-flow"></div><div class="dd">Relevant context up<br>Decisions + outcomes back</div></div>
 </div>
 </div>
 </section>
 
-<!-- CH 3: SUPER AGENT -->
+<!-- CH 3: OPERATING LOOP -->
 <section class="ch" id="ch3">
 <div class="ci">
-<div class="eye">03 — Why “Super Agent”</div>
-<div class="stag">Not another chatbot.<br><span class="em">A system that gets work done.</span></div>
-<div class="snot">Kit turns a <del>prompt</del> into a coordinated plan, action, and result.</div>
-<div class="pils" id="pils">
-<div class="pil"><div class="piln">01 ——→</div><div class="pilw">Understands</div><div class="pilb">Kit assembles the right business context before responding—history, relationships, standards, and the task at hand.</div></div>
-<div class="pil"><div class="piln">02 ——→</div><div class="pilw">Orchestrates</div><div class="pilb">Kit breaks complex work into steps, brings in specialized capabilities, and keeps the entire objective connected.</div></div>
-<div class="pil"><div class="piln">03 ——→</div><div class="pilw">Executes</div><div class="pilb">Kit produces the artifact, updates the system, routes the decision, and returns with the outcome—not just advice.</div></div>
+<div class="eye">03 — The Kit Operating Loop</div>
+<h2 class="hl" style="margin-bottom:4px">From request to result—without losing the thread.</h2>
+<div class="diagram" style="position:relative">
+<div class="loop">
+<div class="loop-step"><div class="dn">Request</div><div class="dd">A person gives Kit an objective through an approved channel.</div></div>
+<div class="loop-step"><div class="dn">Identify</div><div class="dd">Kit resolves the sender, entities, project, and access scope.</div></div>
+<div class="loop-step"><div class="dn">Recall</div><div class="dd">Synapse retrieves semantic + recency-ranked context.</div></div>
+<div class="loop-step"><div class="dn">Remember</div><div class="dd">Facts, decisions, deliverables, corrections, and open items return to Synapse.</div></div>
+<div class="loop-step"><div class="dn">Deliver</div><div class="dd">Kit returns the outcome, verification, and next best action.</div></div>
+<div class="loop-step"><div class="dn">Plan + Act</div><div class="dd">Kit coordinates tools, specialists, approvals, and execution.</div></div>
+</div>
+<div class="loop-return"></div>
+<div class="loop-note"><span>HUMAN APPROVAL AT CONSEQUENTIAL ACTIONS</span><span>THE NEXT CYCLE STARTS AHEAD</span></div>
 </div>
 </div>
 </section>
 
-<!-- CH 4: HOW KIT WORKS -->
+<!-- CH 4: SYNAPSE -->
 <section class="ch" id="ch4">
 <div class="ci">
-<div class="eye">04 — How It Works</div>
-<h2 class="hl" style="margin-bottom:36px">From request to result—<span style="color:var(--st)">without losing the thread.</span></h2>
-<div class="hsplit">
-<div>
-<div class="hclbl bad">Generic AI</div>
-<div class="hct">A smart answer. More work for you.</div>
-<div class="hnodes" id="hnbad">
-<div class="hnode bad"><div class="hni">💬</div><div class="hnt"><strong>You Explain</strong>Paste the background, goals, and examples—again.</div></div>
-<div class="hnode bad"><div class="hni">📝</div><div class="hnt"><strong>AI Drafts</strong>A plausible response appears without the full operating picture.</div></div>
-<div class="hnode bad"><div class="hni">🔀</div><div class="hnt"><strong>You Coordinate</strong>Copy, verify, route, update, and follow up across every system.</div></div>
-<div class="hnode bad"><div class="hni">🔁</div><div class="hnt"><strong>Context Resets</strong>The next session starts from zero.</div></div>
+<div class="eye">04 — Synapse: Kit’s Long-Term Brain</div>
+<h2 class="hl" style="margin-bottom:4px">Memory that survives the conversation.</h2>
+<div class="synapse-map diagram">
+<div class="record-stack">
+<div class="record"><span>FACT</span><b>WHAT IS TRUE</b></div>
+<div class="record"><span>DECISION</span><b>WHAT WE CHOSE</b></div>
+<div class="record"><span>DELIVERABLE</span><b>WHAT SHIPPED</b></div>
+<div class="record"><span>OPEN ITEM</span><b>WHAT IS NEXT</b></div>
+<div class="record"><span>EXCHANGE</span><b>WHAT WAS SAID</b></div>
 </div>
+<div class="flow-arrow">→</div>
+<div class="synbrain">
+<div class="dk">Supabase · PostgreSQL · pgvector</div>
+<div class="dn">SYNAPSE</div>
+<div class="dd">Persistent, searchable organizational memory.<br>Zero LLM calls per write.</div>
+<div class="rank"><div>SEMANTIC</div><div>RECENCY</div><div>SCOPE</div></div>
 </div>
-<div>
-<div class="hclbl ok">Kit</div>
-<div class="hct active">One objective. A completed loop.</div>
-<div class="hnodes" id="hnok">
-<div class="hnode good right"><div class="hni">🧠</div><div class="hnt"><strong>Recalls Context</strong>Kit begins with the relevant history, rules, and relationships.</div></div>
-<div class="hnode good right"><div class="hni">🧭</div><div class="hnt"><strong>Builds the Plan</strong>The objective becomes a sequence of coordinated actions.</div></div>
-<div class="hnode good right"><div class="hni">⚡</div><div class="hnt"><strong>Works the Systems</strong>Kit drafts, analyzes, updates, routes, and prepares decisions.</div></div>
-<div class="hnode good right"><div class="hni">✓</div><div class="hnt"><strong>Closes the Loop</strong>You get the result, the audit trail, and the next best action.</div></div>
-</div>
-</div>
+<div class="flow-arrow">→</div>
+<div class="dnode accent context-card"><div class="dk">Session context injection</div><div class="dn">Only what matters now</div><div class="context-line"></div><div class="context-line"></div><div class="context-line"></div><div class="context-line"></div><div class="dd">Clever Compact preserves state before compression and restores it at the next start.</div></div>
+<div class="writeback"><strong>WRITE-BACK LOOP</strong><span>Every decision · deliverable · deployment · correction · new fact · subagent return · open item</span><span style="margin-left:auto;color:var(--sl)">← KIT</span></div>
 </div>
 </div>
 </section>
 
-<!-- CH 5: KIT'S OPERATING SYSTEM -->
+<!-- CH 5: ORCHESTRATION -->
 <section class="ch" id="ch5">
 <div class="ci">
-<div class="eye">05 — Under the Hood</div>
-<h2 class="hl" style="margin-bottom:8px">Four layers. One Kit.</h2>
-<div class="pgrid" id="pgrid">
-<div class="pcard"><div class="pct">01 · Persistent Context</div><div class="pn">Memory</div><div class="pu">What your business knows</div><div class="pd">Kit maintains a durable working model of priorities, decisions, customers, projects, and institutional knowledge.</div><div class="ptags"><span class="ptag">Synapse-powered</span><span class="ptag">Permission-aware</span><span class="ptag">Always current</span></div></div>
-<div class="pcard"><div class="pct">02 · Connected Execution</div><div class="pn">Tools</div><div class="pu">Where your business works</div><div class="pd">Kit connects to the approved tools and data sources required to move work forward inside your existing workflow.</div><div class="ptags"><span class="ptag">Your stack</span><span class="ptag">Action-ready</span><span class="ptag">Traceable</span></div></div>
-<div class="pcard"><div class="pct">03 · Coordinated Intelligence</div><div class="pn">Specialists</div><div class="pu">The right capability for each step</div><div class="pd">Kit can coordinate specialized reasoning for research, analysis, writing, operations, and domain-specific tasks.</div><div class="ptags"><span class="ptag">Multi-step</span><span class="ptag">Domain-tuned</span><span class="ptag">Model-flexible</span></div></div>
-<div class="pcard"><div class="pct">04 · Responsible Autonomy</div><div class="pn">Control</div><div class="pu">You decide where Kit can act</div><div class="pd">Clear permissions, review points, and an action history keep your team in control without turning every task into supervision.</div><div class="ptags"><span class="ptag">Human approval</span><span class="ptag">Audit trail</span><span class="ptag">Guardrails</span></div></div>
+<div class="eye">05 — Why “Super Agent”</div>
+<h2 class="hl" style="margin-bottom:4px">You give Kit the objective.<br><span style="color:var(--st)">Kit coordinates the intelligence.</span></h2>
+<div class="orchestrator diagram">
+<div class="agents">
+<div class="agent"><div class="agent-id">R</div><span>Research + web intelligence</span></div>
+<div class="agent"><div class="agent-id">A</div><span>Analysis + decision support</span></div>
+<div class="agent"><div class="agent-id">B</div><span>Build + implementation</span></div>
+<div class="agent"><div class="agent-id">Q</div><span>Quality + verification</span></div>
+</div>
+<div class="objective">
+<div class="dk">Main operating thread</div><div class="dn">KIT</div><div class="dd">Decomposes the objective, delegates only when useful, monitors every return, resolves conflicts, and preserves the result in Synapse.</div>
+<div class="chip-row" style="justify-content:center;margin-top:15px"><span class="chip">PARALLEL</span><span class="chip">ISOLATED</span><span class="chip">POLICY-FILTERED</span></div>
+</div>
+<div>
+<div class="result-card"><strong>One coherent result</strong><span>Specialists return to Kit—not to the user.</span></div>
+<div class="result-card"><strong>Shared memory</strong><span>Completed work writes back to Synapse.</span></div>
+<div class="result-card"><strong>Failure handling</strong><span>Timeouts surface; critical issues escalate.</span></div>
+<div class="result-card"><strong>Token discipline</strong><span>No delegation when Kit can do it directly.</span></div>
+</div>
 </div>
 </div>
 </section>
 
-<!-- CH 6: A DAY WITH KIT -->
+<!-- CH 6: ALWAYS ON -->
 <section class="ch" id="ch6">
 <div class="ci">
-<div class="eye">06 — A Day With Kit</div>
-<div class="qwrap" id="qwrap">
-<div class="qmark">→</div>
-<p class="qtext">“Kit, prepare me for the customer meeting—and make sure the team is ready.”<br><span class="hi">One request becomes a coordinated operating plan.</span></p>
-<div class="qattr">Kit gathers context · identifies gaps · prepares the work · routes decisions</div>
-<div class="qbadge"><span>&#9679; One objective · Multiple systems · One accountable thread</span></div>
+<div class="eye">06 — Always-On Operations</div>
+<h2 class="hl" style="margin-bottom:8px">Kit works on your clock—and between requests.</h2>
+<div class="loop diagram">
+<div class="loop-step"><div class="dk">07:00 · Scheduled</div><div class="dn">Monitor</div><div class="dd">Recurring jobs check inboxes, systems, and operational state.</div></div>
+<div class="loop-step"><div class="dk">09:15 · Requested</div><div class="dn">Prepare</div><div class="dd">A customer brief arrives with history, signals, risks, and open commitments.</div></div>
+<div class="loop-step"><div class="dk">11:30 · Triggered</div><div class="dn">Coordinate</div><div class="dd">Kit routes actions, prepares approvals, and keeps every thread connected.</div></div>
+<div class="loop-step"><div class="dk">16:45 · Verified</div><div class="dn">Close</div><div class="dd">Outcomes are checked, delivered, logged, and converted into next actions.</div></div>
+<div class="loop-step"><div class="dk">14:00 · Parallel</div><div class="dn">Execute</div><div class="dd">Specialists research, build, analyze, or test in isolated sessions.</div></div>
+<div class="loop-step"><div class="dk">12:05 · Approved</div><div class="dn">Act</div><div class="dd">Messages send, records update, files publish, and schedules change.</div></div>
 </div>
-<div class="clients" id="clients">
-<div class="cl"><div class="cll">Before the Meeting</div><div class="cln">Kit Builds the Brief</div><div class="clb">Pulls the relationship history, current opportunity, open commitments, recent signals, and internal notes into one decision-ready view.</div><div class="clr">→ Flags what changed and what needs a decision</div></div>
-<div class="cl"><div class="cll">After the Meeting</div><div class="cln">Kit Moves the Work</div><div class="clb">Turns notes into follow-ups, prepares the customer response, updates the pipeline, assigns internal actions, and preserves the new context.</div><div class="clr">→ Nothing gets lost between conversation and execution</div></div>
-</div>
+<div class="loop-note"><span>CRON · HEARTBEATS · WAKE EVENTS</span><span>24/7 DEDICATED RUNTIME</span></div>
 </div>
 </section>
 
-<!-- CH 7: CUSTOM BY DESIGN -->
+<!-- CH 7: CONTROL -->
 <section class="ch" id="ch7">
 <div class="ci">
-<div class="eye">07 — Custom by Design</div>
-<div class="mstmt">The model is only the engine.<br>Your advantage is the system<br>built <span class="good">around your business.</span></div>
-<div class="mattrs" id="mattrs">
-<div class="mattr"><div class="mai">🧬</div><div><div class="mat">Your Operating DNA</div><div class="mad">Kit is shaped around your language, standards, processes, customers, and definition of a great outcome.</div></div></div>
-<div class="mattr"><div class="mai">🧠</div><div><div class="mat">Your Institutional Memory</div><div class="mad">The context that normally lives across people and systems becomes usable, permissioned intelligence.</div></div></div>
-<div class="mattr"><div class="mai">🔌</div><div><div class="mat">Your Connected Workflow</div><div class="mad">Kit works through the tools your team already knows instead of forcing a parallel destination.</div></div></div>
-<div class="mattr"><div class="mai">📈</div><div><div class="mat">Your Compounding Advantage</div><div class="mad">Every approved pattern, correction, and completed workflow makes the system more valuable to your organization.</div></div></div>
+<div class="eye">07 — Safe, Scoped, Accountable</div>
+<h2 class="hl" style="margin-bottom:4px">Autonomy where it helps.<br><span style="color:var(--st)">Human control where it matters.</span></h2>
+<div class="guardrail diagram">
+<div class="guard"><div class="guard-num">01 · IDENTITY</div><div class="dn">Sender Gate</div><div class="dd">Every inbound request is matched to a known person and conversation.</div></div>
+<div class="guard"><div class="guard-num">02 · CONTEXT</div><div class="dn">Scoped Memory</div><div class="dd">Each sender receives only allowlisted context appropriate to their role.</div></div>
+<div class="guard"><div class="guard-num">03 · ACTION</div><div class="dn">Tool Policy</div><div class="dd">OpenClaw filters what Kit and every specialist are permitted to call.</div></div>
+<div class="guard"><div class="guard-num">04 · CONSEQUENCE</div><div class="dn">Approval Gates</div><div class="dd">Elevated, destructive, or external actions pause for explicit review.</div></div>
 </div>
+<div class="audit"><b>VERIFIABLE OPERATING RECORD</b><span>REQUEST</span><span>CONTEXT USED</span><span>ACTION PROPOSED</span><span>APPROVAL</span><span>RESULT</span><span>SYNAPSE WRITE</span></div>
 </div>
 </section>
 
-<!-- CH 8: THE TEAM + KIT -->
+<!-- CH 8: PRODUCTION -->
 <section class="ch" id="ch8">
-<div class="cw">
-<div class="eye">08 — The New Operating Model</div>
-<h2 class="hl" style="margin-bottom:32px">Kit does not replace your team.<br><span style="color:var(--st)">Kit gives it leverage.</span></h2>
-<div class="tcards">
-<div class="tcard"><div class="tav">YOU</div><div class="ti"><h4>Your Team Sets Direction</h4><div class="tit">Judgment · Relationships · Accountability</div><p>People define the goal, apply judgment, build trust, approve consequential actions, and own the decisions that shape the business.</p></div></div>
-<div class="tcard"><div class="tav">KIT</div><div class="ti"><h4>Kit Carries the Operational Load</h4><div class="tit">Context · Coordination · Execution</div><p>Kit assembles information, prepares decisions, completes repeatable work, connects handoffs, and keeps every objective moving.</p></div></div>
+<div class="ci">
+<div class="eye">08 — Operating in the Real World</div>
+<h2 class="hl" style="margin-bottom:4px">Not a demo architecture.<br><span style="color:var(--st)">A working agent system.</span></h2>
+<div class="proof-grid diagram">
+<div class="proof-card"><div class="proof-live">LIVE · ASG INTERNAL</div><div class="dn">Kit</div><div class="dd">Full operations across Slack and voice: memory, research, builds, deployments, scheduling, communications, and delivery.</div><div class="proof-metric">SURFACE → SLACK + VOICE</div></div>
+<div class="proof-card"><div class="proof-live">LIVE · DEFENSE</div><div class="dn">Rex for Shield</div><div class="dd">Domain-specific sales intelligence for NSN portfolio management and government capture support.</div><div class="proof-metric">SURFACE → PORTAL + VOICE</div></div>
+<div class="proof-card"><div class="proof-live">LIVE · INDUSTRIAL</div><div class="dn">Rex for RBP</div><div class="dd">B2B chemical sales intelligence, pipeline context, and representative enablement inside a scoped client portal.</div><div class="proof-metric">SURFACE → CLIENT PORTAL</div></div>
 </div>
-<div class="tadv" style="margin-top:20px"><h4>The Result</h4><p>Less time reconstructing context. Less work lost between systems. Faster decisions. More consistent execution. A team that spends its attention where human judgment matters most.</p></div>
+<div class="tadv" style="margin-top:14px"><h4>One architecture, custom operating systems</h4><p>The model can change. The durable advantage is the memory, domain context, permissions, tools, workflow design, and operating discipline built around each client.</p></div>
 </div>
 </section>
 
@@ -368,7 +439,7 @@ const chapters=document.querySelectorAll('.ch');
 const dotsEl=document.getElementById('dots');
 const counter=document.getElementById('cn');
 const bar=document.getElementById('bar');
-const labels=['Meet Kit','The AI Gap','What Kit Is','Super Agent','How Kit Works','The System','A Day With Kit','Custom by Design','Team + Kit','Start'];
+const labels=['Meet Kit','The AI Gap','Architecture','Operating Loop','Synapse Memory','Orchestration','Always On','Control','In Production','Start'];
 let cur=0,locked=false;
 
 // Build dots
