@@ -312,7 +312,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 </section>
 
 <!-- CH 3: OPERATING LOOP -->
-<section class="ch" id="ch3">
+<section class="ch tabled" id="ch3" aria-hidden="true">
 <div class="ci">
 <div class="eye">03 — The Kit Operating Loop</div>
 <h2 class="hl" style="margin-bottom:4px">From request to result—without losing the thread.</h2>
@@ -334,7 +334,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <!-- CH 4: SYNAPSE -->
 <section class="ch" id="ch4">
 <div class="ci">
-<div class="eye">04 — Synapse: Kit’s Long-Term Brain</div>
+<div class="eye">03 — Synapse: Kit’s Long-Term Brain</div>
 <h2 class="hl" style="margin-bottom:4px">Memory that survives the conversation.</h2>
 <div class="synapse-map diagram">
 <div class="record-stack">
@@ -361,7 +361,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <!-- CH 5: ORCHESTRATION -->
 <section class="ch" id="ch5">
 <div class="ci">
-<div class="eye">05 — Why “Super Agent”</div>
+<div class="eye">04 — Why “Super Agent”</div>
 <h2 class="hl" style="margin-bottom:4px">You give Kit the objective.<br><span style="color:var(--st)">Kit coordinates the intelligence.</span></h2>
 <div class="orchestrator diagram">
 <div class="agents">
@@ -385,7 +385,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 </section>
 
 <!-- CH 6: ALWAYS ON -->
-<section class="ch" id="ch6">
+<section class="ch tabled" id="ch6" aria-hidden="true">
 <div class="ci">
 <div class="eye">06 — Always-On Operations</div>
 <h2 class="hl" style="margin-bottom:8px">Kit works on your clock—and between requests.</h2>
@@ -404,7 +404,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <!-- CH 7: CONTROL -->
 <section class="ch" id="ch7">
 <div class="ci">
-<div class="eye">07 — Safe, Scoped, Accountable</div>
+<div class="eye">05 — Safe, Scoped, Accountable</div>
 <h2 class="hl" style="margin-bottom:4px">Autonomy where it helps.<br><span style="color:var(--st)">Human control where it matters.</span></h2>
 <div class="guardrail diagram">
 <div class="guard"><div class="guard-num">01 · IDENTITY</div><div class="dn">Sender Gate</div><div class="dd">Every inbound request is matched to a known person and conversation.</div></div>
@@ -419,7 +419,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <!-- CH 8: PRODUCTION -->
 <section class="ch" id="ch8">
 <div class="ci">
-<div class="eye">08 — Operating in the Real World</div>
+<div class="eye">06 — Operating in the Real World</div>
 <h2 class="hl" style="margin-bottom:4px">Not a demo architecture.<br><span style="color:var(--st)">A working agent system.</span></h2>
 <div class="proof-grid diagram">
 <div class="proof-card"><div class="proof-live">LIVE · ASG INTERNAL</div><div class="dn">Kit</div><div class="dd">Full operations across Slack and voice: memory, research, builds, deployments, scheduling, communications, and delivery.</div><div class="proof-metric">SURFACE → SLACK + VOICE</div></div>
@@ -433,7 +433,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <!-- CH 9: AI DESIGNER -->
 <section class="ch" id="ch9">
 <div class="ci">
-<div class="eye">09 — Kit, a Next-Generation AI Designer</div>
+<div class="eye">07 — Kit, a Next-Generation AI Designer</div>
 <h2 class="hl" style="margin-bottom:4px">From business intent to<br><span style="color:var(--st)">designed, working product.</span></h2>
 <div class="designer-grid diagram">
 <div class="vault-browser" aria-label="The Men's Vault live pickleball apparel site showcase">
@@ -455,7 +455,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <!-- CH 10: SOUL + PERSONALITY -->
 <section class="ch" id="ch10">
 <div class="ci">
-<div class="eye">10 — Oh, By the Way…</div>
+<div class="eye">08 — Oh, By the Way…</div>
 <h2 class="hl" style="margin-bottom:2px">Kit has <span style="color:var(--st)">soul.</span> And personality.</h2>
 <p class="sub" style="margin-bottom:0">Not a robotic persona pasted on top—a living operating identity that becomes more naturally yours through context, relationships, feedback, and time.</p>
 <div class="soul-layout diagram">
@@ -484,7 +484,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <!-- CH 11: START -->
 <section class="ch" id="ch11">
 <div class="ask-inner">
-<div class="ask-eye">11 — Meet Your Kit</div>
+<div class="ask-eye">09 — Meet Your Kit</div>
 <div class="ask-hl">Start with<br><strong>one workflow.</strong><br>Build from proof.</div>
 <div class="ask-sub">Choose a high-value objective. Connect the context. Put Kit to work.</div>
 <div class="ask-email">jfulmines@axiomstreamgroup.com</div>
@@ -496,11 +496,13 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 </div><!-- /deck -->
 
 <script>
-const chapters=document.querySelectorAll('.ch');
+// Slides 4 (Operating Loop) and 7 (Always-On Operations) are retained in source
+// but tabled from the live presentation for now.
+const chapters=document.querySelectorAll('.ch:not(.tabled)');
 const dotsEl=document.getElementById('dots');
 const counter=document.getElementById('cn');
 const bar=document.getElementById('bar');
-const labels=['Meet Kit','The AI Gap','Architecture','Operating Loop','Synapse Memory','Orchestration','Always On','Control','In Production','AI Designer','Soul + Personality','Start'];
+const labels=['Meet Kit','The AI Gap','Architecture','Synapse Memory','Orchestration','Control','In Production','AI Designer','Soul + Personality','Start'];
 let cur=0,locked=false;
 
 // Build dots
