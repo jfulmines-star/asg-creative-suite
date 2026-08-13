@@ -159,6 +159,7 @@ footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
 </nav>
 
 <section id="hero">
+<div style="position:absolute;inset:0;z-index:0"><img src="images/iso-operator-stack.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:70% center;opacity:.16;filter:brightness(.45) saturate(.6)"/><div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,11,13,.88) 0%,rgba(10,11,13,.5) 60%,rgba(10,11,13,.92) 100%)"></div></div>
 <div class="hero-orb" aria-hidden="true">
 <svg viewBox="0 0 900 900" width="900" height="900" style="opacity:.22">
 <circle cx="450" cy="450" r="380" stroke="#4A7FA5" stroke-width="0.4" fill="none"><animate attributeName="r" values="380;400;380" dur="10s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;1;0.6" dur="10s" repeatCount="indefinite"/></circle>
@@ -233,7 +234,9 @@ footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
 <div class="md">The systems we build keep running whether we're in the room or not. Month six compounds on month one. The asset stays with you.</div>
 </div>
 </div>
-<div class="viz-wrap sa" style="margin-top:40px">
+<div class="viz-wrap sa" style="margin-top:40px;position:relative;overflow:hidden">
+<img src="images/iso-embedded-operator.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.1;filter:grayscale(.6);pointer-events:none"/>
+<div style="position:relative;z-index:1">
 <div class="viz-label">Agency model vs. embedded operator</div>
 <svg viewBox="0 0 700 180" width="100%" style="overflow:visible">
 <rect x="0" y="20" width="320" height="140" rx="8" fill="rgba(176,80,80,.06)" stroke="rgba(176,80,80,.2)" stroke-width="1"/>
@@ -259,6 +262,7 @@ footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
 <text x="555" y="106" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(110,163,200,.6)" text-anchor="middle">Finance · Tax · AI · Web · Data · Marketing</text>
 <text x="555" y="152" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(74,127,165,.5)" text-anchor="middle">1 team · 1 contract · full accountability</text>
 </svg>
+</div>
 </div>
 </div>
 </section>
@@ -309,14 +313,16 @@ footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
 </div>
 </section>
 
-<section id="signal">
-<div class="wrap">
+<section id="signal" style="position:relative">
+<div style="position:absolute;inset:0;z-index:0"><img src="images/data-flow.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.15;filter:grayscale(1) brightness(.4)"/></div>
+<div class="wrap" style="position:relative;z-index:1">
 <div class="ear sa"><span>Live Signal</span></div>
 <h2 class="sh sa" style="color:var(--ow);margin-bottom:32px">While you read this,<br><span style="color:var(--tm);font-weight:300">the system is running.</span></h2>
 <div class="sfw">
 <div class="sf" id="feed"></div>
 </div>
 <p class="sgn" style="margin-top:16px">Signal feed — <span>live system activity</span> · data is illustrative</p>
+</div>
 </div>
 </section>
 
@@ -327,14 +333,14 @@ footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
 <p class="sa" style="color:#666;font-size:16px;margin-bottom:0">We've built products, scaled teams, and shipped code at companies from Amazon to startups.</p>
 <div class="tm-g">
 <div class="tm-c sa">
-<div class="tm-av">JF</div>
+<div class="tm-av" style="padding:0;overflow:hidden"><img src="images/jj.jpg" alt="JJ Fulmines" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
 <div class="tm-info">
 <h4>JJ Fulmines</h4>
 <p>Founder. Former Amazon, Capital One, Asurion. Built products used by millions. Now building growth infrastructure for firms that move fast.</p>
 </div>
 </div>
 <div class="tm-c sa">
-<div class="tm-av">BB</div>
+<div class="tm-av" style="padding:0;overflow:hidden"><img src="images/ben.jpg" alt="Ben Booher" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
 <div class="tm-info">
 <h4>Ben Booher</h4>
 <p>Head of Client Delivery. Enterprise sales veteran. Turns complex engagements into executed outcomes.</p>
