@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Meet Kit — The Custom Super Agent</title>
+<meta name="description" content="Meet Kit, the custom super agent built around your business, your systems, and your way of working."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--blk:#0A0B0D;--dk:#0F1115;--dm:#141820;--st:#4A7FA5;--sl:#6EA3C8;--sd:#2A5070;--ow:#EFEFEF;--mu:#8A8FA5;--di:#3A3F55;--sans:'Outfit',sans-serif;--mono:'JetBrains Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow:hidden;height:100%}
+body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;overflow:hidden;user-select:none}
+/* DECK */
+#deck{position:fixed;inset:0;width:100vw;height:100vh}
+.ch{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(40px) scale(.98);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1);pointer-events:none;overflow:hidden}
+.ch.active{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
+.ch.exit-up{opacity:0;transform:translateY(-36px) scale(.98);transition:opacity .45s ease,transform .45s ease}
+.ch.exit-dn{opacity:0;transform:translateY(36px) scale(.98);transition:opacity .45s ease,transform .45s ease}
+/* NAV DOTS */
+#dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:9px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--di);cursor:pointer;transition:all .3s;position:relative}
+.dot:hover{background:var(--sl);transform:scale(1.4)}
+.dot.on{background:var(--st);transform:scale(1.3)}
+.dot .dlbl{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:var(--dm);color:var(--ow);font-family:var(--mono);font-size:9px;padding:3px 7px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;border:1px solid var(--di);letter-spacing:.05em}
+.dot:hover .dlbl{opacity:1}
+/* UI CHROME */
+#counter{position:fixed;bottom:24px;left:32px;z-index:100;font-family:var(--mono);font-size:11px;color:var(--di);letter-spacing:.10em}
+#counter span{color:var(--st)}
+#phint{position:fixed;bottom:24px;right:52px;z-index:100;font-family:var(--mono);font-size:9px;color:var(--di);letter-spacing:.08em;text-align:right;line-height:1.7}
+#phint strong{color:var(--sd)}
+#bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--sd),var(--sl));z-index:101;transition:width .6s cubic-bezier(.16,1,.3,1)}
+#brand{position:fixed;top:24px;left:32px;z-index:100;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.18em;text-transform:uppercase}
+#brand span{color:var(--st)}
+/* INNER CONTAINERS */
+.ci{max-width:1100px;width:90%;padding:60px 0}
+.cw{max-width:1100px;width:90%}
+.eye{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--st);text-transform:uppercase;margin-bottom:20px}
+.hl{font-family:var(--sans);font-weight:700;font-size:clamp(34px,4.5vw,66px);color:var(--ow);letter-spacing:-.025em;line-height:1.1;margin-bottom:28px}
+.sub{font-family:var(--sans);font-weight:300;font-size:clamp(15px,1.5vw,20px);color:var(--mu);line-height:1.75;max-width:640px;margin-bottom:44px}
+/* CHAPTER 0 — COVER */
+#ch0{background:var(--blk)}
+#orb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;opacity:.28}
+.c0-inner{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center}
+.c0-eye{font-family:var(--mono);font-size:10px;letter-spacing:.32em;color:var(--st);text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fup .8s ease .5s forwards}
+.c0-logo{font-family:var(--sans);font-weight:900;font-size:clamp(44px,6.5vw,90px);color:var(--ow);letter-spacing:-.03em;line-height:1;opacity:0;animation:fup .9s ease .7s forwards}
+.c0-logo .s{color:var(--st)}
+.c0-title{margin-top:48px;font-family:var(--sans);font-weight:200;font-size:clamp(20px,3vw,44px);color:var(--ow);letter-spacing:-.01em;line-height:1.2;opacity:0;animation:fup .9s ease 1s forwards}
+.c0-title strong{font-weight:700;color:var(--sl)}
+.c0-tag{margin-top:24px;font-family:var(--mono);font-size:11px;color:var(--mu);letter-spacing:.18em;text-transform:uppercase;opacity:0;animation:fup .8s ease 1.3s forwards}
+.c0-date{margin-top:52px;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.22em;text-transform:uppercase;opacity:0;animation:fup .8s ease 1.6s forwards}
+@keyframes fup{to{opacity:1;transform:translateY(0)}}
+.c0-eye,.c0-logo,.c0-title,.c0-tag,.c0-date{transform:translateY(12px)}
+/* CHAPTER 1 — PROBLEM */
+#ch1{background:var(--blk)}
+.vtag{font-family:var(--mono);font-size:10px;padding:7px 14px;border:1px solid var(--di);border-radius:3px;color:var(--mu);letter-spacing:.05em;opacity:0;transform:translateY(12px);transition:all .4s ease;display:inline-block;margin:4px}
+.vtag.show{opacity:1;transform:translateY(0)}
+.vtag .vl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--di);display:block;margin-bottom:2px}
+.vtag .vn{color:var(--ow);font-weight:500}
+.clbl{font-family:var(--mono);font-size:10px;color:#e05050;letter-spacing:.12em;text-transform:uppercase;margin-top:12px}
+.pfail{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.pfail li{display:flex;align-items:flex-start;gap:12px;font-size:clamp(14px,1.3vw,17px);color:var(--mu);line-height:1.5;opacity:0;transform:translateX(-16px);transition:all .4s ease}
+.pfail li.show{opacity:1;transform:translateX(0)}
+.px{width:18px;height:18px;border-radius:50%;background:rgba(224,80,80,.12);border:1px solid rgba(224,80,80,.25);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#e05050;margin-top:2px}
+.pfail li strong{color:var(--ow);font-weight:500}
+/* OPERATOR LEVERAGE — K CURVE */
+.k-layout{display:grid;grid-template-columns:1.45fr .7fr;gap:22px;align-items:stretch;margin-top:18px}.k-chart{min-height:400px;border:1px solid var(--di);border-radius:12px;background:radial-gradient(circle at 34% 50%,rgba(74,127,165,.13),transparent 34%),linear-gradient(145deg,rgba(20,24,32,.96),rgba(10,11,13,.98));padding:16px;overflow:hidden}.k-chart svg{display:block;width:100%;height:100%}.k-axis{stroke:#3A3F55;stroke-width:1.5}.k-base{stroke:#3A3F55;stroke-width:1;stroke-dasharray:6 7}.k-up{fill:none;stroke:#6EA3C8;stroke-width:6;stroke-linecap:round}.k-down{fill:none;stroke:#666b7d;stroke-width:5;stroke-linecap:round}.k-origin{fill:#EFEFEF;stroke:#4A7FA5;stroke-width:5}.k-svg-label{font-family:var(--mono);font-size:13px;letter-spacing:1.5px;fill:#8A8FA5}.k-svg-title{font-family:var(--sans);font-size:23px;font-weight:800;fill:#EFEFEF}.k-svg-title.up{fill:#8fc4e8}.k-svg-copy{font-family:var(--sans);font-size:14px;fill:#8A8FA5}.operator-window{display:flex;flex-direction:column;gap:10px}.operator-callout{flex:1;border:1px solid rgba(110,163,200,.42);border-radius:10px;padding:22px;background:rgba(74,127,165,.09);display:flex;flex-direction:column;justify-content:center}.operator-callout .dk{font-size:11px}.operator-callout strong{font-size:26px;line-height:1.05;color:var(--ow);margin:5px 0 12px}.operator-callout p{font-size:13px;line-height:1.55;color:var(--mu)}.skill-stack{border:1px solid var(--di);border-radius:10px;padding:18px;background:var(--dm)}.skill-stack h4{font-family:var(--mono);font-size:10px;letter-spacing:.13em;color:var(--sl);text-transform:uppercase;margin-bottom:12px}.skill-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-top:1px solid rgba(58,63,85,.55);font-size:12px;color:var(--ow)}.skill-row:first-of-type{border-top:0}.skill-row span{font-family:var(--mono);font-size:9px;color:var(--st)}
+/* KIT VOICE APP */
+.voice-layout{display:grid;grid-template-columns:.72fr 1.28fr;gap:22px;margin-top:17px}.voice-product{border:1px solid rgba(110,163,200,.44);border-radius:12px;padding:22px;background:radial-gradient(circle at 50% 32%,rgba(74,127,165,.2),transparent 48%),var(--dm);display:flex;flex-direction:column;align-items:center;text-align:center}.voice-tile{width:178px;height:178px;border-radius:38px;position:relative;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,#315f82,#0b1624 72%);border:1px solid rgba(143,196,232,.58);box-shadow:0 28px 65px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.2)}.voice-tile::before,.voice-tile::after{content:'';position:absolute;border-radius:50%;border:1px solid rgba(143,196,232,.24)}.voice-tile::before{width:140px;height:140px}.voice-tile::after{width:104px;height:104px}.voice-k{font-size:92px;font-weight:900;line-height:1;color:#f4f8fb;letter-spacing:-.08em;position:relative;z-index:2;text-shadow:0 0 34px rgba(110,163,200,.35)}.voice-wave{position:absolute;bottom:25px;display:flex;align-items:center;gap:4px;height:28px;z-index:3}.voice-wave i{display:block;width:3px;border-radius:3px;background:#8fc4e8;box-shadow:0 0 8px rgba(143,196,232,.5)}.voice-wave i:nth-child(1),.voice-wave i:nth-child(7){height:7px}.voice-wave i:nth-child(2),.voice-wave i:nth-child(6){height:14px}.voice-wave i:nth-child(3),.voice-wave i:nth-child(5){height:23px}.voice-wave i:nth-child(4){height:28px}.voice-name{font-size:22px;font-weight:800;margin-top:16px}.voice-build{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--sl);margin-top:5px}.voice-live{margin-top:13px;border:1px solid rgba(114,201,154,.28);background:rgba(114,201,154,.06);border-radius:16px;padding:5px 10px;font-family:var(--mono);font-size:9px;color:#72c99a;letter-spacing:.08em}.voice-right{display:flex;flex-direction:column;gap:12px}.voice-features{display:grid;grid-template-columns:1fr 1fr;gap:10px}.voice-feature{min-height:104px;border:1px solid var(--di);border-radius:8px;background:var(--dm);padding:15px}.voice-feature .dn{font-size:16px}.voice-feature .dd{font-size:12px}.context-street{border:1px solid rgba(110,163,200,.38);border-radius:10px;padding:15px;background:rgba(74,127,165,.07)}.street-title{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.11em;color:var(--sl);margin-bottom:11px}.street-flow{display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;align-items:stretch;gap:6px}.street-node{border:1px solid var(--di);border-radius:6px;background:rgba(10,11,13,.7);padding:11px}.street-node strong{display:block;font-size:13px;color:var(--ow);margin-bottom:5px}.street-node span{font-size:10px;line-height:1.4;color:var(--mu)}.street-arrow{display:grid;place-items:center;font-family:var(--mono);font-size:15px;color:var(--st)}
+/* CHAPTER 2 — MARKET */
+#ch2{background:var(--dk)}
+.mbn{font-family:var(--sans);font-weight:900;font-size:clamp(72px,13vw,180px);color:var(--ow);line-height:.9;letter-spacing:-.04em;margin-bottom:10px}
+.mbn .cu{color:var(--st);font-weight:200}
+.munit{font-family:var(--mono);font-size:13px;color:var(--st);letter-spacing:.22em;text-transform:uppercase;margin-bottom:32px}
+.mcards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.mcard{background:rgba(74,127,165,.06);border:1px solid rgba(74,127,165,.14);border-radius:5px;padding:24px 20px;opacity:0;transform:translateY(20px);transition:all .5s ease}
+.mcard.show{opacity:1;transform:translateY(0)}
+.mcn{font-family:var(--sans);font-weight:900;font-size:38px;color:var(--sl);letter-spacing:-.03em;margin-bottom:6px}
+.mcl{font-family:var(--mono);font-size:9px;color:var(--mu);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.mcd{font-size:13px;color:var(--mu);line-height:1.6}
+/* CHAPTER 3 — SOLUTION */
+#ch3{background:var(--blk)}
+.stag{font-family:var(--sans);font-weight:900;font-size:clamp(48px,7vw,104px);color:var(--ow);letter-spacing:-.035em;line-height:.95;margin-bottom:14px}
+.stag .em{color:var(--st)}
+.snot{font-family:var(--mono);font-size:12px;color:var(--mu);letter-spacing:.12em;margin-bottom:52px}
+.snot del{color:var(--di)}
+.pils{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.pil{opacity:0;transform:translateY(28px) scale(.97);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.pil.show{opacity:1;transform:translateY(0) scale(1)}
+.piln{font-family:var(--mono);font-size:10px;color:var(--sd);letter-spacing:.2em;margin-bottom:14px}
+.pilw{font-family:var(--sans);font-weight:700;font-size:clamp(22px,2.5vw,34px);color:var(--ow);letter-spacing:-.01em;margin-bottom:12px}
+.pilb{font-size:14px;color:var(--mu);line-height:1.75;border-left:2px solid var(--sd);padding-left:14px}
+/* CHAPTER 4 — HOW IT WORKS */
+#ch4{background:var(--dk)}
+.hsplit{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.hclbl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:22px;padding:5px 10px;border-radius:3px;display:inline-block}
+.hclbl.bad{color:#e05050;background:rgba(224,80,80,.08);border:1px solid rgba(224,80,80,.2)}
+.hclbl.ok{color:var(--sl);background:rgba(74,127,165,.08);border:1px solid rgba(74,127,165,.2)}
+.hct{font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.5vw,32px);color:var(--mu);letter-spacing:-.01em;margin-bottom:24px}
+.hct.active{color:var(--ow)}
+.hnodes{display:flex;flex-direction:column;gap:10px}
+.hnode{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:4px;opacity:0;transform:translateX(-14px);transition:all .4s ease}
+.hnode.right{transform:translateX(14px)}
+.hnode.show{opacity:1;transform:translateX(0)}
+.hnode.bad{background:rgba(224,80,80,.05);border:1px solid rgba(224,80,80,.12)}
+.hnode.good{background:rgba(74,127,165,.07);border:1px solid rgba(74,127,165,.18)}
+.hni{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px}
+.hnode.bad .hni{background:rgba(224,80,80,.12)}
+.hnode.good .hni{background:rgba(74,127,165,.15)}
+.hnt{font-size:13px;color:var(--mu);line-height:1.4}
+.hnt strong{color:var(--ow);font-weight:500;display:block;font-size:14px}
+/* CHAPTER 5 — PRODUCTS */
+#ch5{background:var(--blk)}
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
+.pcard{background:var(--dm);border:1px solid var(--di);border-radius:7px;padding:28px 24px;opacity:0;transform:translateY(20px) scale(.97);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sd),var(--sl));opacity:0;transition:opacity .3s}
+.pcard:hover::before{opacity:1}
+.pcard.show{opacity:1;transform:translateY(0) scale(1)}
+.pct{font-family:var(--mono);font-size:9px;color:var(--st);letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.pn{font-family:var(--sans);font-weight:700;font-size:24px;color:var(--ow);letter-spacing:-.01em;margin-bottom:8px}
+.pu{font-family:var(--mono);font-size:10px;color:var(--sd);letter-spacing:.04em;margin-bottom:14px}
+.pd{font-size:13px;color:var(--mu);line-height:1.65}
+.ptags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.ptag{font-family:var(--mono);font-size:9px;color:var(--sl);background:rgba(74,127,165,.08);border:1px solid rgba(74,127,165,.2);padding:3px 8px;border-radius:2px;letter-spacing:.05em}
+/* CHAPTER 6 — PROOF */
+#ch6{background:var(--dk)}
+.qwrap{background:rgba(74,127,165,.04);border-left:3px solid var(--st);padding:36px 40px;border-radius:0 5px 5px 0;margin-bottom:44px;position:relative;opacity:0;transform:translateY(16px);transition:all .7s ease}
+.qwrap.show{opacity:1;transform:translateY(0)}
+.qmark{font-family:var(--sans);font-size:100px;font-weight:900;color:var(--sd);line-height:.55;position:absolute;top:24px;left:28px;opacity:.25}
+.qtext{font-family:var(--sans);font-weight:400;font-size:clamp(16px,1.8vw,22px);color:var(--ow);line-height:1.65;letter-spacing:-.01em;position:relative;z-index:1}
+.qtext .hi{color:var(--sl);font-weight:700}
+.qattr{margin-top:20px;font-family:var(--mono);font-size:10px;color:var(--mu);letter-spacing:.12em;text-transform:uppercase}
+.qbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,127,165,.08);border:1px solid rgba(74,127,165,.25);border-radius:3px;padding:5px 12px;margin-top:14px}
+.qbadge span{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sl)}
+.clients{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cl{background:var(--dm);border:1px solid var(--di);border-radius:5px;padding:24px;opacity:0;transform:translateY(16px);transition:all .5s ease}
+.cl.show{opacity:1;transform:translateY(0)}
+.cll{font-family:var(--mono);font-size:9px;color:var(--st);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px}
+.cln{font-family:var(--sans);font-weight:600;font-size:18px;color:var(--ow);margin-bottom:8px}
+.clb{font-size:13px;color:var(--mu);line-height:1.65}
+.clr{margin-top:12px;font-family:var(--mono);font-size:10px;color:var(--sl);letter-spacing:.08em}
+/* CHAPTER 7 — MOAT */
+#ch7{background:var(--blk)}
+.mstmt{font-family:var(--sans);font-weight:700;font-size:clamp(26px,3.5vw,50px);color:var(--ow);letter-spacing:-.02em;line-height:1.2;max-width:780px;margin-bottom:52px}
+.mstmt del{color:var(--di);font-weight:300;text-decoration-color:rgba(224,80,80,.4)}
+.mstmt .good{color:var(--sl)}
+.mattrs{display:flex;flex-direction:column;gap:14px}
+.mattr{display:flex;align-items:flex-start;gap:14px;opacity:0;transform:translateX(-14px);transition:all .45s ease}
+.mattr.show{opacity:1;transform:translateX(0)}
+.mai{width:34px;height:34px;border-radius:50%;background:rgba(74,127,165,.12);border:1px solid rgba(74,127,165,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.mat{font-family:var(--sans);font-weight:600;font-size:16px;color:var(--ow);margin-bottom:4px}
+.mad{font-size:13px;color:var(--mu);line-height:1.6}
+/* CHAPTER 8 — TEAM */
+#ch8{background:var(--dk)}
+.tcards{display:flex;flex-direction:column;gap:20px;margin-top:8px}
+.tcard{display:flex;gap:20px;align-items:flex-start;background:rgba(74,127,165,.05);border:1px solid var(--di);border-radius:7px;padding:24px}
+.tav{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--sd),var(--st));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:18px;font-weight:600;color:var(--ow)}
+.ti h4{font-size:20px;font-weight:700;color:var(--ow);margin-bottom:4px}
+.ti .tit{font-family:var(--mono);font-size:10px;color:var(--st);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.ti p{font-size:13px;color:var(--mu);line-height:1.65}
+.tadv{background:rgba(74,127,165,.06);border:1px solid rgba(74,127,165,.18);border-radius:7px;padding:20px 24px}
+.tadv h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--st);margin-bottom:10px}
+.tadv p{font-size:13px;color:var(--mu);line-height:1.7}
+/* CHAPTER 9 — ASK */
+#ch9{background:var(--blk)}
+.ask-inner{text-align:center;max-width:760px}
+.ask-eye{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--st);text-transform:uppercase;margin-bottom:28px}
+.ask-hl{font-family:var(--sans);font-weight:200;font-size:clamp(36px,5.5vw,82px);color:var(--ow);letter-spacing:-.025em;line-height:1.1;margin-bottom:12px}
+.ask-hl strong{font-weight:900;color:var(--sl)}
+.ask-sub{font-family:var(--mono);font-size:12px;color:var(--mu);letter-spacing:.12em;margin-bottom:48px;text-transform:uppercase}
+.ask-email{font-family:var(--mono);font-size:clamp(14px,1.8vw,22px);color:var(--sl);letter-spacing:.06em;margin-bottom:8px}
+.ask-url{font-family:var(--mono);font-size:13px;color:var(--di);letter-spacing:.08em}
+.ask-note{margin-top:44px;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.14em;text-transform:uppercase}
+/* KIT SYSTEM VISUALS */
+.diagram{width:100%;position:relative}
+.dnode{background:rgba(20,24,32,.92);border:1px solid var(--di);border-radius:8px;padding:16px 18px;position:relative}
+.dnode.accent{border-color:rgba(110,163,200,.55);background:rgba(74,127,165,.10);box-shadow:0 0 36px rgba(74,127,165,.08)}
+.dk{font-family:var(--mono);font-size:8px;line-height:1.4;letter-spacing:.18em;text-transform:uppercase;color:var(--st);margin-bottom:6px}
+.dn{font-size:18px;font-weight:700;color:var(--ow);line-height:1.15}
+.dd{font-size:11px;line-height:1.5;color:var(--mu);margin-top:6px}
+.chip-row{display:flex;gap:7px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:8px;letter-spacing:.06em;color:var(--mu);border:1px solid var(--di);background:rgba(10,11,13,.65);border-radius:3px;padding:6px 8px}
+.flow-arrow{font-family:var(--mono);color:var(--st);font-size:18px;text-align:center;align-self:center}
+.sysmap{display:grid;grid-template-columns:1fr 34px 1.35fr 34px 1fr;align-items:center;gap:8px;margin-top:24px}
+.syscol{display:flex;flex-direction:column;gap:9px}
+.syscore{border:1px solid rgba(110,163,200,.5);border-radius:12px;padding:18px;background:linear-gradient(145deg,rgba(74,127,165,.13),rgba(15,17,21,.96));position:relative}
+.syscore::before{content:'SECURE SELF-HOSTED RUNTIME';position:absolute;top:-9px;left:16px;background:var(--dk);padding:2px 8px;font-family:var(--mono);font-size:7px;letter-spacing:.16em;color:var(--sl)}
+.kit-core{margin:6px 0 14px;padding:18px;text-align:center;border-radius:50%;width:116px;height:116px;margin-left:auto;margin-right:auto;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle,rgba(110,163,200,.28),rgba(42,80,112,.08) 65%,transparent 68%);border:1px solid var(--st);box-shadow:0 0 55px rgba(74,127,165,.18)}
+.kit-core .dn{font-size:27px;font-weight:900}.kit-core .dk{margin:0}
+.engine{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.memory-base{grid-column:1/-1;margin-top:14px;padding:17px 22px;border:1px solid rgba(110,163,200,.45);border-radius:8px;background:linear-gradient(90deg,rgba(42,80,112,.18),rgba(74,127,165,.08),rgba(42,80,112,.18));display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px}
+.memory-name{font-size:24px;font-weight:800;color:var(--sl)}
+.memory-flow{height:2px;background:linear-gradient(90deg,var(--sd),var(--sl),var(--sd));position:relative}
+.memory-flow::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;background:var(--sl);top:-3px;animation:signal 2.6s linear infinite;box-shadow:0 0 12px var(--sl)}
+@keyframes signal{from{left:0}to{left:calc(100% - 7px)}}
+.compare{display:grid;grid-template-columns:1fr 60px 1fr;gap:16px;align-items:stretch;margin-top:28px}
+.compare-side{border-radius:10px;padding:24px;border:1px solid var(--di);position:relative;overflow:hidden}
+.compare-side.bad{background:linear-gradient(145deg,rgba(224,80,80,.07),rgba(15,17,21,.95))}
+.compare-side.good{background:linear-gradient(145deg,rgba(74,127,165,.13),rgba(15,17,21,.95));border-color:rgba(110,163,200,.42)}
+.compare-title{font-size:23px;font-weight:700;margin-bottom:18px}.compare-title span{font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;display:block;color:var(--mu);margin-bottom:6px}
+.mini-flow{display:flex;gap:7px;align-items:center;margin:8px 0}
+.mini-box{flex:1;border:1px solid var(--di);border-radius:4px;padding:8px;font-family:var(--mono);font-size:8px;text-align:center;color:var(--mu)}
+.good .mini-box{border-color:rgba(74,127,165,.35);color:var(--ow)}
+.vs{align-self:center;text-align:center;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.1em}
+.outcome{margin-top:18px;padding-top:14px;border-top:1px solid var(--di);font-size:12px;line-height:1.55;color:var(--mu)}
+.outcome strong{display:block;color:var(--ow);font-size:14px;margin-bottom:4px}
+.loop{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px;counter-reset:loop}
+.loop-step{min-height:132px;background:var(--dm);border:1px solid var(--di);border-radius:8px;padding:19px;position:relative;counter-increment:loop}
+.loop-step::before{content:'0' counter(loop);font-family:var(--mono);font-size:9px;color:var(--st);letter-spacing:.14em;display:block;margin-bottom:12px}
+.loop-step:not(:nth-child(3)):not(:nth-child(6))::after{content:'→';position:absolute;right:-18px;top:50%;z-index:2;color:var(--st);font-family:var(--mono)}
+.loop-step:nth-child(4),.loop-step:nth-child(5),.loop-step:nth-child(6){direction:rtl;text-align:left}
+.loop-step:nth-child(4)::after,.loop-step:nth-child(5)::after{content:'←';left:-18px;right:auto}
+.loop-step .dn{font-size:17px}.loop-step .dd{font-size:11px}
+.loop-return{position:absolute;inset:48% -18px -18px -18px;border:1px dashed rgba(74,127,165,.32);border-top:0;border-radius:0 0 18px 18px;pointer-events:none}
+.loop-note{display:flex;justify-content:space-between;margin-top:18px;font-family:var(--mono);font-size:9px;color:var(--mu);letter-spacing:.08em}
+.synapse-map{display:grid;grid-template-columns:1fr 42px 1.25fr 42px 1fr;align-items:center;gap:8px;margin-top:22px}
+.record-stack{display:flex;flex-direction:column;gap:7px}.record{padding:9px 12px;border-radius:4px;background:var(--dm);border:1px solid var(--di);font-family:var(--mono);font-size:9px;color:var(--mu);display:flex;justify-content:space-between}.record b{color:var(--sl);font-weight:500}
+.synbrain{text-align:center;border:1px solid rgba(110,163,200,.5);border-radius:12px;padding:24px;background:radial-gradient(circle at 50% 30%,rgba(74,127,165,.17),rgba(15,17,21,.96) 65%)}
+.synbrain .dn{font-size:30px}.rank{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:18px}.rank div{font-family:var(--mono);font-size:7px;padding:7px 4px;border:1px solid rgba(74,127,165,.25);border-radius:3px;color:var(--sl)}
+.context-card{display:flex;flex-direction:column;gap:7px}.context-line{height:8px;border-radius:4px;background:var(--di);position:relative;overflow:hidden}.context-line::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--st),transparent);opacity:.7}.context-line:nth-child(2){width:84%}.context-line:nth-child(3){width:68%}.context-line:nth-child(4){width:91%}
+.writeback{grid-column:1/-1;margin-top:18px;display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px dashed rgba(110,163,200,.32);border-radius:6px;font-family:var(--mono);font-size:9px;color:var(--mu)}.writeback strong{color:var(--sl)}
+.orchestrator{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:16px;align-items:center;margin-top:22px}
+.agents{display:grid;gap:9px}.agent{background:var(--dm);border:1px solid var(--di);border-radius:6px;padding:12px 14px;display:flex;align-items:center;gap:10px}.agent-id{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:rgba(74,127,165,.13);color:var(--sl);font-family:var(--mono);font-size:9px}.agent span{font-size:12px;color:var(--ow)}
+.objective{text-align:center;border:1px solid rgba(110,163,200,.5);border-radius:14px;padding:26px 18px;background:rgba(74,127,165,.09);position:relative}.objective::before,.objective::after{content:'⇄';position:absolute;top:50%;color:var(--st);font-size:18px}.objective::before{left:-23px}.objective::after{right:-23px}.objective .dn{font-size:26px;margin:5px 0}
+.result-card{border-left:2px solid var(--st);padding:12px 14px;margin:8px 0;background:rgba(74,127,165,.06)}.result-card strong{display:block;color:var(--ow);font-size:13px}.result-card span{font-size:10px;color:var(--mu)}
+.guardrail{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}.guard{padding:20px 16px;background:var(--dm);border:1px solid var(--di);border-radius:8px;min-height:170px}.guard-num{font-family:var(--mono);font-size:9px;color:var(--st);margin-bottom:20px}.guard .dn{font-size:17px}.guard .dd{margin-top:9px}.audit{margin-top:16px;padding:13px 18px;border-radius:6px;background:rgba(74,127,165,.08);border:1px solid rgba(74,127,165,.25);display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--mu);letter-spacing:.05em}.audit b{color:var(--sl)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.proof-card{background:var(--dm);border:1px solid var(--di);border-radius:8px;padding:22px;min-height:205px}.proof-live{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:8px;color:#72c99a;letter-spacing:.12em;margin-bottom:15px}.proof-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#72c99a;box-shadow:0 0 10px #72c99a}.proof-card .dn{font-size:20px}.proof-metric{font-family:var(--mono);font-size:9px;color:var(--sl);border-top:1px solid var(--di);padding-top:13px;margin-top:16px}
+.cover-stack{position:absolute;inset:0;display:grid;place-items:center;opacity:.4;z-index:0}.cover-rings{width:min(68vw,720px);aspect-ratio:1;border:1px solid rgba(74,127,165,.18);border-radius:50%;position:relative;animation:slowspin 40s linear infinite}.cover-rings::before,.cover-rings::after{content:'';position:absolute;border:1px solid rgba(74,127,165,.25);border-radius:50%;inset:16%}.cover-rings::after{inset:32%;border-color:rgba(110,163,200,.4)}
+@keyframes slowspin{to{transform:rotate(360deg)}}
+.cover-status{margin-top:36px;display:flex;gap:8px;justify-content:center;opacity:0;animation:fup .8s ease 1.6s forwards}.status-pill{font-family:var(--mono);font-size:8px;color:var(--mu);border:1px solid var(--di);padding:6px 9px;border-radius:12px;background:rgba(10,11,13,.75)}.status-pill b{color:#72c99a;font-weight:500}
+@media(max-width:800px){.ci,.cw{width:86%;padding:52px 0}.hl{font-size:clamp(27px,7vw,44px);margin-bottom:18px}.sub{font-size:13px;margin-bottom:20px}.sysmap,.synapse-map,.orchestrator{grid-template-columns:1fr;gap:8px}.flow-arrow{transform:rotate(90deg)}.memory-base{grid-template-columns:1fr}.compare{grid-template-columns:1fr;gap:8px}.vs{display:none}.loop{grid-template-columns:1fr 1fr}.loop-step{min-height:108px}.loop-step::after,.loop-return{display:none}.guardrail,.proof-grid{grid-template-columns:1fr 1fr}.guard{min-height:130px;padding:14px}.proof-card{min-height:150px;padding:15px}.syscol{display:grid;grid-template-columns:1fr 1fr}.syscore{padding:13px}.kit-core{width:88px;height:88px}.memory-base{display:none}.chip{font-size:7px;padding:4px}.dd{font-size:9px}.dn{font-size:15px}}
+@media(max-height:760px){.ci,.cw{padding:46px 0}.hl{font-size:38px;margin-bottom:16px}.eye{margin-bottom:12px}.sysmap,.compare,.loop,.synapse-map,.orchestrator,.guardrail,.proof-grid{margin-top:14px}.dnode{padding:10px 12px}.guard{min-height:130px;padding:14px}.proof-card{min-height:165px;padding:16px}.loop-step{min-height:104px;padding:13px}.qwrap{padding:22px 28px;margin-bottom:22px}.c0-title{margin-top:28px}.c0-date{margin-top:30px}}
+/* SCHEMATIC LEGIBILITY PASS */
+.dk{font-size:10px;letter-spacing:.13em}.dn{font-size:20px}.dd{font-size:13px;line-height:1.48}.chip{font-size:10px}.syscore::before{content:'SECURE SELF-HOSTED RUNTIME';font-size:9px;top:-10px;padding:3px 8px}.compare-title{font-size:25px}.compare-title span,.mini-box{font-size:10px}.outcome{font-size:14px}.outcome strong{font-size:16px}.loop-step::before{font-size:11px;margin-bottom:9px}.loop-step .dn{font-size:19px}.loop-step .dd{font-size:13px}.loop-note{font-size:11px}.record{font-size:11px;padding:10px 12px}.rank div{font-size:9px}.writeback{font-size:11px}.agent-id{font-size:11px;width:28px;height:28px}.agent span{font-size:14px}.result-card strong{font-size:15px}.result-card span{font-size:12px}.guard-num{font-size:11px}.guard .dn{font-size:19px}.audit{font-size:10px}.proof-live{font-size:10px}.proof-card .dn{font-size:22px}.proof-metric{font-size:11px}.status-pill{font-size:10px}
+/* MEN'S VAULT DESIGN SHOWCASE */
+.designer-grid{display:grid;grid-template-columns:1.45fr .75fr;gap:20px;align-items:stretch;margin-top:18px}.vault-browser{border:1px solid #4c4336;border-radius:9px;background:#ebe5da;color:#171511;overflow:hidden;box-shadow:0 28px 70px rgba(0,0,0,.28)}.vault-bar{height:30px;background:#181713;display:flex;align-items:center;gap:5px;padding:0 11px}.vault-dot{width:6px;height:6px;border-radius:50%;background:#6c665a}.vault-url{margin-left:8px;color:#8f897d;font-family:var(--mono);font-size:8px}.vault-nav{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid rgba(23,21,17,.14)}.vault-mark{font-family:Georgia,serif;font-size:17px;letter-spacing:.14em}.vault-links{font-family:var(--mono);font-size:7px;letter-spacing:.13em;color:#665f54}.vault-hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:260px}.vault-image{position:relative;background:linear-gradient(145deg,#39362f,#171713);overflow:hidden;display:grid;place-items:center}.vault-image::before{content:'MV';font-family:Georgia,serif;font-size:118px;color:rgba(235,229,218,.08);letter-spacing:-.08em}.vault-image::after{content:'';position:absolute;width:120px;height:215px;top:28px;left:50%;transform:translateX(-50%);background:linear-gradient(100deg,#2a2925,#625d52 48%,#201f1b 52%);clip-path:polygon(28% 0,43% 8%,50% 30%,57% 8%,72% 0,100% 20%,84% 44%,81% 100%,19% 100%,16% 44%,0 20%);box-shadow:0 20px 40px rgba(0,0,0,.35)}.vault-copy{padding:28px 26px;display:flex;flex-direction:column;justify-content:center}.vault-kicker{font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:#7d6a4b;margin-bottom:14px}.vault-h{font-family:Georgia,serif;font-size:31px;line-height:1.02;font-weight:400;letter-spacing:-.02em;margin-bottom:12px}.vault-p{font-size:10px;line-height:1.55;color:#696257}.vault-cta{margin-top:17px;background:#1b1915;color:#eee8dc;padding:9px 12px;width:max-content;font-family:var(--mono);font-size:8px;letter-spacing:.1em}.design-rail{display:flex;flex-direction:column;gap:9px}.design-card{flex:1;border:1px solid var(--di);background:var(--dm);border-radius:7px;padding:14px 16px;display:grid;grid-template-columns:30px 1fr;gap:11px;align-items:center}.design-n{font-family:var(--mono);font-size:11px;color:var(--st)}.design-card strong{font-size:14px;color:var(--ow);display:block}.design-card span{font-size:11px;color:var(--mu);line-height:1.35;display:block;margin-top:3px}.designer-badge{border:1px solid rgba(110,163,200,.4);background:rgba(74,127,165,.10);border-radius:7px;padding:13px 15px;font-family:var(--mono);font-size:11px;color:var(--sl);text-align:center;letter-spacing:.05em}
+/* Real Men's Vault visual language */
+.vault-browser{border-color:#ff2d95;background:#0e0518;color:#fff;box-shadow:0 28px 70px rgba(255,45,149,.12)}.vault-bar{background:#120a1e;border-bottom:2px solid #ff2d95}.vault-dot:nth-child(1){background:#ff2d95}.vault-dot:nth-child(2){background:#b4ff00}.vault-dot:nth-child(3){background:#00e5ff}.vault-url{font-size:9px;color:#c9bfda}.vault-nav{border-bottom:1px solid rgba(255,255,255,.12);background:#0e0518}.vault-mark{font-family:'Outfit',sans-serif;font-weight:900;font-size:17px;letter-spacing:.04em;text-transform:uppercase}.vault-mark span{color:#ff2d95}.vault-links{font-size:9px;color:#c9bfda}.vault-hero{grid-template-columns:1fr 1fr}.vault-image::before,.vault-image::after{display:none}.vault-image img{width:100%;height:100%;object-fit:cover;display:block}.vault-copy{background:radial-gradient(circle at 80% 20%,rgba(255,45,149,.32),transparent 50%),radial-gradient(circle at 20% 85%,rgba(123,47,255,.38),transparent 48%),#0e0518}.vault-kicker{font-size:10px;color:#b4ff00}.vault-h{font-family:'Outfit',sans-serif;font-size:34px;font-weight:900;line-height:.94;text-transform:uppercase;color:#fff}.vault-p{font-size:13px;color:#c9bfda}.vault-cta{font-size:10px;background:#ff2d95;color:#fff;border:2px solid #0e0518;box-shadow:4px 4px 0 #b4ff00}.designer-badge{border-color:rgba(255,45,149,.5);background:linear-gradient(90deg,rgba(255,45,149,.13),rgba(180,255,0,.08));color:#fff}
+/* REVENUE PROOF */
+.revenue-proof{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch;margin-top:20px}.revenue-hero{position:relative;overflow:hidden;border:1px solid rgba(110,163,200,.48);border-radius:12px;padding:34px;background:radial-gradient(circle at 70% 28%,rgba(110,163,200,.2),transparent 42%),linear-gradient(145deg,rgba(74,127,165,.15),rgba(15,17,21,.98));display:flex;flex-direction:column;justify-content:center}.revenue-hero::after{content:'$';position:absolute;right:-12px;bottom:-76px;font-size:330px;font-weight:900;line-height:1;color:rgba(110,163,200,.045)}.revenue-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:var(--sl);margin-bottom:14px}.revenue-number{font-size:clamp(78px,10vw,148px);font-weight:900;line-height:.82;letter-spacing:-.065em;color:var(--ow);position:relative;z-index:1}.revenue-number span{color:var(--sl)}.revenue-copy{max-width:520px;margin-top:22px;font-size:18px;line-height:1.42;color:var(--ow);position:relative;z-index:1}.revenue-copy b{color:var(--sl)}.revenue-note{margin-top:24px;padding-top:15px;border-top:1px solid rgba(110,163,200,.25);font-family:var(--mono);font-size:10px;letter-spacing:.09em;color:var(--mu);position:relative;z-index:1}.value-path{display:flex;flex-direction:column;gap:10px}.value-step{flex:1;display:grid;grid-template-columns:42px 1fr;gap:13px;align-items:center;border:1px solid var(--di);border-radius:8px;background:var(--dm);padding:17px}.value-icon{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(110,163,200,.4);background:rgba(74,127,165,.12);font-family:var(--mono);font-size:10px;color:var(--sl)}.value-step strong{display:block;font-size:16px;color:var(--ow);margin-bottom:4px}.value-step span{display:block;font-size:12px;line-height:1.45;color:var(--mu)}.value-arrow{text-align:center;color:var(--st);font-family:var(--mono);font-size:14px;line-height:1}
+/* SOUL + PERSONALITY */
+.soul-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:18px;margin-top:16px}.soul-engine{border:1px solid rgba(110,163,200,.42);border-radius:12px;padding:18px;background:radial-gradient(circle at 50% 36%,rgba(74,127,165,.18),rgba(15,17,21,.96) 62%)}.soul-orbit{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;position:relative}.soul-core{grid-column:1/-1;width:126px;height:126px;margin:0 auto 8px;border-radius:50%;display:grid;place-items:center;text-align:center;border:1px solid var(--sl);background:radial-gradient(circle,rgba(110,163,200,.28),rgba(42,80,112,.05) 68%);box-shadow:0 0 46px rgba(74,127,165,.2)}.soul-core strong{font-size:25px;line-height:.9}.soul-core span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--sl);margin-top:6px}.soul-trait{border:1px solid var(--di);border-radius:6px;padding:10px 12px;background:rgba(20,24,32,.88)}.soul-trait b{font-family:var(--mono);font-size:10px;color:var(--sl);letter-spacing:.09em}.soul-trait span{display:block;font-size:12px;color:var(--mu);margin-top:3px}.natural-loop{display:flex;align-items:center;gap:6px;margin-top:12px;flex-wrap:wrap}.loop-chip{font-family:var(--mono);font-size:9px;color:var(--ow);border:1px solid rgba(74,127,165,.35);border-radius:3px;padding:6px 8px;background:rgba(74,127,165,.07)}.loop-arr{font-family:var(--mono);font-size:12px;color:var(--st)}.why-soul{display:grid;grid-template-columns:1fr 1fr;gap:10px}.why-card{min-height:112px;padding:15px;border:1px solid var(--di);background:var(--dm);border-radius:7px}.why-card .dn{font-size:17px}.why-card .dd{font-size:12px}.ontology{grid-column:1/-1;border:1px solid rgba(110,163,200,.3);border-radius:7px;padding:13px 15px;background:rgba(74,127,165,.06)}.ontology-title{font-family:var(--mono);font-size:10px;color:var(--sl);letter-spacing:.1em;margin-bottom:9px}.ontology-graph{display:flex;align-items:center;justify-content:space-between;gap:6px}.onto-node{font-size:12px;font-weight:600;color:var(--ow);padding:7px 9px;border-radius:4px;background:var(--dm);border:1px solid var(--di)}.onto-link{color:var(--st);font-family:var(--mono);font-size:13px}.msft-embed{grid-column:1/-1;margin-top:12px;border-radius:8px;border:1px solid rgba(110,163,200,.35);background:linear-gradient(90deg,rgba(74,127,165,.12),rgba(15,17,21,.96));padding:13px 16px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}.msft-copy .dn{font-size:16px}.msft-copy .dd{font-size:12px;margin-top:3px}.msft-apps{display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap}.msft-app{font-family:var(--mono);font-size:10px;color:var(--ow);padding:7px 9px;border-radius:4px;border:1px solid var(--di);background:rgba(10,11,13,.65)}
+@media(max-width:800px){.dk{font-size:9px}.dn{font-size:17px}.dd{font-size:11px}.chip{font-size:9px}.designer-grid{grid-template-columns:1fr}.design-rail{display:grid;grid-template-columns:1fr 1fr}.vault-hero{min-height:210px}.vault-h{font-size:24px}.vault-image::after{height:165px;width:95px}.design-card{padding:9px;min-height:70px}.designer-badge{grid-column:1/-1}}
+@media(max-width:800px){.soul-layout{grid-template-columns:1fr}.soul-core{width:92px;height:92px}.soul-core strong{font-size:20px}.soul-trait{padding:7px}.why-card{min-height:90px;padding:10px}.msft-embed{grid-template-columns:1fr}.msft-apps{justify-content:flex-start}.ontology-graph{flex-wrap:wrap;justify-content:flex-start}}
+@media(max-width:800px){.revenue-proof{grid-template-columns:1fr}.revenue-hero{padding:24px}.revenue-number{font-size:76px}.revenue-copy{font-size:15px}.value-step{padding:12px}.value-arrow{display:none}}
+@media(max-width:800px){.k-layout{grid-template-columns:1fr}.k-chart{min-height:300px}.operator-window{display:grid;grid-template-columns:1fr 1fr}.operator-callout{padding:14px}.operator-callout strong{font-size:20px}.skill-stack{padding:13px}.skill-row{font-size:10px;padding:5px 0}}
+@media(max-width:800px){.voice-layout{grid-template-columns:.62fr 1.38fr}.voice-product{padding:14px}.voice-tile{width:126px;height:126px;border-radius:28px}.voice-k{font-size:66px}.voice-wave{bottom:16px}.voice-name{font-size:17px}.voice-feature{min-height:88px;padding:10px}.voice-feature .dn{font-size:14px}.voice-feature .dd{font-size:10px}.street-flow{grid-template-columns:1fr 20px 1fr 20px 1fr}.street-node{padding:8px}.street-node span{font-size:8px}}
+</style>
+</head>
+<body>
+<div id="bar" style="width:0%"></div>
+<div id="brand">Meet <span>Kit</span></div>
+<div id="counter"><span id="cn">01</span> / <span id="ct">12</span></div>
+<div id="phint"><strong>PRESENTER MODE</strong><br>← → Arrow keys to navigate<br>Click dots to jump</div>
+<div id="dots"></div>
+
+<div id="deck">
+
+<!-- CH 0: COVER -->
+<section class="ch active" id="ch0">
+<div class="cover-stack" aria-hidden="true"><div class="cover-rings"></div></div>
+<div class="c0-inner">
+<div class="c0-eye">AxiomStream Group presents</div>
+<div class="c0-logo">Meet <span class="s">Kit</span></div>
+<div class="c0-title">The <strong>Custom Super Agent</strong></div>
+<div class="c0-tag">Persistent memory · Connected tools · Coordinated execution</div>
+<div class="cover-status"><span class="status-pill"><b>●</b> ALWAYS ON</span><span class="status-pill"><b>●</b> SYNAPSE CONNECTED</span><span class="status-pill"><b>●</b> MODEL-AGNOSTIC · FABLE 5</span></div>
+</div>
+</section>
+
+<!-- CH 1: THE AI GAP -->
+<section class="ch" id="ch1">
+<div class="ci">
+<div class="eye">01 — The AI Gap</div>
+<h2 class="hl">A chatbot gives you an answer.<br><span style="color:var(--st)">Kit carries the work forward.</span></h2>
+<div class="compare diagram">
+<div class="compare-side bad">
+<div class="compare-title"><span>Generic AI</span>Every session starts over.</div>
+<div class="mini-flow"><div class="mini-box">EXPLAIN</div><div class="flow-arrow">→</div><div class="mini-box">PROMPT</div><div class="flow-arrow">→</div><div class="mini-box">ANSWER</div></div>
+<div class="outcome"><strong>The user remains the operating system.</strong>Find the context. Move the files. Update the records. Chase the follow-up. Repeat tomorrow.</div>
+</div>
+<div class="vs">VS.</div>
+<div class="compare-side good">
+<div class="compare-title"><span>Kit</span>Every cycle compounds.</div>
+<div class="mini-flow"><div class="mini-box">RECALL</div><div class="flow-arrow">→</div><div class="mini-box">PLAN</div><div class="flow-arrow">→</div><div class="mini-box">ACT</div></div>
+<div class="outcome"><strong>Kit becomes the operating layer.</strong>Persistent context, connected tools, accountable execution, and a memory of what happened.</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- OPERATOR LEVERAGE -->
+<section class="ch" id="ch-leverage">
+<div class="ci">
+<div class="eye">02 — The Operator Divide</div>
+<h2 class="hl" style="margin-bottom:4px">The advantage will not go to people who use AI.<br><span style="color:var(--st)">It will go to people who operate it.</span></h2>
+<p class="sub" style="margin-bottom:0;max-width:840px">This is a chance to begin building profound leverage—but the operator path demands real, sustained upskilling.</p>
+<div class="k-layout diagram">
+<div class="k-chart" role="img" aria-label="K-shaped chart showing AI operators gaining relative leverage over time while task-level AI users lose relative leverage">
+<svg viewBox="0 0 820 430" aria-hidden="true">
+<defs>
+<marker id="arrowUp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6EA3C8"/></marker>
+<marker id="arrowDown" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#666b7d"/></marker>
+</defs>
+<line class="k-axis" x1="82" y1="372" x2="82" y2="48"/>
+<line class="k-axis" x1="82" y1="215" x2="762" y2="215"/>
+<line class="k-base" x1="175" y1="215" x2="750" y2="215"/>
+<path class="k-up" d="M175 215 C315 204 445 132 742 64" marker-end="url(#arrowUp)"/>
+<path class="k-down" d="M175 215 C315 226 445 298 742 366" marker-end="url(#arrowDown)"/>
+<circle class="k-origin" cx="175" cy="215" r="8"/>
+<text class="k-svg-label" x="148" y="243">NOW</text>
+<text class="k-svg-label" x="684" y="410">TIME →</text>
+<text class="k-svg-label" transform="translate(24 286) rotate(-90)">RELATIVE LEVERAGE</text>
+<text class="k-svg-title up" x="475" y="156">AI OPERATORS</text>
+<text class="k-svg-copy" x="475" y="179">systems · judgment · memory · outcomes</text>
+<text class="k-svg-title" x="475" y="348">AI USERS</text>
+<text class="k-svg-copy" x="475" y="371">prompts · outputs · resets · repeat</text>
+</svg>
+</div>
+<div class="operator-window">
+<div class="operator-callout"><div class="dk">The operator window</div><strong>Start now.<br>Let it compound.</strong><p>Each workflow encoded, decision remembered, and outcome verified becomes leverage the next cycle inherits.</p></div>
+<div class="skill-stack"><h4>Not negligible upskilling</h4><div class="skill-row"><span>01</span> Frame objectives</div><div class="skill-row"><span>02</span> Design context</div><div class="skill-row"><span>03</span> Orchestrate tools + agents</div><div class="skill-row"><span>04</span> Set boundaries</div><div class="skill-row"><span>05</span> Verify outcomes</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 2: COMPLETE ARCHITECTURE -->
+<section class="ch" id="ch2">
+<div class="ci">
+<div class="eye">03 — The Complete System</div>
+<h2 class="hl" style="margin-bottom:6px">One operator across the business.</h2>
+<p class="sub" style="margin-bottom:0">Kit runs continuously inside a secure, self-hosted runtime—receiving work, assembling context, coordinating intelligence, taking action, and delivering results.</p>
+<div class="sysmap diagram">
+<div class="syscol">
+<div class="dnode"><div class="dk">Inbound channels</div><div class="dn">Your Team</div><div class="chip-row" style="margin-top:10px"><span class="chip">SLACK</span><span class="chip">SIGNAL</span><span class="chip">EMAIL</span><span class="chip">VOICE</span><span class="chip">SMS</span></div></div>
+<div class="dnode"><div class="dk">Sender gate</div><div class="dn">Identity + Scope</div><div class="dd">Loads only the context and permissions appropriate to the person.</div></div>
+</div>
+<div class="flow-arrow">→</div>
+<div class="syscore">
+<div class="kit-core"><div class="dk">Persistent operator</div><div class="dn">KIT</div></div>
+<div class="engine">
+<div class="dnode"><div class="dk">Model-agnostic reasoning</div><div class="dn">Fable 5</div><div class="dd">Showcase model · swap without rebuilding Kit</div></div>
+<div class="dnode"><div class="dk">Orchestration</div><div class="dn">Tools · Agents · Cron</div></div>
+</div>
+</div>
+<div class="flow-arrow">→</div>
+<div class="syscol">
+<div class="dnode"><div class="dk">Connected action</div><div class="dn">Your Systems</div><div class="chip-row" style="margin-top:10px"><span class="chip">WEB</span><span class="chip">FILES</span><span class="chip">GITHUB</span><span class="chip">VERCEL</span><span class="chip">CRM</span></div></div>
+<div class="dnode"><div class="dk">Multi-channel delivery</div><div class="dn">Completed Outcomes</div><div class="dd">Messages, briefs, files, updates, deployments, reminders, and next actions.</div></div>
+</div>
+<div class="memory-base"><div><div class="dk">Long-term brain</div><div class="memory-name">SYNAPSE</div></div><div class="memory-flow"></div><div class="dd">Relevant context up<br>Decisions + outcomes back</div></div>
+</div>
+</div>
+</section>
+
+<!-- KIT VOICE APP -->
+<section class="ch" id="ch-voice">
+<div class="ci">
+<div class="eye">04 — Kit Voice</div>
+<h2 class="hl" style="margin-bottom:4px">The fastest way to reach your operator<br><span style="color:var(--st)">is to speak.</span></h2>
+<p class="sub" style="margin-bottom:0;max-width:850px">The Voice Companion is full Kit—its personality, context, memory, tools, and approval discipline—inside a natural conversation.</p>
+<div class="voice-layout diagram">
+<div class="voice-product">
+<div class="voice-tile" aria-label="Kit Voice Companion app tile"><div class="voice-k">K</div><div class="voice-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="voice-name">Kit Voice Companion</div>
+<div class="voice-build">NATIVE iOS · BUILD 53</div>
+<div class="voice-live">● VAPI LIVE · ELEVENLABS VOICE</div>
+</div>
+<div class="voice-right">
+<div class="voice-features">
+<div class="voice-feature"><div class="dk">Natural interface</div><div class="dn">Talk—don’t prompt</div><div class="dd">A responsive spoken conversation in Kit’s recognizable voice, ready when hands and eyes are busy.</div></div>
+<div class="voice-feature"><div class="dk">Identity-aware</div><div class="dn">Knows who is speaking</div><div class="dd">PIN and sender scope load the right client, role, permissions, and relationship context.</div></div>
+<div class="voice-feature"><div class="dk">Connected execution</div><div class="dn">Conversation becomes action</div><div class="dd">Research, drafts, follow-ups, and tool-assisted work can begin in voice—with approval where consequence demands it.</div></div>
+<div class="voice-feature"><div class="dk">One Kit, many surfaces</div><div class="dn">Continue the thread</div><div class="dd">Voice joins Slack and other approved channels around the same operating identity and durable memory.</div></div>
+</div>
+<div class="context-street">
+<div class="street-title"><span>THE TWO-WAY CONTEXT STREET</span><span>SYNAPSE ⇄ VOICE</span></div>
+<div class="street-flow">
+<div class="street-node"><strong>Context flows in</strong><span>People · relationships · project history · decisions · open items</span></div>
+<div class="street-arrow">→</div>
+<div class="street-node"><strong>Speak with Kit</strong><span>Intent · nuance · questions · corrections · commitments</span></div>
+<div class="street-arrow">→</div>
+<div class="street-node"><strong>Memory flows back</strong><span>New facts · decisions · deliverables · follow-ups · next actions</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 3: OPERATING LOOP -->
+<section class="ch tabled" id="ch3" aria-hidden="true">
+<div class="ci">
+<div class="eye">03 — The Kit Operating Loop</div>
+<h2 class="hl" style="margin-bottom:4px">From request to result—without losing the thread.</h2>
+<div class="diagram" style="position:relative">
+<div class="loop">
+<div class="loop-step"><div class="dn">Request</div><div class="dd">A person gives Kit an objective through an approved channel.</div></div>
+<div class="loop-step"><div class="dn">Identify</div><div class="dd">Kit resolves the sender, entities, project, and access scope.</div></div>
+<div class="loop-step"><div class="dn">Recall</div><div class="dd">Synapse retrieves semantic + recency-ranked context.</div></div>
+<div class="loop-step"><div class="dn">Remember</div><div class="dd">Facts, decisions, deliverables, corrections, and open items return to Synapse.</div></div>
+<div class="loop-step"><div class="dn">Deliver</div><div class="dd">Kit returns the outcome, verification, and next best action.</div></div>
+<div class="loop-step"><div class="dn">Plan + Act</div><div class="dd">Kit coordinates tools, specialists, approvals, and execution.</div></div>
+</div>
+<div class="loop-return"></div>
+<div class="loop-note"><span>HUMAN APPROVAL AT CONSEQUENTIAL ACTIONS</span><span>THE NEXT CYCLE STARTS AHEAD</span></div>
+</div>
+</div>
+</section>
+
+<!-- CH 4: SYNAPSE -->
+<section class="ch" id="ch4">
+<div class="ci">
+<div class="eye">05 — Synapse: Kit’s Long-Term Brain</div>
+<h2 class="hl" style="margin-bottom:4px">Memory that survives the conversation.</h2>
+<div class="synapse-map diagram">
+<div class="record-stack">
+<div class="record"><span>FACT</span><b>WHAT IS TRUE</b></div>
+<div class="record"><span>DECISION</span><b>WHAT WE CHOSE</b></div>
+<div class="record"><span>DELIVERABLE</span><b>WHAT SHIPPED</b></div>
+<div class="record"><span>OPEN ITEM</span><b>WHAT IS NEXT</b></div>
+<div class="record"><span>EXCHANGE</span><b>WHAT WAS SAID</b></div>
+</div>
+<div class="flow-arrow">→</div>
+<div class="synbrain">
+<div class="dk">Supabase · PostgreSQL · pgvector</div>
+<div class="dn">SYNAPSE</div>
+<div class="dd">Persistent, searchable organizational memory.<br>Zero LLM calls per write.</div>
+<div class="rank"><div>SEMANTIC</div><div>RECENCY</div><div>SCOPE</div></div>
+</div>
+<div class="flow-arrow">→</div>
+<div class="dnode accent context-card"><div class="dk">Session context injection</div><div class="dn">Only what matters now</div><div class="context-line"></div><div class="context-line"></div><div class="context-line"></div><div class="context-line"></div><div class="dd">Clever Compact preserves state before compression and restores it at the next start.</div></div>
+<div class="writeback"><strong>WRITE-BACK LOOP</strong><span>Every decision · deliverable · deployment · correction · new fact · subagent return · open item</span><span style="margin-left:auto;color:var(--sl)">← KIT</span></div>
+</div>
+</div>
+</section>
+
+<!-- CH 5: ORCHESTRATION -->
+<section class="ch" id="ch5">
+<div class="ci">
+<div class="eye">06 — Why “Super Agent”</div>
+<h2 class="hl" style="margin-bottom:4px">You give Kit the objective.<br><span style="color:var(--st)">Kit coordinates the intelligence.</span></h2>
+<div class="orchestrator diagram">
+<div class="agents">
+<div class="agent"><div class="agent-id">R</div><span>Research + web intelligence</span></div>
+<div class="agent"><div class="agent-id">A</div><span>Analysis + decision support</span></div>
+<div class="agent"><div class="agent-id">B</div><span>Build + implementation</span></div>
+<div class="agent"><div class="agent-id">Q</div><span>Quality + verification</span></div>
+</div>
+<div class="objective">
+<div class="dk">Main operating thread</div><div class="dn">KIT</div><div class="dd">Decomposes the objective, delegates only when useful, monitors every return, resolves conflicts, and preserves the result in Synapse.</div>
+<div class="chip-row" style="justify-content:center;margin-top:15px"><span class="chip">PARALLEL</span><span class="chip">ISOLATED</span><span class="chip">POLICY-FILTERED</span></div>
+</div>
+<div>
+<div class="result-card"><strong>One coherent result</strong><span>Specialists return to Kit—not to the user.</span></div>
+<div class="result-card"><strong>Shared memory</strong><span>Completed work writes back to Synapse.</span></div>
+<div class="result-card"><strong>Failure handling</strong><span>Timeouts surface; critical issues escalate.</span></div>
+<div class="result-card"><strong>Token discipline</strong><span>No delegation when Kit can do it directly.</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 6: ALWAYS ON -->
+<section class="ch tabled" id="ch6" aria-hidden="true">
+<div class="ci">
+<div class="eye">06 — Always-On Operations</div>
+<h2 class="hl" style="margin-bottom:8px">Kit works on your clock—and between requests.</h2>
+<div class="loop diagram">
+<div class="loop-step"><div class="dk">07:00 · Scheduled</div><div class="dn">Monitor</div><div class="dd">Recurring jobs check inboxes, systems, and operational state.</div></div>
+<div class="loop-step"><div class="dk">09:15 · Requested</div><div class="dn">Prepare</div><div class="dd">A customer brief arrives with history, signals, risks, and open commitments.</div></div>
+<div class="loop-step"><div class="dk">11:30 · Triggered</div><div class="dn">Coordinate</div><div class="dd">Kit routes actions, prepares approvals, and keeps every thread connected.</div></div>
+<div class="loop-step"><div class="dk">16:45 · Verified</div><div class="dn">Close</div><div class="dd">Outcomes are checked, delivered, logged, and converted into next actions.</div></div>
+<div class="loop-step"><div class="dk">14:00 · Parallel</div><div class="dn">Execute</div><div class="dd">Specialists research, build, analyze, or test in isolated sessions.</div></div>
+<div class="loop-step"><div class="dk">12:05 · Approved</div><div class="dn">Act</div><div class="dd">Messages send, records update, files publish, and schedules change.</div></div>
+</div>
+<div class="loop-note"><span>CRON · HEARTBEATS · WAKE EVENTS</span><span>24/7 DEDICATED RUNTIME</span></div>
+</div>
+</section>
+
+<!-- CH 7: CONTROL -->
+<section class="ch" id="ch7">
+<div class="ci">
+<div class="eye">07 — Safe, Scoped, Accountable</div>
+<h2 class="hl" style="margin-bottom:4px">Autonomy where it helps.<br><span style="color:var(--st)">Human control where it matters.</span></h2>
+<div class="guardrail diagram">
+<div class="guard"><div class="guard-num">01 · IDENTITY</div><div class="dn">Sender Gate</div><div class="dd">Every inbound request is matched to a known person and conversation.</div></div>
+<div class="guard"><div class="guard-num">02 · CONTEXT</div><div class="dn">Scoped Memory</div><div class="dd">Each sender receives only allowlisted context appropriate to their role.</div></div>
+<div class="guard"><div class="guard-num">03 · ACTION</div><div class="dn">Tool Policy</div><div class="dd">The secure runtime filters what Kit and every specialist are permitted to call.</div></div>
+<div class="guard"><div class="guard-num">04 · CONSEQUENCE</div><div class="dn">Approval Gates</div><div class="dd">Elevated, destructive, or external actions pause for explicit review.</div></div>
+</div>
+<div class="audit"><b>VERIFIABLE OPERATING RECORD</b><span>REQUEST</span><span>CONTEXT USED</span><span>ACTION PROPOSED</span><span>APPROVAL</span><span>RESULT</span><span>SYNAPSE WRITE</span></div>
+</div>
+</section>
+
+<!-- CH 8: PRODUCTION -->
+<section class="ch" id="ch8">
+<div class="ci">
+<div class="eye">08 — Measurable Client Impact</div>
+<h2 class="hl" style="margin-bottom:4px">Kit is not waiting for<br><span style="color:var(--st)">a future use case.</span></h2>
+<div class="revenue-proof diagram">
+<div class="revenue-hero">
+<div class="revenue-kicker">Revenue generated by clients using Kit</div>
+<div class="revenue-number"><span>$1M</span>+</div>
+<div class="revenue-copy">More than one million dollars in client revenue has been generated by organizations using Kit.</div>
+<div class="revenue-note">ACROSS CLIENT PROGRAMS · INCLUDING GAME OF HOMES</div>
+</div>
+<div class="value-path">
+<div class="value-step"><div class="value-icon">01</div><div><strong>Find the opportunity</strong><span>Research, pattern recognition, and commercial context sharpen where the team focuses.</span></div></div>
+<div class="value-arrow">↓</div>
+<div class="value-step"><div class="value-icon">02</div><div><strong>Build the experience</strong><span>Kit turns the objective into campaigns, products, workflows, and customer journeys.</span></div></div>
+<div class="value-arrow">↓</div>
+<div class="value-step"><div class="value-icon">03</div><div><strong>Compound the result</strong><span>Feedback and outcomes return to Synapse, improving the next commercial cycle.</span></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 9: AI DESIGNER -->
+<section class="ch" id="ch9">
+<div class="ci">
+<div class="eye">09 — Kit, a Next-Generation AI Designer</div>
+<h2 class="hl" style="margin-bottom:4px">From business intent to<br><span style="color:var(--st)">designed, working product.</span></h2>
+<div class="designer-grid diagram">
+<div class="vault-browser" aria-label="The Men's Vault live pickleball apparel site showcase">
+<div class="vault-bar"><span class="vault-dot"></span><span class="vault-dot"></span><span class="vault-dot"></span><a class="vault-url" href="https://themensvault.com/" target="_blank" rel="noopener">themensvault.com · live ↗</a></div>
+<div class="vault-nav"><div class="vault-mark">THE MEN’S <span>VAULT</span></div><div class="vault-links">SHOP&nbsp;&nbsp;&nbsp; SLEEVES&nbsp;&nbsp;&nbsp; TEAM KITS</div></div>
+<div class="vault-hero"><div class="vault-image"><img src="images/mens-vault-neon.jpg" alt="Men's Vault neon pickleball apparel on court"/></div><div class="vault-copy"><div class="vault-kicker">QUIET HANDS. LOUD EVERYTHING ELSE.</div><div class="vault-h">If your shirt whispers, you’re doing it wrong.</div><div class="vault-p">Obnoxiously loud pickleball apparel, wild prints, tatted sleeves, and team kits—translated into a complete commerce experience.</div><div class="vault-cta">SHOP THE DROP →</div></div></div>
+</div>
+<div class="design-rail">
+<div class="design-card"><div class="design-n">01</div><div><strong>Interpret the brief</strong><span>Audience, ambition, positioning, and conversion objective.</span></div></div>
+<div class="design-card"><div class="design-n">02</div><div><strong>Build the visual world</strong><span>Art direction, typography, hierarchy, voice, and interaction.</span></div></div>
+<div class="design-card"><div class="design-n">03</div><div><strong>Engineer the experience</strong><span>Responsive interface, content system, behavior, and accessibility.</span></div></div>
+<div class="design-card"><div class="design-n">04</div><div><strong>Ship and improve</strong><span>Production delivery, verification, feedback, and remembered decisions.</span></div></div>
+<div class="designer-badge">LIVE SITE · KIT + FABLE&nbsp;&nbsp;|&nbsp;&nbsp; NATIVE APP · CODEX</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 10: SOUL + PERSONALITY -->
+<section class="ch" id="ch10">
+<div class="ci">
+<div class="eye">10 — Oh, By the Way…</div>
+<h2 class="hl" style="margin-bottom:2px">Kit has <span style="color:var(--st)">soul.</span> And personality.</h2>
+<p class="sub" style="margin-bottom:0">Not a robotic persona pasted on top—a living operating identity that becomes more naturally yours through context, relationships, feedback, and time.</p>
+<div class="soul-layout diagram">
+<div class="soul-engine">
+<div class="soul-orbit">
+<div class="soul-core"><div><strong>KIT</strong><span>SOUL + PERSONALITY</span></div></div>
+<div class="soul-trait"><b>VOICE</b><span>How Kit speaks and listens</span></div>
+<div class="soul-trait"><b>VALUES</b><span>What Kit protects and prioritizes</span></div>
+<div class="soul-trait"><b>TASTE</b><span>What “good” looks like here</span></div>
+<div class="soul-trait"><b>BOUNDARIES</b><span>Where Kit pauses and asks</span></div>
+</div>
+<div class="natural-loop"><span class="loop-chip">ENCOUNTER</span><span class="loop-arr">→</span><span class="loop-chip">UNDERSTAND</span><span class="loop-arr">→</span><span class="loop-chip">ACT</span><span class="loop-arr">→</span><span class="loop-chip">FEEDBACK</span><span class="loop-arr">→</span><span class="loop-chip">REMEMBER</span><span class="loop-arr">↻</span></div>
+</div>
+<div class="why-soul">
+<div class="why-card"><div class="dk">Why it matters</div><div class="dn">People actually use it</div><div class="dd">A recognizable voice lowers friction and turns an unfamiliar system into a trusted working relationship.</div></div>
+<div class="why-card"><div class="dk">Continuity</div><div class="dn">The relationship persists</div><div class="dd">Kit remembers preferences, corrections, decisions, and the way each person works.</div></div>
+<div class="why-card"><div class="dk">Judgment</div><div class="dn">Context changes the answer</div><div class="dd">The same request can produce a different response for a different client, role, moment, or risk.</div></div>
+<div class="why-card"><div class="dk">Compounding fit</div><div class="dn">More yours over time</div><div class="dd">Natural work loops continuously tune Kit without forcing people to become prompt engineers.</div></div>
+<div class="ontology"><div class="ontology-title">ONTOLOGY GRAPH · KIT UNDERSTANDS RELATIONSHIPS, NOT JUST DOCUMENTS</div><div class="ontology-graph"><span class="onto-node">PEOPLE</span><span class="onto-link">↔</span><span class="onto-node">COMPANIES</span><span class="onto-link">↔</span><span class="onto-node">PROJECTS</span><span class="onto-link">↔</span><span class="onto-node">DECISIONS</span><span class="onto-link">↔</span><span class="onto-node">OUTCOMES</span></div></div>
+</div>
+<div class="msft-embed"><div class="msft-copy"><div class="dk">Embedded where work already happens</div><div class="dn">Kit can live inside Microsoft 365.</div><div class="dd">Permission-aware access through the Microsoft ecosystem—without forcing the team into another destination.</div></div><div class="msft-apps"><span class="msft-app">TEAMS</span><span class="msft-app">OUTLOOK</span><span class="msft-app">SHAREPOINT</span><span class="msft-app">ONEDRIVE</span><span class="msft-app">WORD</span><span class="msft-app">EXCEL</span><span class="msft-app">POWERPOINT</span></div></div>
+</div>
+</div>
+</section>
+
+<!-- CH 11: START -->
+<section class="ch" id="ch11">
+<div class="ask-inner">
+<div class="ask-eye">11 — Meet Your Kit</div>
+<div class="ask-hl">Start with<br><strong>one workflow.</strong><br>Build from proof.</div>
+<div class="ask-sub">Choose a high-value objective. Connect the context. Put Kit to work.</div>
+<div class="ask-email">jfulmines@axiomstreamgroup.com</div>
+<div class="ask-url">axiomstreamgroup.com</div>
+<div class="ask-note">Custom to your business · Built with your team · Designed to compound</div>
+</div>
+</section>
+
+</div><!-- /deck -->
+
+<script>
+// Slides 4 (Operating Loop) and 7 (Always-On Operations) are retained in source
+// but tabled from the live presentation for now.
+const chapters=document.querySelectorAll('.ch:not(.tabled)');
+const dotsEl=document.getElementById('dots');
+const counter=document.getElementById('cn');
+const total=document.getElementById('ct');
+const bar=document.getElementById('bar');
+const labels=['Meet Kit','The AI Gap','Operator Leverage','Architecture','Kit Voice','Synapse Memory','Orchestration','Control','Client Impact','AI Designer','Soul + Personality','Start'];
+let cur=0,locked=false;
+total.textContent=String(chapters.length).padStart(2,'0');
+
+// Build dots
+labels.forEach((l,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' on':'');
+  d.innerHTML=`<span class="dlbl">${l}</span>`;
+  d.onclick=()=>goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function goTo(n,dir){
+  if(locked||n===cur||n<0||n>=chapters.length)return;
+  locked=true;
+  const prev=cur;
+  chapters[prev].classList.add(dir==='up'?'exit-up':'exit-dn');
+  setTimeout(()=>chapters[prev].classList.remove('active','exit-up','exit-dn'),500);
+  cur=n;
+  chapters[cur].classList.add('active');
+  dotsEl.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===cur));
+  counter.textContent=String(cur+1).padStart(2,'0');
+  bar.style.width=((cur/(chapters.length-1))*100)+'%';
+  triggerChapter(cur);
+  setTimeout(()=>locked=false,800);
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='ArrowRight')goTo(cur+1,'up');
+  if(e.key==='ArrowUp'||e.key==='ArrowLeft')goTo(cur-1,'dn');
+});
+
+let t0=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();
+  if(now-t0<900)return;t0=now;
+  if(e.deltaY>30)goTo(cur+1,'up');
+  if(e.deltaY<-30)goTo(cur-1,'dn');
+},{passive:true});
+
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientY,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dy=tx-e.changedTouches[0].clientY;
+  if(Math.abs(dy)>50){if(dy>0)goTo(cur+1,'up');else goTo(cur-1,'dn');}
+},{passive:true});
+
+function triggerChapter(){/* diagrams are complete when their slide becomes active */}
+
+triggerChapter(0);
+</script>
+</body>
+</html>
