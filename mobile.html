@@ -111,7 +111,8 @@ body{font-family:var(--sans);background:var(--dp);color:var(--ow);font-size:17px
 .tm-g{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
 @media(max-width:600px){.tm-g{grid-template-columns:1fr}}
 .tm-c{display:flex;gap:20px;padding:24px;background:var(--wh);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.tm-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--nv),var(--ch));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:20px;font-weight:600;color:var(--ow);overflow:hidden;padding:0}
+.tm-av{width:80px;height:80px;min-width:80px;border-radius:50%;background:linear-gradient(135deg,var(--nv),var(--ch));flex-shrink:0;display:block;overflow:hidden;padding:0;position:relative}
+.tm-av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
 .tm-info h4{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:4px}
 .tm-info p{font-size:13px;color:#666;line-height:1.6}
 .tm-adv{grid-column:1/-1;padding:28px;background:var(--ink);border-radius:12px;color:var(--ow)}
@@ -335,19 +336,19 @@ footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
 <div class="ear sa"><span>The Operators</span></div>
 <h2 class="sh sa" style="color:var(--ink);margin-bottom:8px">Not consultants.<br>Operators.</h2>
 <p class="sa" style="color:#666;font-size:16px;margin-bottom:24px">We've built products, scaled teams, and shipped code at companies from Amazon to startups.</p>
-<div class="sa" style="border-radius:12px;overflow:hidden;margin-bottom:32px;max-height:320px">
+<div style="border-radius:12px;overflow:hidden;margin-bottom:32px;max-height:320px">
 <img src="images/workshop-both.jpg" alt="JJ Fulmines and Ben Booher" style="width:100%;height:320px;object-fit:cover;object-position:center top;display:block"/>
 </div>
 <div class="tm-g">
-<div class="tm-c sa">
-<div class="tm-av" style="padding:0;overflow:hidden"><img src="images/jj.jpg" alt="JJ Fulmines" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
+<div class="tm-c">
+<div class="tm-av"><img src="images/jj.jpg" alt="JJ Fulmines" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
 <div class="tm-info">
 <h4>JJ Fulmines</h4>
 <p>Founder. Former Amazon, Capital One, Asurion. Built products used by millions. Now building growth infrastructure for firms that move fast.</p>
 </div>
 </div>
-<div class="tm-c sa">
-<div class="tm-av" style="padding:0;overflow:hidden"><img src="images/ben.jpg" alt="Ben Booher" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
+<div class="tm-c">
+<div class="tm-av"><img src="images/ben.jpg" alt="Ben Booher" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
 <div class="tm-info">
 <h4>Ben Booher</h4>
 <p>Head of Client Delivery. Enterprise sales veteran. Turns complex engagements into executed outcomes.</p>
