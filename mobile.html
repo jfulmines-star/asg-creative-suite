@@ -26,7 +26,7 @@ body{font-family:var(--sans);background:var(--dp);color:var(--ow);font-size:17px
 .mob-btn span{display:block;width:22px;height:2px;background:var(--ow);margin:4px 0;transition:all .25s}
 @media(max-width:768px){.nl{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(10,11,13,.98);flex-direction:column;padding:32px 24px;gap:20px;border-bottom:1px solid var(--bd)}.nl.open{display:flex}.mob-btn{display:block}}
 /* HERO */
-#hero{min-height:100svh;background:var(--dp);display:flex;align-items:center;position:relative;overflow:hidden;padding:100px 0 60px}
+#hero{min-height:100svh;background:var(--dp);display:flex;align-items:center;position:relative;overflow:hidden;padding:100px 0 60px;isolation:isolate}
 .hero-orb{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 10%,transparent 70%);opacity:.4;z-index:1}
 .hi{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 20px}
@@ -50,7 +50,7 @@ body{font-family:var(--sans);background:var(--dp);color:var(--ow);font-size:17px
 .thesis-t{font-size:clamp(20px,3vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1.3}
 .thesis-s{margin-top:12px;font-size:15px;color:var(--tm)}
 /* OPERATOR MODEL */
-#method{background:var(--ch);padding:80px 0}
+#method{background:var(--ch);padding:80px 0;position:relative}
 .mh{margin-bottom:48px}
 .sh{font-size:clamp(26px,4vw,46px);font-weight:700;letter-spacing:-.025em;line-height:1.15}
 .mg{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--bd)}
@@ -91,7 +91,7 @@ body{font-family:var(--sans);background:var(--dp);color:var(--ow);font-size:17px
 .pct{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--tm);text-decoration:none;transition:color .15s}
 .pct:hover{color:var(--ow)}
 /* SIGNAL FEED */
-#signal{background:var(--dp);padding:80px 0}
+#signal{background:var(--dp);padding:80px 0;position:relative;overflow:hidden}
 .sfw{position:relative;height:280px;overflow:hidden;border:1px solid var(--bd);border-radius:10px;background:var(--dk)}
 .sfw::before,.sfw::after{content:'';position:absolute;left:0;right:0;height:80px;z-index:2;pointer-events:none}
 .sfw::before{top:0;background:linear-gradient(to bottom,var(--dk),transparent)}
@@ -107,11 +107,11 @@ body{font-family:var(--sans);background:var(--dp);color:var(--ow);font-size:17px
 .sgn{margin-top:16px;font-family:var(--mono);font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--tl)}
 .sgn span{color:var(--ac)}
 /* TEAM */
-#team{background:var(--pp);padding:80px 0}
+#team{background:var(--pp);padding:80px 0;position:relative}
 .tm-g{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
 @media(max-width:600px){.tm-g{grid-template-columns:1fr}}
 .tm-c{display:flex;gap:20px;padding:24px;background:var(--wh);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.tm-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--nv),var(--ch));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:20px;font-weight:600;color:var(--ow)}
+.tm-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--nv),var(--ch));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:20px;font-weight:600;color:var(--ow);overflow:hidden;padding:0}
 .tm-info h4{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:4px}
 .tm-info p{font-size:13px;color:#666;line-height:1.6}
 .tm-adv{grid-column:1/-1;padding:28px;background:var(--ink);border-radius:12px;color:var(--ow)}
@@ -327,10 +327,17 @@ footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
 </section>
 
 <section id="team">
-<div class="wrap">
+<div style="position:absolute;inset:0;z-index:0;display:flex">
+<div style="flex:1;overflow:hidden"><img src="images/stage-jj.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.08;filter:grayscale(.3)"/></div>
+<div style="flex:1;overflow:hidden"><img src="images/stage-ben.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.08;filter:grayscale(.3)"/></div>
+</div>
+<div class="wrap" style="position:relative;z-index:1">
 <div class="ear sa"><span>The Operators</span></div>
 <h2 class="sh sa" style="color:var(--ink);margin-bottom:8px">Not consultants.<br>Operators.</h2>
-<p class="sa" style="color:#666;font-size:16px;margin-bottom:0">We've built products, scaled teams, and shipped code at companies from Amazon to startups.</p>
+<p class="sa" style="color:#666;font-size:16px;margin-bottom:24px">We've built products, scaled teams, and shipped code at companies from Amazon to startups.</p>
+<div class="sa" style="border-radius:12px;overflow:hidden;margin-bottom:32px;max-height:320px">
+<img src="images/workshop-both.jpg" alt="JJ Fulmines and Ben Booher" style="width:100%;height:320px;object-fit:cover;object-position:center top;display:block"/>
+</div>
 <div class="tm-g">
 <div class="tm-c sa">
 <div class="tm-av" style="padding:0;overflow:hidden"><img src="images/jj.jpg" alt="JJ Fulmines" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
@@ -349,6 +356,7 @@ footer{background:var(--dp);padding:48px 0 36px;border-top:1px solid var(--bd)}
 <div class="tm-adv sa">
 <h4>Advisory Bench</h4>
 <p>Senior executives from investment banking, Fortune 100 marketing, and enterprise technology. When the engagement requires specialized firepower, we bring it.</p>
+</div>
 </div>
 </div>
 </div>
