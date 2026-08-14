@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "src": "/status",
+      "dest": "/status.html"
+    },
+    {
+      "src": "/status/(.*)",
+      "dest": "/status.html"
+    }
+  ]
+}
