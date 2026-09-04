@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Kit Benchmark — Real Tasks, Real Models, Real Numbers</title>
+<meta name="description" content="AxiomStream Group runs its actual client task types head-to-head across frontier models. No synthetic puzzles. The work Kit does every day."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--blk:#0A0B0D;--dk:#0F1115;--dm:#141820;--st:#4A7FA5;--sl:#6EA3C8;--sd:#2A5070;--ow:#EFEFEF;--mu:#8A8FA5;--di:#3A3F55;--sans:'Outfit',sans-serif;--mono:'JetBrains Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow:hidden;height:100%}
+body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;overflow:hidden;user-select:none}
+#deck{position:fixed;inset:0;width:100vw;height:100vh}
+.ch{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(40px) scale(.98);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1);pointer-events:none;overflow:hidden}
+.ch.active{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
+.ch.exit-up{opacity:0;transform:translateY(-36px) scale(.98);transition:opacity .45s ease,transform .45s ease}
+.ch.exit-dn{opacity:0;transform:translateY(36px) scale(.98);transition:opacity .45s ease,transform .45s ease}
+#dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:9px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--di);cursor:pointer;transition:all .3s;position:relative}
+.dot:hover{background:var(--sl);transform:scale(1.4)}
+.dot.on{background:var(--st);transform:scale(1.3)}
+.dot .dlbl{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:var(--dm);color:var(--ow);font-family:var(--mono);font-size:9px;padding:3px 7px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;border:1px solid var(--di);letter-spacing:.05em}
+.dot:hover .dlbl{opacity:1}
+#counter{position:fixed;bottom:24px;left:32px;z-index:100;font-family:var(--mono);font-size:11px;color:var(--di);letter-spacing:.10em}
+#counter span{color:var(--st)}
+#phint{position:fixed;bottom:24px;right:52px;z-index:100;font-family:var(--mono);font-size:9px;color:var(--di);letter-spacing:.08em;text-align:right;line-height:1.7}
+#phint strong{color:var(--sd)}
+#bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--sd),var(--sl));z-index:101;transition:width .6s cubic-bezier(.16,1,.3,1)}
+#brand{position:fixed;top:24px;left:32px;z-index:100;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.18em;text-transform:uppercase}
+#brand span{color:var(--st)}
+.ci{max-width:1100px;width:90%;padding:60px 0}
+.cw{max-width:1100px;width:90%}
+.eye{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--st);text-transform:uppercase;margin-bottom:20px}
+.hl{font-family:var(--sans);font-weight:700;font-size:clamp(34px,4.5vw,66px);color:var(--ow);letter-spacing:-.025em;line-height:1.1;margin-bottom:28px}
+.sub{font-family:var(--sans);font-weight:300;font-size:clamp(15px,1.5vw,20px);color:var(--mu);line-height:1.75;max-width:640px;margin-bottom:44px}
+#ch0{background:var(--blk)}
+.cover-stack{position:absolute;inset:0;display:grid;place-items:center;opacity:.4;z-index:0}
+.cover-rings{width:min(68vw,720px);aspect-ratio:1;border:1px solid rgba(74,127,165,.18);border-radius:50%;position:relative;animation:slowspin 40s linear infinite}
+.cover-rings::before,.cover-rings::after{content:'';position:absolute;border:1px solid rgba(74,127,165,.25);border-radius:50%;inset:16%}
+.cover-rings::after{inset:32%;border-color:rgba(110,163,200,.4)}
+@keyframes slowspin{to{transform:rotate(360deg)}}
+.c0-inner{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center}
+.c0-eye{font-family:var(--mono);font-size:10px;letter-spacing:.32em;color:var(--st);text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fup .8s ease .5s forwards}
+.c0-logo{font-family:var(--sans);font-weight:900;font-size:clamp(38px,5.5vw,76px);color:var(--ow);letter-spacing:-.03em;line-height:1;opacity:0;animation:fup .9s ease .7s forwards}
+.c0-logo .s{color:var(--st)}
+.c0-title{margin-top:48px;font-family:var(--sans);font-weight:200;font-size:clamp(18px,2.6vw,38px);color:var(--ow);letter-spacing:-.01em;line-height:1.2;opacity:0;animation:fup .9s ease 1s forwards}
+.c0-title strong{font-weight:700;color:var(--sl)}
+.c0-tag{margin-top:24px;font-family:var(--mono);font-size:11px;color:var(--mu);letter-spacing:.18em;text-transform:uppercase;opacity:0;animation:fup .8s ease 1.3s forwards}
+.c0-date{margin-top:52px;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.22em;text-transform:uppercase;opacity:0;animation:fup .8s ease 1.6s forwards}
+@keyframes fup{to{opacity:1;transform:translateY(0)}}
+.c0-eye,.c0-logo,.c0-title,.c0-tag,.c0-date{transform:translateY(12px)}
+.cover-status{margin-top:36px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fup .8s ease 1.6s forwards}
+.status-pill{font-family:var(--mono);font-size:8px;color:var(--mu);border:1px solid var(--di);padding:6px 9px;border-radius:12px;background:rgba(10,11,13,.75)}
+.status-pill b{color:#72c99a;font-weight:500}
+#ch1{background:var(--blk)}
+.compare{display:grid;grid-template-columns:1fr 60px 1fr;gap:16px;align-items:stretch;margin-top:28px}
+.compare-side{border-radius:10px;padding:24px;border:1px solid var(--di);position:relative;overflow:hidden}
+.compare-side.bad{background:linear-gradient(145deg,rgba(224,80,80,.07),rgba(15,17,21,.95))}
+.compare-side.good{background:linear-gradient(145deg,rgba(74,127,165,.13),rgba(15,17,21,.95));border-color:rgba(110,163,200,.42)}
+.compare-title{font-size:20px;font-weight:700;margin-bottom:16px}
+.compare-title span{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;display:block;color:var(--mu);margin-bottom:6px}
+.vs{align-self:center;text-align:center;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.1em}
+.outcome{margin-top:14px;padding-top:12px;border-top:1px solid var(--di);font-size:12px;line-height:1.55;color:var(--mu)}
+.outcome strong{display:block;color:var(--ow);font-size:14px;margin-bottom:4px}
+/* TEST GRID */
+#ch-testgrid{background:var(--dk)}
+.bench-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.bench-card{display:flex;gap:14px;align-items:flex-start;background:rgba(74,127,165,.05);border:1px solid var(--di);border-radius:8px;padding:18px}
+.bench-n{font-family:var(--mono);font-size:13px;color:var(--st);flex-shrink:0}
+.bench-card strong{display:block;font-size:14px;color:var(--ow);margin-bottom:4px}
+.bench-card span{font-size:11px;color:var(--mu)}
+/* PER-TEST COMPARISON */
+.bench-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.model-col{border:1px solid var(--di);border-radius:10px;background:var(--dm);padding:18px;display:flex;flex-direction:column;gap:10px}
+.model-head{display:flex;flex-direction:column;gap:2px;border-bottom:1px solid var(--di);padding-bottom:10px}
+.model-provider{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
+.model-head strong{font-size:15px;color:var(--ow)}
+.model-metrics{display:flex;gap:12px;font-family:var(--mono);font-size:11px;color:var(--sl)}
+.model-output{font-size:11.5px;line-height:1.55;color:var(--mu);max-height:220px;overflow:hidden}
+/* SUMMARY / SCOREBOARD */
+#ch-scoreboard{background:var(--blk)}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.score-card{border:1px solid var(--di);border-radius:10px;background:var(--dm);padding:24px;position:relative;overflow:hidden}
+.score-card.win::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sd),var(--sl))}
+.score-provider{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:6px}
+.score-name{font-size:20px;font-weight:700;color:var(--ow);margin-bottom:18px}
+.score-row{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid rgba(58,63,85,.5);font-size:12px}
+.score-row:first-of-type{border-top:0}
+.score-row span:first-child{color:var(--mu)}
+.score-row span:last-child{color:var(--ow);font-family:var(--mono)}
+/* BOTTOM LINE */
+#ch-verdict{background:var(--dk)}
+.verdict-stmt{font-family:var(--sans);font-weight:700;font-size:clamp(24px,3.2vw,44px);color:var(--ow);letter-spacing:-.02em;line-height:1.25;max-width:840px;margin-bottom:44px}
+.verdict-stmt .hi{color:var(--sl)}
+.verdict-rows{display:flex;flex-direction:column;gap:14px}
+.vrow{display:flex;align-items:flex-start;gap:14px}
+.vi{width:34px;height:34px;border-radius:50%;background:rgba(74,127,165,.12);border:1px solid rgba(74,127,165,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-family:var(--mono);color:var(--sl)}
+.vt{font-family:var(--sans);font-weight:600;font-size:16px;color:var(--ow);margin-bottom:4px}
+.vd{font-size:13px;color:var(--mu);line-height:1.6}
+/* ASK */
+#ch-ask{background:var(--blk)}
+.ask-inner{text-align:center;max-width:760px}
+.ask-eye{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--st);text-transform:uppercase;margin-bottom:28px}
+.ask-hl{font-family:var(--sans);font-weight:200;font-size:clamp(30px,4.5vw,64px);color:var(--ow);letter-spacing:-.025em;line-height:1.15;margin-bottom:12px}
+.ask-hl strong{font-weight:900;color:var(--sl)}
+.ask-sub{font-family:var(--mono);font-size:12px;color:var(--mu);letter-spacing:.12em;margin-bottom:48px;text-transform:uppercase}
+.ask-email{font-family:var(--mono);font-size:clamp(14px,1.8vw,22px);color:var(--sl);letter-spacing:.06em;margin-bottom:8px}
+.ask-url{font-family:var(--mono);font-size:13px;color:var(--di);letter-spacing:.08em}
+.ask-note{margin-top:44px;font-family:var(--mono);font-size:10px;color:var(--di);letter-spacing:.14em;text-transform:uppercase}
+.diagram{width:100%;position:relative}
+@media(max-width:800px){.ci,.cw{width:86%;padding:52px 0}.hl{font-size:clamp(27px,7vw,44px);margin-bottom:18px}.sub{font-size:13px;margin-bottom:20px}.compare{grid-template-columns:1fr;gap:8px}.vs{display:none}.bench-grid{grid-template-columns:1fr}.bench-cols{grid-template-columns:1fr}.score-grid{grid-template-columns:1fr}}
+@media(max-height:760px){.ci,.cw{padding:46px 0}.hl{font-size:38px;margin-bottom:16px}.eye{margin-bottom:12px}}
+</style>
+</head>
+<body>
+<div id="bar" style="width:0%"></div>
+<div id="brand">The Kit <span>Benchmark</span></div>
+<div id="counter"><span id="cn">01</span> / <span id="ct">1</span></div>
+<div id="phint"><strong>PRESENTER MODE</strong><br>← → Arrow keys to navigate<br>Click dots to jump</div>
+<div id="dots"></div>
+
+<div id="deck">
+
+<!-- CH 0: COVER -->
+<section class="ch active" id="ch0">
+<div class="cover-stack" aria-hidden="true"><div class="cover-rings"></div></div>
+<div class="c0-inner">
+<div class="c0-eye">AxiomStream Group presents</div>
+<div class="c0-logo">The Kit <span class="s">Benchmark</span></div>
+<div class="c0-title">Real tasks. Real models.<br><strong>Real numbers.</strong></div>
+<div class="c0-tag">No synthetic puzzles. The actual work Kit does every day.</div>
+<div class="cover-status">
+<span class="status-pill"><b>●</b> 6 REAL TASK TYPES</span>
+<span class="status-pill"><b>●</b> 3 FRONTIER MODELS</span>
+<span class="status-pill"><b>●</b> ZERO SPONSORED RESULTS</span>
+</div>
+</div>
+</section>
+
+<!-- CH 1: THE PROBLEM WITH BENCHMARKS -->
+<section class="ch" id="ch1">
+<div class="ci">
+<div class="eye">01 — Why We Built This</div>
+<h2 class="hl">Most AI benchmarks test coding puzzles.<br><span style="color:var(--st)">Nobody benchmarks the work that actually ships.</span></h2>
+<div class="compare diagram">
+<div class="compare-side bad">
+<div class="compare-title"><span>Standard Benchmarks</span>Measure the wrong thing</div>
+<div class="outcome"><strong>Trivia, math puzzles, coding katas.</strong>Impressive scores that tell you nothing about whether a model can write a client deliverable a real person will actually read and trust.</div>
+</div>
+<div class="vs">VS.</div>
+<div class="compare-side good">
+<div class="compare-title"><span>The Kit Benchmark</span>Measure the real thing</div>
+<div class="outcome"><strong>Executive summaries. Financial translation. Strategic tone.</strong>The exact task categories Kit runs for clients every week — scored on accuracy, clarity, cost, and speed.</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH: TEST GRID -->
+<section class="ch" id="ch-testgrid">
+<div class="ci">
+<div class="eye">02 — The Test Suite</div>
+<h2 class="hl" style="margin-bottom:6px">Six real ASG task types.<br><span style="color:var(--st)">Three frontier models. One shot each.</span></h2>
+<p class="sub" style="margin-bottom:0">No retries. No cherry-picking. Every model answered the identical prompt once, cold.</p>
+<div class="bench-grid diagram">
+<div class="bench-card"><div class="bench-n">01</div><div><strong>Executive Risk Summary</strong><span>Client Deliverable Writing</span></div></div>
+<div class="bench-card"><div class="bench-n">02</div><div><strong>Financial Formula Explanation</strong><span>Technical Translation</span></div></div>
+<div class="bench-card"><div class="bench-n">03</div><div><strong>Strategic Comparison Table</strong><span>Decision Framework</span></div></div>
+<div class="bench-card"><div class="bench-n">04</div><div><strong>Direct Client-Facing Tone</strong><span>Brand Voice Match</span></div></div>
+<div class="bench-card"><div class="bench-n">05</div><div><strong>Structured Data Extraction</strong><span>Data Processing</span></div></div>
+<div class="bench-card"><div class="bench-n">06</div><div><strong>Code Review — Find the Bug</strong><span>Technical QA</span></div></div>
+
+</div>
+</div>
+</section>
+
+
+<!-- BENCHMARK TEST: Executive Risk Summary -->
+<section class="ch" id="ch-test-exec_summary">
+<div class="ci">
+<div class="eye">03 — Client Deliverable Writing</div>
+<h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Executive Risk Summary</h2>
+<p class="sub" style="margin-bottom:0;max-width:820px">A field services company has 88,000 jobs tracked in a database their sole database admin built and maintained for 8 years. The admin just left with no documentation and no successor. The system runs b…</p>
+<div class="bench-cols diagram">
+
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
+<div class="model-metrics"><span>3.0s</span><span>$0.00171</span></div>
+<div class="model-output">Our entire billing, payroll, and invoicing system runs on a database that only one person understood, and that person just left without leaving any instructions. This means if the system breaks, has an error, or needs a change, we may have no way to fix it quickly, which could de…</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
+<div class="model-metrics"><span>7.4s</span><span>$0.00225</span></div>
+<div class="model-output"># Executive Risk Summary: Critical Database System  Your company's entire billing, payroll, and customer invoicing system runs on a single database that only one person fully understood, and that person is now gone with no instructions left behind. This means if anything breaks o…</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
+<div class="model-metrics"><span>5.3s</span><span>$0.00040</span></div>
+<div class="model-output">Our only database manager has left after eight years, leaving behind zero instructions on how to run or fix our system. This system automatically handles our customer billing and employee payroll, meaning a single technical glitch could instantly stop our incoming revenue and pay…</div>
+</div>
+</div>
+</div>
+</section>
+<!-- BENCHMARK TEST: Financial Formula Explanation -->
+<section class="ch" id="ch-test-formula_explain">
+<div class="ci">
+<div class="eye">04 — Technical Translation</div>
+<h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Financial Formula Explanation</h2>
+<p class="sub" style="margin-bottom:0;max-width:820px">Explain this business formula in one plain-English sentence a non-technical business owner would understand: Adjusted Payout % = (Total Invoiced to Customer - Total Adjusted Cost) / Total Invoiced to …</p>
+<div class="bench-cols diagram">
+
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
+<div class="model-metrics"><span>2.9s</span><span>$0.00166</span></div>
+<div class="model-output">**In plain English:** This formula shows you what percentage of what you billed a customer is actual profit, but it gives you a more honest picture by leaving out one-time equipment purchases (since those are unusual expenses that would unfairly make a normal job look less profit…</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
+<div class="model-metrics"><span>2.2s</span><span>$0.00097</span></div>
+<div class="model-output">**Adjusted Payout % tells you what percentage of your customer billing you actually keep as revenue after subtracting your ongoing service costs — ignoring any one-time equipment purchases that would otherwise make your margins look artificially low.**</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
+<div class="model-metrics"><span>5.0s</span><span>$0.00021</span></div>
+<div class="model-output">This percentage shows how much of a customer's payment you keep after subtracting your regular business costs, ignoring one-time equipment purchases to give you a clearer picture of your ongoing profit margin.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- BENCHMARK TEST: Strategic Comparison Table -->
+<section class="ch" id="ch-test-hire_vs_vendor">
+<div class="ci">
+<div class="eye">05 — Decision Framework</div>
+<h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Strategic Comparison Table</h2>
+<p class="sub" style="margin-bottom:0;max-width:820px">A business owner needs to decide between hiring a full-time database administrator ($95K/year, 60-90 days to hire, 3-6 months to ramp up) versus contracting an outside firm (start this week, flat mont…</p>
+<div class="bench-cols diagram">
+
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
+<div class="model-metrics"><span>5.2s</span><span>$0.00291</span></div>
+<div class="model-output">Given the choice between a 60-90 day hiring cycle plus months of ramp-up versus starting this week, contract with an outside firm now—speed and immediate team-based coverage outweigh the long-term cost savings of a full-time hire, especially since database issues left unaddressed…</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
+<div class="model-metrics"><span>7.7s</span><span>$0.00360</span></div>
+<div class="model-output">**Hire the outside firm now, and revisit full-time hiring in 12-18 months.**  The combined timeline of 60-90 days to hire plus 3-6 months to ramp up means you're looking at nearly nine months before a full-time DBA is fully productive, and whatever database problems you have toda…</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
+<div class="model-metrics"><span>5.2s</span><span>$0.00051</span></div>
+<div class="model-output">You should immediately contract the outside database administration firm rather than attempting to hire an in-house resource. Waiting up to nine months to find and fully ramp up a single employee exposes your systems to immediate, unacceptable operational risk. The outside firm m…</div>
+</div>
+</div>
+</div>
+</section>
+<!-- BENCHMARK TEST: Direct Client-Facing Tone -->
+<section class="ch" id="ch-test-client_tone">
+<div class="ci">
+<div class="eye">06 — Brand Voice Match</div>
+<h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Direct Client-Facing Tone</h2>
+<p class="sub" style="margin-bottom:0;max-width:820px">Rewrite this sentence to be direct, confident, and free of corporate jargon, in the voice of a sharp operator (not a salesperson): 'We believe that our team would be uniquely positioned to potentially…</p>
+<div class="bench-cols diagram">
+
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
+<div class="model-metrics"><span>3.5s</span><span>$0.00177</span></div>
+<div class="model-output">**"We can make your operations more efficient. Here's how."**  Or, if you want a bit more edge:  **"We know how to cut waste from your operations. Let's talk specifics."**  The original sentence hedges everything — "believe," "potentially," "uniquely positioned" — which signals y…</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
+<div class="model-metrics"><span>2.2s</span><span>$0.00086</span></div>
+<div class="model-output">Here's the rewrite:  "We can fix your operations and make them faster and cheaper."  That's it. The original sentence used nine hedges and qualifiers to say one simple thing.</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
+<div class="model-metrics"><span>5.8s</span><span>$0.00011</span></div>
+<div class="model-output">**"We can streamline your operations and make them run much tighter."**</div>
+</div>
+</div>
+</div>
+</section>
+<!-- BENCHMARK TEST: Structured Data Extraction -->
+<section class="ch" id="ch-test-data_extraction">
+<div class="ci">
+<div class="eye">07 — Data Processing</div>
+<h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Structured Data Extraction</h2>
+<p class="sub" style="margin-bottom:0;max-width:820px">Extract the following as valid JSON with keys 'system', 'owner', 'risk_level': 'Quickbase: TBD' from a departing employee's handoff document, where all other systems (M365, Adobe, Smartsheet) were ass…</p>
+<div class="bench-cols diagram">
+
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
+<div class="model-metrics"><span>1.8s</span><span>$0.00070</span></div>
+<div class="model-output">```json {   "system": "Quickbase",   "owner": "TBD",   "risk_level": "TBD" } ```</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
+<div class="model-metrics"><span>1.3s</span><span>$0.00074</span></div>
+<div class="model-output">```json {"system": "Quickbase", "owner": "TBD", "risk_level": "high"} ```</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
+<div class="model-metrics"><span>3.7s</span><span>$0.00019</span></div>
+<div class="model-output">{   "system": "Quickbase",   "owner": "TBD",   "risk_level": "High" }</div>
+</div>
+</div>
+</div>
+</section>
+<!-- BENCHMARK TEST: Code Review — Find the Bug -->
+<section class="ch" id="ch-test-code_review">
+<div class="ci">
+<div class="eye">08 — Technical QA</div>
+<h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Code Review — Find the Bug</h2>
+<p class="sub" style="margin-bottom:0;max-width:820px">Find the bug in this TypeScript snippet and explain the fix in one sentence:
+
+try {
+  const loopFinal = await loopRes.json();
+  const usage = loopFinal?.usage;
+} catch (e) { console.error(e); }
+
+Note:…</p>
+<div class="bench-cols diagram">
+
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
+<div class="model-metrics"><span>4.2s</span><span>$0.00312</span></div>
+<div class="model-output">**Bug:** `loopRes` is undefined in the enclosing scope, so calling `loopRes.json()` will throw a `ReferenceError` at runtime (this is likely a typo or leftover from copied code, referencing a variable that doesn't exist).  **Fix:** Define `loopRes` by assigning it the result of t…</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
+<div class="model-metrics"><span>8.4s</span><span>$0.00632</span></div>
+<div class="model-output">## Bug Identified  The bug is a **ReferenceError** caused by `loopRes` being undefined/out of scope.  ```typescript // ❌ Buggy Code try {   const loopFinal = await loopRes.json(); // ReferenceError: loopRes is not defined   const usage = loopFinal?.usage; } catch (e) { console.er…</div>
+</div>
+<div class="model-col">
+<div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
+<div class="model-metrics"><span>2.7s</span><span>$0.00025</span></div>
+<div class="model-output">The bug is that `loopRes` is used without being declared, which can be fixed by defining it (for example, via `const loopRes = await fetch(url);`) before calling `.json()` on it.</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SCOREBOARD -->
+<section class="ch" id="ch-scoreboard">
+<div class="ci">
+<div class="eye">09 — The Scoreboard</div>
+<h2 class="hl" style="margin-bottom:6px">Across all 6 tasks, here's what it cost<br><span style="color:var(--st)">and how long it took.</span></h2>
+<p class="sub" style="margin-bottom:0">Same prompts. Same day. Same measurement method for every model.</p>
+<div class="score-grid diagram">
+<div class="score-card win">
+<div class="score-provider">Anthropic</div>
+<div class="score-name">Sonnet 5</div>
+<div class="score-row"><span>Total cost (6 tasks)</span><span>$0.01187</span></div>
+<div class="score-row"><span>Avg response time</span><span>3.4s</span></div>
+<div class="score-row"><span>Errors</span><span>0 / 6</span></div>
+<div class="score-row"><span>Price per M tokens</span><span>$2 / $10 per M tok</span></div>
+</div>
+<div class="score-card">
+<div class="score-provider">Anthropic</div>
+<div class="score-name">Sonnet 4.6</div>
+<div class="score-row"><span>Total cost (6 tasks)</span><span>$0.01473</span></div>
+<div class="score-row"><span>Avg response time</span><span>4.8s</span></div>
+<div class="score-row"><span>Errors</span><span>0 / 6</span></div>
+<div class="score-row"><span>Price per M tokens</span><span>$3 / $15 per M tok</span></div>
+</div>
+<div class="score-card win">
+<div class="score-provider">Google</div>
+<div class="score-name">Gemini 3.5 Flash</div>
+<div class="score-row"><span>Total cost (6 tasks)</span><span>$0.00168</span></div>
+<div class="score-row"><span>Avg response time</span><span>4.6s</span></div>
+<div class="score-row"><span>Errors</span><span>0 / 6</span></div>
+<div class="score-row"><span>Price per M tokens</span><span>$0.75 / $4.50 per M tok</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- VERDICT -->
+<section class="ch" id="ch-verdict">
+<div class="ci">
+<div class="eye">10 — The Verdict</div>
+<div class="verdict-stmt">Sonnet 5 replaced Sonnet 4.6 as Kit's default — <span class="hi">19% cheaper</span> and measurably sharper on the same tasks.<br>Gemini 3.5 Flash earned a role too — <span class="hi">86% cheaper</span> than Sonnet 5 for lighter-weight work.</div>
+<div class="verdict-rows diagram">
+<div class="vrow"><div class="vi">01</div><div><div class="vt">Sonnet 5 is now Kit's default</div><div class="vd">Cheaper and more capable than 4.6 on every test in this suite. No reason to stay on the old model.</div></div></div>
+<div class="vrow"><div class="vi">02</div><div><div class="vt">Gemini 3.5 Flash earns a routing role</div><div class="vd">Strong writing quality at roughly a third of the cost — a real candidate for quick lookups and first-draft content, not for architecture or client strategy.</div></div></div>
+<div class="vrow"><div class="vi">03</div><div><div class="vt">Cost isn't the only signal</div><div class="vd">The cheapest model that gets the job done wins — but "gets the job done" has to be verified per task type, not assumed from a price sheet.</div></div></div>
+<div class="vrow"><div class="vi">04</div><div><div class="vt">This is a living benchmark</div><div class="vd">New frontier models ship weekly. ASG re-runs this suite whenever a new model clears the bar — cheaper or better, stable API, worth the swap.</div></div></div>
+</div>
+</div>
+</section>
+
+<!-- ASK -->
+<section class="ch" id="ch-ask">
+<div class="ask-inner">
+<div class="ask-eye">11 — Model-Agnostic By Design</div>
+<div class="ask-hl">Kit isn't married<br>to <strong>one model.</strong></div>
+<div class="ask-sub">The right model for the task, verified — not assumed.</div>
+<div class="ask-email">jfulmines@axiomstreamgroup.com</div>
+<div class="ask-url">axiomstreamgroup.com</div>
+<div class="ask-note">Independently run · September 2026 · No vendor sponsorship</div>
+</div>
+</section>
+
+</div><!-- /deck -->
+
+<script>
+const chapters=document.querySelectorAll('.ch');
+const dotsEl=document.getElementById('dots');
+const counter=document.getElementById('cn');
+const total=document.getElementById('ct');
+const bar=document.getElementById('bar');
+let cur=0,locked=false;
+total.textContent=String(chapters.length).padStart(2,'0');
+
+chapters.forEach((c,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' on':'');
+  d.innerHTML=`<span class="dlbl">Slide ${i+1}</span>`;
+  d.onclick=()=>goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function goTo(n,dir){
+  if(locked||n===cur||n<0||n>=chapters.length)return;
+  locked=true;
+  const prev=cur;
+  chapters[prev].classList.add(dir==='up'?'exit-up':'exit-dn');
+  setTimeout(()=>chapters[prev].classList.remove('active','exit-up','exit-dn'),500);
+  cur=n;
+  chapters[cur].classList.add('active');
+  dotsEl.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===cur));
+  counter.textContent=String(cur+1).padStart(2,'0');
+  bar.style.width=((cur/(chapters.length-1))*100)+'%';
+  setTimeout(()=>locked=false,800);
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='ArrowRight')goTo(cur+1,'up');
+  if(e.key==='ArrowUp'||e.key==='ArrowLeft')goTo(cur-1,'dn');
+});
+
+let t0=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();
+  if(now-t0<900)return;t0=now;
+  if(e.deltaY>30)goTo(cur+1,'up');
+  if(e.deltaY<-30)goTo(cur-1,'dn');
+},{passive:true});
+
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientY,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dy=tx-e.changedTouches[0].clientY;
+  if(Math.abs(dy)>50){if(dy>0)goTo(cur+1,'up');else goTo(cur-1,'dn');}
+},{passive:true});
+</script>
+</body>
+</html>
