@@ -79,7 +79,9 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 .model-provider{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
 .model-head strong{font-size:15px;color:var(--ow)}
 .model-metrics{display:flex;gap:12px;font-family:var(--mono);font-size:11px;color:var(--sl)}
-.model-output{font-size:11.5px;line-height:1.55;color:var(--mu);max-height:220px;overflow:hidden}
+.model-output{font-size:10.5px;line-height:1.5;color:var(--mu);max-height:340px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--di) transparent}
+.model-output::-webkit-scrollbar{width:4px}
+.model-output::-webkit-scrollbar-thumb{background:var(--di);border-radius:2px}
 /* SUMMARY / SCOREBOARD */
 #ch-scoreboard{background:var(--blk)}
 .score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
@@ -183,23 +185,23 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <div class="ci">
 <div class="eye">03 — Client Deliverable Writing</div>
 <h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Executive Risk Summary</h2>
-<p class="sub" style="margin-bottom:0;max-width:820px">A field services company has 88,000 jobs tracked in a database their sole database admin built and maintained for 8 years. The admin just left with no documentation and no successor. The system runs b…</p>
+<p class="sub" style="margin-bottom:0;max-width:820px">A field services company has 88,000 jobs tracked in a database their sole database admin built and maintained for 8 years. The admin just left with no documentation and no successor. The system runs billing, payroll inputs, and customer invoicing automatically. Write a 3-sentence executive risk summary for the CEO in plain English, 8th grade reading level.</p>
 <div class="bench-cols diagram">
 
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
 <div class="model-metrics"><span>3.0s</span><span>$0.00171</span></div>
-<div class="model-output">Our entire billing, payroll, and invoicing system runs on a database that only one person understood, and that person just left without leaving any instructions. This means if the system breaks, has an error, or needs a change, we may have no way to fix it quickly, which could de…</div>
+<div class="model-output">Our entire billing, payroll, and invoicing system runs on a database that only one person understood, and that person just left without leaving any instructions. This means if the system breaks, has an error, or needs a change, we may have no way to fix it quickly, which could delay paychecks, bills, and invoices for our 88,000 tracked jobs. We need to immediately find someone to study the system, document how it works, and create a backup plan before a small problem turns into a major business disruption.</div>
 </div>
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
 <div class="model-metrics"><span>7.4s</span><span>$0.00225</span></div>
-<div class="model-output"># Executive Risk Summary: Critical Database System  Your company's entire billing, payroll, and customer invoicing system runs on a single database that only one person fully understood, and that person is now gone with no instructions left behind. This means if anything breaks o…</div>
+<div class="model-output"># Executive Risk Summary: Critical Database System  Your company's entire billing, payroll, and customer invoicing system runs on a single database that only one person fully understood, and that person is now gone with no instructions left behind. This means if anything breaks or needs to be changed, no one currently on staff knows how to fix it, and 88,000 job records plus your ability to pay employees and bill customers could be at serious risk. You need to hire an outside database expert immediately to study and document the system before something goes wrong, because right now your business is one technical failure away from a serious financial and operational crisis.</div>
 </div>
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
 <div class="model-metrics"><span>5.3s</span><span>$0.00040</span></div>
-<div class="model-output">Our only database manager has left after eight years, leaving behind zero instructions on how to run or fix our system. This system automatically handles our customer billing and employee payroll, meaning a single technical glitch could instantly stop our incoming revenue and pay…</div>
+<div class="model-output">Our only database manager has left after eight years, leaving behind zero instructions on how to run or fix our system. This system automatically handles our customer billing and employee payroll, meaning a single technical glitch could instantly stop our incoming revenue and paychecks. Because we have no replacement and no documentation, the company is at extreme risk of a major business shutdown if any part of the system fails.</div>
 </div>
 </div>
 </div>
@@ -209,13 +211,13 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <div class="ci">
 <div class="eye">04 — Technical Translation</div>
 <h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Financial Formula Explanation</h2>
-<p class="sub" style="margin-bottom:0;max-width:820px">Explain this business formula in one plain-English sentence a non-technical business owner would understand: Adjusted Payout % = (Total Invoiced to Customer - Total Adjusted Cost) / Total Invoiced to …</p>
+<p class="sub" style="margin-bottom:0;max-width:820px">Explain this business formula in one plain-English sentence a non-technical business owner would understand: Adjusted Payout % = (Total Invoiced to Customer - Total Adjusted Cost) / Total Invoiced to Customer, where Total Adjusted Cost excludes one-time equipment purchases.</p>
 <div class="bench-cols diagram">
 
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
 <div class="model-metrics"><span>2.9s</span><span>$0.00166</span></div>
-<div class="model-output">**In plain English:** This formula shows you what percentage of what you billed a customer is actual profit, but it gives you a more honest picture by leaving out one-time equipment purchases (since those are unusual expenses that would unfairly make a normal job look less profit…</div>
+<div class="model-output">**In plain English:** This formula shows you what percentage of what you billed a customer is actual profit, but it gives you a more honest picture by leaving out one-time equipment purchases (since those are unusual expenses that would unfairly make a normal job look less profitable than it really is).  **Even simpler:** It's your true profit margin on a job, calculated after removing one-time equipment costs so you can see how profitable your ongoing, regular work actually is.</div>
 </div>
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
@@ -235,23 +237,23 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <div class="ci">
 <div class="eye">05 — Decision Framework</div>
 <h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Strategic Comparison Table</h2>
-<p class="sub" style="margin-bottom:0;max-width:820px">A business owner needs to decide between hiring a full-time database administrator ($95K/year, 60-90 days to hire, 3-6 months to ramp up) versus contracting an outside firm (start this week, flat mont…</p>
+<p class="sub" style="margin-bottom:0;max-width:820px">A business owner needs to decide between hiring a full-time database administrator ($95K/year, 60-90 days to hire, 3-6 months to ramp up) versus contracting an outside firm (start this week, flat monthly fee, team-based coverage). Write a 4-sentence recommendation that gives a clear point of view, not just 'it depends.'</p>
 <div class="bench-cols diagram">
 
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
 <div class="model-metrics"><span>5.2s</span><span>$0.00291</span></div>
-<div class="model-output">Given the choice between a 60-90 day hiring cycle plus months of ramp-up versus starting this week, contract with an outside firm now—speed and immediate team-based coverage outweigh the long-term cost savings of a full-time hire, especially since database issues left unaddressed…</div>
+<div class="model-output">Given the choice between a 60-90 day hiring cycle plus months of ramp-up versus starting this week, contract with an outside firm now—speed and immediate team-based coverage outweigh the long-term cost savings of a full-time hire, especially since database issues left unaddressed compound into expensive emergencies. Use the contract period to actually determine your real workload and requirements, since most businesses overestimate the need for a full-time DBA and underestimate how much a fractional or managed service can cover. If after 6-12 months you find you're paying more than $95K annually for the contracted service, or you have sustained, predictable work that justifies dedicated in-house attention, that's your signal to hire. But don't hire first and hope the workload materializes—that's a $95K bet with a 3-6 month delay before you even know if it was the right call.</div>
 </div>
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
 <div class="model-metrics"><span>7.7s</span><span>$0.00360</span></div>
-<div class="model-output">**Hire the outside firm now, and revisit full-time hiring in 12-18 months.**  The combined timeline of 60-90 days to hire plus 3-6 months to ramp up means you're looking at nearly nine months before a full-time DBA is fully productive, and whatever database problems you have toda…</div>
+<div class="model-output">**Hire the outside firm now, and revisit full-time hiring in 12-18 months.**  The combined timeline of 60-90 days to hire plus 3-6 months to ramp up means you're looking at nearly nine months before a full-time DBA is fully productive, and whatever database problems you have today will compound every single week you wait. The contracting firm gives you immediate, experienced coverage at a predictable cost without the recruiting risk, benefits overhead, or the very real possibility that a single full-time hire calls in sick, quits, or simply doesn't know what they don't know. Run with the contract firm for a year, use that time to actually document your database needs, measure the monthly cost against the $95K salary, and let your requirements sharpen before committing to a permanent hire. If your database complexity and team size grow to the point where a dedicated internal DBA would add strategic value beyond break-fix work, you'll make that hire from a position of knowledge rather than panic.</div>
 </div>
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
 <div class="model-metrics"><span>5.2s</span><span>$0.00051</span></div>
-<div class="model-output">You should immediately contract the outside database administration firm rather than attempting to hire an in-house resource. Waiting up to nine months to find and fully ramp up a single employee exposes your systems to immediate, unacceptable operational risk. The outside firm m…</div>
+<div class="model-output">You should immediately contract the outside database administration firm rather than attempting to hire an in-house resource. Waiting up to nine months to find and fully ramp up a single employee exposes your systems to immediate, unacceptable operational risk. The outside firm mitigates this vulnerability by providing instant, team-based coverage this week for a highly predictable flat monthly fee. This approach secures your critical data infrastructure today while sparing you the recruitment delays, overhead, and single-point-of-failure risks of a solo hire.</div>
 </div>
 </div>
 </div>
@@ -261,13 +263,13 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <div class="ci">
 <div class="eye">06 — Brand Voice Match</div>
 <h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Direct Client-Facing Tone</h2>
-<p class="sub" style="margin-bottom:0;max-width:820px">Rewrite this sentence to be direct, confident, and free of corporate jargon, in the voice of a sharp operator (not a salesperson): 'We believe that our team would be uniquely positioned to potentially…</p>
+<p class="sub" style="margin-bottom:0;max-width:820px">Rewrite this sentence to be direct, confident, and free of corporate jargon, in the voice of a sharp operator (not a salesperson): 'We believe that our team would be uniquely positioned to potentially add significant value to your organization's operational efficiency initiatives going forward.'</p>
 <div class="bench-cols diagram">
 
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
 <div class="model-metrics"><span>3.5s</span><span>$0.00177</span></div>
-<div class="model-output">**"We can make your operations more efficient. Here's how."**  Or, if you want a bit more edge:  **"We know how to cut waste from your operations. Let's talk specifics."**  The original sentence hedges everything — "believe," "potentially," "uniquely positioned" — which signals y…</div>
+<div class="model-output">**"We can make your operations more efficient. Here's how."**  Or, if you want a bit more edge:  **"We know how to cut waste from your operations. Let's talk specifics."**  The original sentence hedges everything — "believe," "potentially," "uniquely positioned" — which signals you're not actually sure you can deliver. Cut the hedging, name the outcome, and stop talking about your positioning. Nobody hires a team for being "positioned." They hire people who fix problems.</div>
 </div>
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
@@ -287,7 +289,7 @@ body{font-family:var(--sans);background:var(--blk);color:var(--ow);height:100vh;
 <div class="ci">
 <div class="eye">07 — Data Processing</div>
 <h2 class="hl" style="margin-bottom:6px;font-size:clamp(26px,3.2vw,44px)">Structured Data Extraction</h2>
-<p class="sub" style="margin-bottom:0;max-width:820px">Extract the following as valid JSON with keys 'system', 'owner', 'risk_level': 'Quickbase: TBD' from a departing employee's handoff document, where all other systems (M365, Adobe, Smartsheet) were ass…</p>
+<p class="sub" style="margin-bottom:0;max-width:820px">Extract the following as valid JSON with keys 'system', 'owner', 'risk_level': 'Quickbase: TBD' from a departing employee's handoff document, where all other systems (M365, Adobe, Smartsheet) were assigned to named individuals but Quickbase was left unassigned. Return ONLY the JSON, no commentary.</p>
 <div class="bench-cols diagram">
 
 <div class="model-col">
@@ -320,18 +322,18 @@ try {
   const usage = loopFinal?.usage;
 } catch (e) { console.error(e); }
 
-Note:…</p>
+Note: loopRes is not defined anywhere in the enclosing function scope.</p>
 <div class="bench-cols diagram">
 
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 5</strong></div>
 <div class="model-metrics"><span>4.2s</span><span>$0.00312</span></div>
-<div class="model-output">**Bug:** `loopRes` is undefined in the enclosing scope, so calling `loopRes.json()` will throw a `ReferenceError` at runtime (this is likely a typo or leftover from copied code, referencing a variable that doesn't exist).  **Fix:** Define `loopRes` by assigning it the result of t…</div>
+<div class="model-output">**Bug:** `loopRes` is undefined in the enclosing scope, so calling `loopRes.json()` will throw a `ReferenceError` at runtime (this is likely a typo or leftover from copied code, referencing a variable that doesn't exist).  **Fix:** Define `loopRes` by assigning it the result of the appropriate `fetch()` (or other async call) before using it, e.g.:  ```typescript try {   const loopRes = await fetch(someUrl, options); // define loopRes properly   const loopFinal = await loopRes.json();   const usage = loopFinal?.usage; } catch (e) {   console.error(e); } ```  **One-sentence explanation:** The variable `loopRes` was never declared/assigned in scope, so it must be defined (typically via an `await fetch(...)` call) before calling `.json()` on it.</div>
 </div>
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Anthropic</span><strong>SONNET 4.6</strong></div>
 <div class="model-metrics"><span>8.4s</span><span>$0.00632</span></div>
-<div class="model-output">## Bug Identified  The bug is a **ReferenceError** caused by `loopRes` being undefined/out of scope.  ```typescript // ❌ Buggy Code try {   const loopFinal = await loopRes.json(); // ReferenceError: loopRes is not defined   const usage = loopFinal?.usage; } catch (e) { console.er…</div>
+<div class="model-output">## Bug Identified  The bug is a **ReferenceError** caused by `loopRes` being undefined/out of scope.  ```typescript // ❌ Buggy Code try {   const loopFinal = await loopRes.json(); // ReferenceError: loopRes is not defined   const usage = loopFinal?.usage; } catch (e) { console.error(e); } ```  ### The Subtle Danger ⚠️  Notice that the `try/catch` block **silently swallows the error**:  ```typescript } catch (e) { console.error(e); } //             ^^^^^^^^^^^^^^^^ //             Only logs — execution continues, bug goes unnoticed ```  This means: - The error is caught and logged - Execution continues silently - `usage` is never assigned - Any code depending on `usage` will fail in unexpected ways downstream  ---  ## Fix  ```typescript // ✅ Fixed Code try {   const loopRes = await fetch("https://your-api-endpoint.com/loop"); // define it   const loopFinal = await loopRes.json();   const usage = loopFinal?.usage;   // use usage here, within scope } catch (e) {    console.error(e);   throw e; // re-throw so the caller knows something failed } ```  ---  ## One-Sentence Explanation  **Define `loopRes` within (or pass it into) the same scope before referencing it — for example, by declaring `const loopRes = await fetch(url)` inside the `try` block — and re-throw the caught error so failures aren't silently suppressed.**</div>
 </div>
 <div class="model-col">
 <div class="model-head"><span class="model-provider">Google</span><strong>GEMINI 3.5 FLASH</strong></div>
