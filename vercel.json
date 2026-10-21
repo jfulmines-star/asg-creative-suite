@@ -1,26 +1,4 @@
 {
   "buildCommand": "echo 'static site'",
-  "outputDirectory": ".",
-  "env": {
-    "VERCEL_FORCE_NO_BUILD_CACHE": "1"
-  },
-  "routes": [
-    {
-      "src": "/status",
-      "dest": "/status.html"
-    },
-    {
-      "src": "/status/(.*)",
-      "dest": "/status.html"
-    },
-    {
-      "src": "/(.*\\.html)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1.html"
-    }
-  ]
+  "outputDirectory": "."
 }
-/* Deploy: 1792593280 */
