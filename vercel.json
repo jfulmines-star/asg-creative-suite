@@ -1,4 +1,12 @@
 {
-  "buildCommand": "echo 'static site'",
-  "outputDirectory": "public"
+  "routes": [
+    {
+      "src": "/status",
+      "dest": "/status.html"
+    },
+    {
+      "src": "/status/(.*)",
+      "dest": "/status.html"
+    }
+  ]
 }
